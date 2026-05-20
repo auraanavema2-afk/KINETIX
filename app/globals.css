@@ -1,0 +1,262 @@
+/* ─── SECTION 1 — Custom Properties ─────────────────────────────────────── */
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #000000;
+  --bg-secondary: #080808;
+  --bg-tertiary: #0f0f0f;
+  --bg-card: #111111;
+  --bg-hover: #161616;
+
+  /* Neon blue accents */
+  --blue-primary: #00d4ff;
+  --blue-light: #33ddff;
+  --blue-lighter: #80eaff;
+  --blue-faint: rgba(0, 212, 255, 0.08);
+  --blue-glow: rgba(0, 212, 255, 0.3);
+  --blue-glow-strong: rgba(0, 212, 255, 0.6);
+  --blue-glow-intense: rgba(0, 212, 255, 0.9);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-tertiary: #505050;
+  --text-muted: #303030;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-faint: rgba(255, 255, 255, 0.03);
+  --border-blue: rgba(0, 212, 255, 0.3);
+  --border-blue-strong: rgba(0, 212, 255, 0.7);
+
+  /* Status */
+  --success: #00ff88;
+  --success-faint: rgba(0, 255, 136, 0.1);
+  --error: #ff3d3d;
+  --error-faint: rgba(255, 61, 61, 0.1);
+  --warning: #ffaa00;
+  --warning-faint: rgba(255, 170, 0, 0.1);
+
+  /* Sizing */
+  --sidebar-width: 260px;
+  --header-height: 56px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ─── SECTION 2 — Universal Reset ───────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── SECTION 3 — HTML ───────────────────────────────────────────────────── */
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* ─── SECTION 4 — Body ───────────────────────────────────────────────────── */
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── SECTION 5 — Typography ─────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ─── SECTION 6 — Links ──────────────────────────────────────────────────── */
+
+a {
+  color: var(--blue-lighter);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+/* ─── SECTION 7 — Button Reset ───────────────────────────────────────────── */
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── SECTION 8 — Inputs & Textareas ─────────────────────────────────────── */
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+
+textarea {
+  resize: none;
+}
+
+/* ─── SECTION 9 — Selection ──────────────────────────────────────────────── */
+
+::selection {
+  background: var(--blue-primary);
+  color: black;
+}
+
+/* ─── SECTION 10 — Custom Scrollbar ──────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue-primary);
+}
+
+/* ─── SECTION 11 — Keyframe Animations ───────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%,
+  100% { opacity: 1; }
+  50%  { opacity: 0.4; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; background-size: 200% auto; }
+  100% { background-position:  200% center; background-size: 200% auto; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes blueGlow {
+  0%,
+  100% { box-shadow: 0 0 20px var(--blue-glow); }
+  50%  { box-shadow: 0 0 60px var(--blue-glow-strong), 0 0 100px var(--blue-glow); }
+}
+
+@keyframes float {
+  0%,
+  100% { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+}
+
+@keyframes prismRotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes prismPulse {
+  0%,
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--blue-glow-intense));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 24px var(--blue-primary))
+            drop-shadow(0 0 48px var(--blue-glow));
+  }
+}
+
+/* ─── SECTION 12 — Utility Classes ───────────────────────────────────────── */
+
+.animate-fadeIn       { animation: fadeIn       0.4s ease        forwards; }
+.animate-fadeInUp     { animation: fadeInUp     0.5s ease        forwards; }
+.animate-fadeInDown   { animation: fadeInDown   0.5s ease        forwards; }
+.animate-slideInRight { animation: slideInRight 0.4s ease        forwards; }
+.animate-slideInLeft  { animation: slideInLeft  0.4s ease        forwards; }
+.animate-pulse        { animation: pulse        2s   ease        infinite; }
+.animate-spin         { animation: spin         1s   linear      infinite; }
+.animate-blueGlow     { animation: blueGlow     2s   ease        infinite; }
+.animate-float        { animation: float        3s   ease-in-out infinite; }
+.animate-shimmer      { animation: shimmer      2s   linear      infinite; }
+.animate-prismRotate  { animation: prismRotate  4s   linear      infinite; }
+.animate-prismPulse   { animation: prismPulse   2s   ease        infinite; }
