@@ -1,0 +1,62 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.input {
+  width: 100%;
+  padding: 20px 14px 8px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #52525b;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  transform-origin: left center;
+}
+
+.input:focus + .label,
+.input.filled + .label {
+  top: 10px;
+  transform: translateY(0);
+  font-size: 11px;
+  color: #a78bfa;
+}
+
+.toggleBtn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #52525b;
+  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.toggleBtn:hover {
+  color: #a1a1aa;
+}
