@@ -1,55 +1,47 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { onAuthChange } from "@/lib/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import {
-  signInWithEmail,
-  signUpWithEmail,
-  signInWithGoogle,
-  signOutUser,
-  onAuthChange,
-} from "@/lib/auth";
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userDoc, setUserDoc] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthChange(async (firebaseUser) => {
-      setUser(firebaseUser);
-
-      if (firebaseUser && db) {
-        const snap = await getDoc(doc(db, "users", firebaseUser.uid));
-        setProfile(snap.exists() ? snap.data() : null);
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        const docSnap = await getDoc(doc(db, "users", firebaseUser.uid));
+        if (docSnap.exists()) {
+          setUserDoc(docSnap.data());
+        }
+        setLoading(false);
       } else {
-        setProfile(null);
+        setUser(null);
+        setUserDoc(null);
+        setLoading(false);
       }
-
-      setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  const value = {
-    user,
-    profile,
-    loading,
-    signIn: signInWithEmail,
-    signUp: signUpWithEmail,
-    signInWithGoogle,
-    signOut: signOutUser,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, userDoc, loading, setUserDoc }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-export function useAuthContext() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuthContext must be used inside AuthProvider");
-  return ctx;
-}
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
