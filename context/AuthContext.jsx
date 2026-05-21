@@ -7,7 +7,7 @@ import { db } from "@/lib/firebase";
 
 export const AuthContext = createContext(null);
 
-export default function AuthProvider({ children }) {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState(null);
@@ -37,6 +37,8 @@ export default function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+export default AuthProvider;
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
