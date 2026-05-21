@@ -1,43 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { useAuth } from "@/context/AuthContext";
+import { signInWithGoogle, signInWithEmail, signUpWithEmail } from "@/lib/auth";
 import AuthCard from "@/components/auth/AuthCard";
 import FloatingInput from "@/components/auth/FloatingInput";
 import GoogleButton from "@/components/auth/GoogleButton";
 import SubmitButton from "@/components/auth/SubmitButton";
 import OrDivider from "@/components/auth/OrDivider";
-import { signInWithEmail, signUpWithEmail, signInWithGoogle } from "@/lib/auth";
-
-const FIREBASE_ERRORS = {
-  "auth/user-not-found": "No account found with this email.",
-  "auth/wrong-password": "Incorrect password.",
-  "auth/invalid-credential": "Incorrect email or password.",
-  "auth/email-already-in-use": "An account with this email already exists.",
-  "auth/weak-password": "Password must be at least 6 characters.",
-  "auth/invalid-email": "Please enter a valid email address.",
-  "auth/too-many-requests": "Too many attempts. Please try again later.",
-  "auth/popup-closed-by-user": "Sign-in popup was closed. Please try again.",
-  "auth/network-request-failed": "Network error. Check your connection.",
-};
-
-function friendlyError(code) {
-  return FIREBASE_ERRORS[code] || "Something went wrong. Please try again.";
-}
-
-async function getRedirectPath(uid) {
-  if (!db) return "/soul";
-  try {
-    const snap = await getDoc(doc(db, "users", uid));
-    if (snap.exists() && snap.data().hasCompletedSoulSetup) return "/soul";
-  } catch (_) {}
-  return "/soul-setup";
-}
 
 export default function AuthPageClient() {
   const router = useRouter();
+  const { user, userDoc } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,6 +21,16 @@ export default function AuthPageClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (user && userDoc) {
+      if (userDoc.hasCompletedSoulSetup) {
+        router.push("/pulse");
+      } else {
+        router.push("/soul-setup");
+      }
+    }
+  }, [user, userDoc, router]);
+
   function switchMode(toSignIn) {
     setIsSignIn(toSignIn);
     setError("");
@@ -53,43 +38,54 @@ export default function AuthPageClient() {
     setConfirmPassword("");
   }
 
-  async function handleGoogle() {
-    setError("");
+  const handleGoogle = async () => {
     setLoading(true);
+    setError("");
     try {
-      const user = await signInWithGoogle();
-      const path = await getRedirectPath(user.uid);
-      router.push(path);
+      await signInWithGoogle();
+      // redirect handled by useEffect watching user
     } catch (err) {
-      setError(friendlyError(err.code));
+      setError(err.message || "Failed to sign in with Google");
       setLoading(false);
     }
-  }
+  };
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setError("");
 
     if (!isSignIn && password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError("Passwords do not match");
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
     try {
-      let user;
       if (isSignIn) {
-        user = await signInWithEmail(email, password);
+        await signInWithEmail(email, password);
       } else {
-        user = await signUpWithEmail(email, password);
+        await signUpWithEmail(email, password);
       }
-      const path = await getRedirectPath(user.uid);
-      router.push(path);
+      // redirect handled by useEffect watching user
     } catch (err) {
-      setError(friendlyError(err.code));
+      const errorMessages = {
+        "auth/user-not-found": "No account found with this email",
+        "auth/wrong-password": "Incorrect password",
+        "auth/email-already-in-use": "An account with this email already exists",
+        "auth/invalid-email": "Please enter a valid email address",
+        "auth/too-many-requests": "Too many attempts. Please try again later",
+      };
+      setError(errorMessages[err.code] || err.message || "Something went wrong");
       setLoading(false);
     }
-  }
+  };
 
   return (
     <AuthCard>
