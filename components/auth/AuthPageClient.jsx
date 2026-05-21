@@ -1,33 +1,83 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import AuthCard from "@/components/auth/AuthCard";
 import FloatingInput from "@/components/auth/FloatingInput";
 import GoogleButton from "@/components/auth/GoogleButton";
 import SubmitButton from "@/components/auth/SubmitButton";
 import OrDivider from "@/components/auth/OrDivider";
+import { useAuth } from "@/hooks/useAuth";
+
+const FIREBASE_ERRORS = {
+  "auth/user-not-found": "No account found with this email.",
+  "auth/wrong-password": "Incorrect password.",
+  "auth/email-already-in-use": "An account with this email already exists.",
+  "auth/weak-password": "Password must be at least 6 characters.",
+  "auth/invalid-email": "Please enter a valid email address.",
+  "auth/too-many-requests": "Too many attempts. Please try again later.",
+  "auth/popup-closed-by-user": "Sign-in popup was closed. Please try again.",
+  "auth/network-request-failed": "Network error. Check your connection.",
+};
+
+function friendlyError(code) {
+  return FIREBASE_ERRORS[code] || "Something went wrong. Please try again.";
+}
 
 export default function AuthPageClient() {
+  const router = useRouter();
+  const { signIn, signUp, signInWithGoogle } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function handleGoogle() {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1500);
+  function switchMode(toSignIn) {
+    setIsSignIn(toSignIn);
+    setError("");
+    setPassword("");
+    setConfirmPassword("");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleGoogle() {
     setError("");
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await signInWithGoogle();
+      router.push("/soul");
+    } catch (err) {
+      setError(friendlyError(err.code));
+    } finally {
       setLoading(false);
-      setError("Firebase will be connected on Day 3");
-    }, 1500);
+    }
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
+    if (!isSignIn && password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      if (isSignIn) {
+        await signIn(email, password);
+      } else {
+        await signUp(email, password, displayName.trim() || undefined);
+      }
+      router.push("/soul");
+    } catch (err) {
+      setError(friendlyError(err.code));
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -41,7 +91,7 @@ export default function AuthPageClient() {
         }}
       >
         <button
-          onClick={() => setIsSignIn(true)}
+          onClick={() => switchMode(true)}
           style={{
             flex: 1,
             padding: "12px",
@@ -57,7 +107,7 @@ export default function AuthPageClient() {
           Sign In
         </button>
         <button
-          onClick={() => setIsSignIn(false)}
+          onClick={() => switchMode(false)}
           style={{
             flex: 1,
             padding: "12px",
@@ -79,6 +129,15 @@ export default function AuthPageClient() {
       <OrDivider />
 
       <form onSubmit={handleSubmit}>
+        {!isSignIn && (
+          <FloatingInput
+            id="displayName"
+            label="Your name"
+            type="text"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+          />
+        )}
         <FloatingInput
           id="email"
           label="Email address"
@@ -135,7 +194,7 @@ export default function AuthPageClient() {
           <>
             Don&apos;t have an account?{" "}
             <button
-              onClick={() => setIsSignIn(false)}
+              onClick={() => switchMode(false)}
               style={{
                 background: "none",
                 border: "none",
@@ -151,7 +210,7 @@ export default function AuthPageClient() {
           <>
             Already have an account?{" "}
             <button
-              onClick={() => setIsSignIn(true)}
+              onClick={() => switchMode(true)}
               style={{
                 background: "none",
                 border: "none",

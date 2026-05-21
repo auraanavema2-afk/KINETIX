@@ -1,1 +1,9 @@
-// useAuth hook — built Day 4
+"use client";
+
+import { useAuthContext } from "@/context/AuthContext";
+
+export function useAuth() {
+  return useAuthContext();
+}
+
+export default useAuth;
