@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 import AuthCard from "@/components/auth/AuthCard";
 import FloatingInput from "@/components/auth/FloatingInput";
 import GoogleButton from "@/components/auth/GoogleButton";
 import SubmitButton from "@/components/auth/SubmitButton";
 import OrDivider from "@/components/auth/OrDivider";
-import { useAuth } from "@/hooks/useAuth";
+import { signInWithEmail, signUpWithEmail, signInWithGoogle } from "@/lib/auth";
 
 const FIREBASE_ERRORS = {
   "auth/user-not-found": "No account found with this email.",
   "auth/wrong-password": "Incorrect password.",
+  "auth/invalid-credential": "Incorrect email or password.",
   "auth/email-already-in-use": "An account with this email already exists.",
   "auth/weak-password": "Password must be at least 6 characters.",
   "auth/invalid-email": "Please enter a valid email address.",
@@ -24,14 +27,21 @@ function friendlyError(code) {
   return FIREBASE_ERRORS[code] || "Something went wrong. Please try again.";
 }
 
+async function getRedirectPath(uid) {
+  if (!db) return "/soul";
+  try {
+    const snap = await getDoc(doc(db, "users", uid));
+    if (snap.exists() && snap.data().hasCompletedSoulSetup) return "/soul";
+  } catch (_) {}
+  return "/soul-setup";
+}
+
 export default function AuthPageClient() {
   const router = useRouter();
-  const { signIn, signUp, signInWithGoogle } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -47,11 +57,11 @@ export default function AuthPageClient() {
     setError("");
     setLoading(true);
     try {
-      await signInWithGoogle();
-      router.push("/soul");
+      const user = await signInWithGoogle();
+      const path = await getRedirectPath(user.uid);
+      router.push(path);
     } catch (err) {
       setError(friendlyError(err.code));
-    } finally {
       setLoading(false);
     }
   }
@@ -67,15 +77,16 @@ export default function AuthPageClient() {
 
     setLoading(true);
     try {
+      let user;
       if (isSignIn) {
-        await signIn(email, password);
+        user = await signInWithEmail(email, password);
       } else {
-        await signUp(email, password, displayName.trim() || undefined);
+        user = await signUpWithEmail(email, password);
       }
-      router.push("/soul");
+      const path = await getRedirectPath(user.uid);
+      router.push(path);
     } catch (err) {
       setError(friendlyError(err.code));
-    } finally {
       setLoading(false);
     }
   }
@@ -129,15 +140,6 @@ export default function AuthPageClient() {
       <OrDivider />
 
       <form onSubmit={handleSubmit}>
-        {!isSignIn && (
-          <FloatingInput
-            id="displayName"
-            label="Your name"
-            type="text"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-          />
-        )}
         <FloatingInput
           id="email"
           label="Email address"

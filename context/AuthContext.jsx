@@ -7,9 +7,8 @@ import {
   signInWithEmail,
   signUpWithEmail,
   signInWithGoogle,
-  signOut,
-  resetPassword,
-  subscribeToAuthChanges,
+  signOutUser,
+  onAuthChange,
 } from "@/lib/auth";
 
 const AuthContext = createContext(null);
@@ -20,10 +19,10 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuthChanges(async (firebaseUser) => {
+    const unsubscribe = onAuthChange(async (firebaseUser) => {
       setUser(firebaseUser);
 
-      if (firebaseUser) {
+      if (firebaseUser && db) {
         const snap = await getDoc(doc(db, "users", firebaseUser.uid));
         setProfile(snap.exists() ? snap.data() : null);
       } else {
@@ -43,8 +42,7 @@ export function AuthProvider({ children }) {
     signIn: signInWithEmail,
     signUp: signUpWithEmail,
     signInWithGoogle,
-    signOut,
-    resetPassword,
+    signOut: signOutUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
