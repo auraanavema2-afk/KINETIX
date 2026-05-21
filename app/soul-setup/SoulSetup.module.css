@@ -1,0 +1,239 @@
+.page {
+  min-height: 100vh;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* ─── Progress ─────────────────────────────────────────── */
+
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.dotActive {
+  background: #00d4ff;
+  box-shadow: 0 0 8px #00d4ff, 0 0 16px rgba(0, 212, 255, 0.4);
+}
+
+.dotComplete {
+  background: rgba(0, 212, 255, 0.5);
+}
+
+.dotFuture {
+  background: #161616;
+  border: 1px solid #303030;
+}
+
+.connector {
+  width: 40px;
+  height: 1px;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+.connectorFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: #00d4ff;
+  transition: width 0.4s ease;
+}
+
+/* ─── Content ───────────────────────────────────────────── */
+
+.content {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stepLabel {
+  font-size: 11px;
+  color: #505050;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.questionText {
+  font-size: 28px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 36px;
+  animation: questionEnter 0.35s ease-out forwards;
+}
+
+.animating {
+  animation: questionExit 0.22s ease-in forwards;
+}
+
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 0;
+  font-size: 16px;
+  color: white;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.textarea:focus {
+  border-bottom: 2px solid #00d4ff;
+  box-shadow: 0 2px 0 0 rgba(0, 212, 255, 0.25);
+}
+
+.textarea::placeholder {
+  color: #303030;
+}
+
+/* ─── Button ─────────────────────────────────────────────── */
+
+.buttonRow {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.nextButton {
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nextButton:hover {
+  background: #33ddff;
+}
+
+.nextButton:active {
+  transform: scale(0.97);
+}
+
+.nextButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── Completion ─────────────────────────────────────────── */
+
+.completionWrapper {
+  min-height: 100vh;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completionScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  max-width: 480px;
+  padding: 40px 20px;
+  animation: completionEnter 0.4s ease-out forwards;
+}
+
+.completionPrism {
+  animation: prismGlow 2s ease-in-out infinite;
+}
+
+.completionTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+}
+
+.completionSubtitle {
+  font-size: 14px;
+  color: #505050;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.completionName {
+  font-size: 18px;
+  font-weight: 500;
+  color: #00d4ff;
+}
+
+.openButton {
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 40px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.openButton:hover {
+  background: #33ddff;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+
+@keyframes questionEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes questionExit {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-12px); }
+}
+
+@keyframes prismGlow {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.9));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 24px #00d4ff)
+            drop-shadow(0 0 48px rgba(0, 212, 255, 0.3));
+  }
+}
+
+@keyframes completionEnter {
+  from { opacity: 0; transform: scale(0.96) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
