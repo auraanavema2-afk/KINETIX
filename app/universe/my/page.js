@@ -1,8 +1,13 @@
+"use client";
+
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 export default function MyAgentsPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "#07070f", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "12px" }}>
-      <div style={{ fontSize: "16px", fontWeight: 500, color: "white" }}>My Agents</div>
-      <div style={{ fontSize: "12px", color: "#52525b" }}>Building this on the Kinetix roadmap</div>
-    </div>
+    <ProtectedRoute>
+      <div style={{ minHeight: "100vh", background: "#000000", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ color: "white" }}>My Agents — Building this soon</div>
+      </div>
+    </ProtectedRoute>
   );
 }
