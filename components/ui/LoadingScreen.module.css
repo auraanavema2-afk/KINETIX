@@ -9,67 +9,139 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   z-index: 9999;
-  animation: fadeIn 0.2s ease-out forwards;
+  animation: fadeIn 0.25s ease forwards;
+  overflow: hidden;
 }
 
 .fadeOut {
-  animation: fadeOut 0.3s ease-out forwards;
+  animation: fadeOut 0.4s ease forwards !important;
+}
+
+.prismWrap {
+  position: relative;
+  z-index: 2;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .prism {
-  animation: prismPulse 2s ease infinite;
+  position: relative;
+  z-index: 2;
+  animation: prismFloat 3.5s ease-in-out infinite,
+             prismPulse 2.5s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 12px rgba(0,212,255,0.9))
+    drop-shadow(0 0 28px rgba(0,212,255,0.5))
+    drop-shadow(0 0 60px rgba(0,212,255,0.2));
 }
 
-.logoText {
-  font-size: 14px;
+.ring {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,212,255,0.12);
+  animation: ringExpand 2.4s ease-out infinite;
+}
+
+.ring2 {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,212,255,0.06);
+  animation: ringExpand 2.4s ease-out infinite 0.8s;
+}
+
+.text {
+  position: relative;
+  z-index: 2;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 5px;
+  letter-spacing: 8px;
   color: white;
   text-transform: uppercase;
-  text-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+  text-shadow:
+    0 0 8px rgba(0,212,255,1),
+    0 0 16px rgba(0,212,255,0.6),
+    0 0 32px rgba(0,212,255,0.3);
+  animation: textPulse 2.5s ease-in-out infinite;
 }
 
-.loadingBar {
-  width: 100px;
-  height: 2px;
-  background: rgba(0, 212, 255, 0.1);
+.bar {
+  position: relative;
+  z-index: 2;
+  width: 110px;
+  height: 1px;
+  background: rgba(0,212,255,0.06);
   border-radius: 1px;
   overflow: hidden;
 }
 
-.loadingFill {
+.barFill {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, transparent, #00d4ff, transparent);
-  animation: sweep 1.2s linear infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0,212,255,0.5) 20%,
+    #00d4ff 50%,
+    rgba(0,212,255,0.5) 80%,
+    transparent 100%
+  );
+  animation: sweep 1.6s ease-in-out infinite;
+  width: 50%;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to   { opacity: 1; }
+  to { opacity: 1; }
 }
 
 @keyframes fadeOut {
   from { opacity: 1; }
-  to   { opacity: 0; }
+  to { opacity: 0; pointer-events: none; }
 }
 
-@keyframes sweep {
-  from { transform: translateX(-100%); }
-  to   { transform: translateX(100%); }
+@keyframes prismFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(0.8deg); }
+  66% { transform: translateY(-5px) rotate(-0.8deg); }
 }
 
 @keyframes prismPulse {
-  0%,
-  100% {
-    opacity: 1;
-    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.9));
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 12px rgba(0,212,255,0.9))
+      drop-shadow(0 0 28px rgba(0,212,255,0.5))
+      drop-shadow(0 0 60px rgba(0,212,255,0.2));
   }
   50% {
-    opacity: 0.85;
-    filter: drop-shadow(0 0 24px #00d4ff)
-            drop-shadow(0 0 48px rgba(0, 212, 255, 0.3));
+    filter:
+      drop-shadow(0 0 24px rgba(0,212,255,1))
+      drop-shadow(0 0 56px rgba(0,212,255,0.8))
+      drop-shadow(0 0 120px rgba(0,212,255,0.4));
   }
+}
+
+@keyframes ringExpand {
+  0% { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes textPulse {
+  0%, 100% { opacity: 1; letter-spacing: 8px; }
+  50% { opacity: 0.5; letter-spacing: 9px; }
+}
+
+@keyframes sweep {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(350%); }
 }
