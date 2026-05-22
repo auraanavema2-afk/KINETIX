@@ -76,6 +76,7 @@ export default function AuthPageClient() {
       // redirect handled by useEffect watching user
     } catch (err) {
       const errorMessages = {
+        "auth/invalid-credential": "Invalid email or password",
         "auth/user-not-found": "No account found with this email",
         "auth/wrong-password": "Incorrect password",
         "auth/email-already-in-use": "An account with this email already exists",

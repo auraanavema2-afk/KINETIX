@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { onAuthChange } from "@/lib/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export const AuthContext = createContext(null);
@@ -11,16 +11,28 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userDoc, setUserDoc] = useState(null);
+  const docUnsubRef = useRef(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthChange(async (firebaseUser) => {
+    const authUnsub = onAuthChange((firebaseUser) => {
+      if (docUnsubRef.current) {
+        docUnsubRef.current();
+        docUnsubRef.current = null;
+      }
+
       if (firebaseUser) {
         setUser(firebaseUser);
-        const docSnap = await getDoc(doc(db, "users", firebaseUser.uid));
-        if (docSnap.exists()) {
-          setUserDoc(docSnap.data());
+        if (db) {
+          docUnsubRef.current = onSnapshot(
+            doc(db, "users", firebaseUser.uid),
+            (snap) => {
+              setUserDoc(snap.exists() ? snap.data() : null);
+              setLoading(false);
+            }
+          );
+        } else {
+          setLoading(false);
         }
-        setLoading(false);
       } else {
         setUser(null);
         setUserDoc(null);
@@ -28,7 +40,10 @@ export function AuthProvider({ children }) {
       }
     });
 
-    return unsubscribe;
+    return () => {
+      authUnsub();
+      if (docUnsubRef.current) docUnsubRef.current();
+    };
   }, []);
 
   return (

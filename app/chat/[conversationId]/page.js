@@ -35,11 +35,13 @@ export default function ChatPage() {
   }, [messages]);
 
   useEffect(() => {
-    if (conversationId && conversationId !== "new") {
-      loadHistory();
-    } else {
+    if (!conversationId) return;
+    if (conversationId === "new") {
+      router.replace("/chat");
       setLoadingHistory(false);
+      return;
     }
+    loadHistory();
     inputRef.current?.focus();
   }, [conversationId]);
 
@@ -79,7 +81,7 @@ export default function ChatPage() {
         }),
       });
       const data = await res.json();
-      if (data.result && conversationId !== "new") {
+      if (data.result) {
         await updateConversationTitle(conversationId, data.result);
       }
     } catch (err) {
@@ -124,7 +126,7 @@ export default function ChatPage() {
     setStreaming(true);
     setLoading(true);
 
-    if (conversationId !== "new" && user) {
+    if (user) {
       await addMessage(conversationId, "user", userMessage.content);
     }
 
@@ -195,7 +197,7 @@ export default function ChatPage() {
         )
       );
 
-      if (conversationId !== "new" && user) {
+      if (user) {
         await addMessage(conversationId, "assistant", fullResponse);
       }
 
@@ -273,7 +275,7 @@ export default function ChatPage() {
             <div className={styles.headerRight}>
               <button
                 className={styles.newChatBtn}
-                onClick={() => router.push("/chat/new")}
+                onClick={() => router.push("/chat")}
               >
                 + New
               </button>
