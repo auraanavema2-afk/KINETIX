@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import styles from "./SoulSetup.module.css";
+import VideoBackground from "@/components/ui/VideoBackground";
 
 const QUESTIONS = [
   { id: 1, question: "What is your name and what do you do?", placeholder: "e.g. I am Vema, a student and solo builder..." },
@@ -61,92 +62,126 @@ export default function SoulSetupPage() {
         setCurrentQuestion((prev) => prev + 1);
         setAnimating(false);
       }
-    }, 250);
+    }, 220);
+  }
+
+  function handleBack() {
+    if (currentQuestion === 0) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setCurrentQuestion((prev) => prev - 1);
+      setAnimating(false);
+    }, 220);
   }
 
   if (isComplete) {
     return (
-      <div className={styles.completionWrapper}>
-        <div className={styles.completionScreen}>
-          <div className={styles.completionPrism}>
-            <svg viewBox="0 0 44 44" width="56" height="56">
-              <defs>
-                <filter id="completionGlow">
-                  <feGaussianBlur stdDeviation="2" />
-                </filter>
-              </defs>
-              <polygon
-                points="22,4 40,38 4,38"
-                fill="none"
-                stroke="#00d4ff"
-                strokeWidth="1.5"
-                filter="url(#completionGlow)"
-              />
-              <circle cx="22" cy="4" r="1.5" fill="#00d4ff" />
-            </svg>
+      <>
+        <VideoBackground src="/videos/soul-bg.mp4" opacity={0.78} />
+        <div className={styles.completionWrap}>
+          <div className={styles.completionCard}>
+            <div className={styles.completionPrismWrap}>
+              <div className={styles.completionRing} />
+              <div className={styles.completionPrism}>
+                <svg viewBox="0 0 44 44" width="56" height="56">
+                  <defs>
+                    <filter id="completionGlow">
+                      <feGaussianBlur stdDeviation="2" />
+                    </filter>
+                  </defs>
+                  <polygon
+                    points="22,4 40,38 4,38"
+                    fill="none"
+                    stroke="#00d4ff"
+                    strokeWidth="1.5"
+                    filter="url(#completionGlow)"
+                  />
+                  <circle cx="22" cy="4" r="1.5" fill="#00d4ff" />
+                </svg>
+              </div>
+            </div>
+            <div className={styles.completionTitle}>Kinet 4 is ready for you</div>
+            <div className={styles.completionName}>{answers[0]}</div>
+            <div className={styles.completionSub}>
+              Your AI now knows who you are. Every conversation starts with context.
+            </div>
+            <button
+              className={styles.openBtn}
+              onClick={() => router.push("/chat")}
+              disabled={saving}
+            >
+              Open Kinetix →
+            </button>
           </div>
-          <div className={styles.completionTitle}>Kinet 4 is ready for you</div>
-          <div className={styles.completionSubtitle}>
-            Your AI now knows who you are. Every conversation starts with context.
-          </div>
-          <div className={styles.completionName}>{answers[0]}</div>
-          <button className={styles.openButton} onClick={() => router.push("/chat")}>
-            Open Kinetix →
-          </button>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.progress}>
-        {QUESTIONS.map((_, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center" }}>
-            {i > 0 && (
-              <div className={styles.connector}>
-                <div
-                  className={styles.connectorFill}
-                  style={{ width: i <= currentQuestion ? "100%" : "0%" }}
-                />
-              </div>
-            )}
-            <div
-              className={`${styles.dot} ${
-                i === currentQuestion
-                  ? styles.dotActive
-                  : i < currentQuestion
-                  ? styles.dotComplete
-                  : styles.dotFuture
-              }`}
-            />
-          </div>
-        ))}
-      </div>
+    <>
+      <VideoBackground src="/videos/soul-bg.mp4" opacity={0.78} />
+      <div className={styles.page}>
+        <div className={styles.topBar}>
+          <div className={styles.logo}>KINETIX</div>
+          <div className={styles.step}>{currentQuestion + 1} / 5</div>
+        </div>
 
-      <div className={styles.content}>
-        <div className={styles.stepLabel}>Step {currentQuestion + 1} of 5</div>
-        <div className={`${styles.questionText}${animating ? ` ${styles.animating}` : ""}`}>
-          {QUESTIONS[currentQuestion].question}
+        <div className={styles.progress}>
+          {QUESTIONS.map((_, i) => (
+            <div key={i} className={styles.progressItem}>
+              {i > 0 && (
+                <div className={styles.line}>
+                  <div
+                    className={styles.lineFill}
+                    style={{ width: i <= currentQuestion ? "100%" : "0%" }}
+                  />
+                </div>
+              )}
+              <div
+                className={`${styles.dot} ${
+                  i === currentQuestion
+                    ? styles.dotActive
+                    : i < currentQuestion
+                    ? styles.dotDone
+                    : styles.dotFuture
+                }`}
+              >
+                {i + 1}
+              </div>
+            </div>
+          ))}
         </div>
-        <textarea
-          className={`${styles.textarea}${animating ? ` ${styles.animating}` : ""}`}
-          value={answers[currentQuestion]}
-          onChange={(e) => handleUpdateAnswer(currentQuestion, e.target.value)}
-          placeholder={QUESTIONS[currentQuestion].placeholder}
-          rows={3}
-          autoFocus
-        />
-        <div className={styles.buttonRow}>
-          <button
-            className={styles.nextButton}
-            onClick={handleNext}
-            disabled={!answers[currentQuestion].trim() || saving}
-          >
-            {currentQuestion === 4 ? "Complete →" : "Next →"}
-          </button>
+
+        <div className={styles.content}>
+          <div className={styles.stepLabel}>Step {currentQuestion + 1} of 5</div>
+          <div className={`${styles.question} ${animating ? styles.exit : styles.enter}`}>
+            {QUESTIONS[currentQuestion].question}
+          </div>
+          <textarea
+            className={`${styles.textarea} ${animating ? styles.exit : ""}`}
+            value={answers[currentQuestion]}
+            onChange={(e) => handleUpdateAnswer(currentQuestion, e.target.value)}
+            placeholder={QUESTIONS[currentQuestion].placeholder}
+            rows={3}
+            autoFocus
+          />
+          <div className={styles.btnRow}>
+            {currentQuestion > 0 && (
+              <button className={styles.backBtn} onClick={handleBack}>
+                ← Back
+              </button>
+            )}
+            <button
+              className={styles.nextBtn}
+              onClick={handleNext}
+              disabled={!answers[currentQuestion].trim() || saving}
+            >
+              {currentQuestion === 4 ? "Complete →" : "Next →"}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
