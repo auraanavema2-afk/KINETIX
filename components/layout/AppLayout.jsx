@@ -1,25 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { signOutUser } from "@/lib/auth";
+import { getUserConversations, createConversation } from "@/lib/firestore";
 import VideoBackground from "@/components/ui/VideoBackground";
 import styles from "./AppLayout.module.css";
 
-const NAV = [
-  { section: "Core" },
-  { href: "/chat",       emoji: "💬", label: "Chat" },
-  { href: "/soul",       emoji: "🧠", label: "Soul" },
-  { href: "/pulse",      emoji: "📊", label: "Pulse" },
-  { href: "/mission",    emoji: "🎯", label: "Mission" },
+const CORE_NAV = [
+  { href: "/chat",    emoji: "💬", label: "Chat" },
+  { href: "/soul",    emoji: "🧠", label: "Soul" },
+  { href: "/pulse",   emoji: "📊", label: "Pulse" },
+  { href: "/mission", emoji: "🎯", label: "Mission" },
+];
+
+const TOOLS_NAV = [
   { section: "Create" },
-  { href: "/projects",   emoji: "📁", label: "Projects" },
-  { href: "/studio",     emoji: "🛠️",  label: "Studio" },
-  { href: "/thinking",   emoji: "⚡", label: "Deep Think" },
+  { href: "/projects",  emoji: "📁", label: "Projects" },
+  { href: "/studio",    emoji: "🛠️",  label: "Studio" },
+  { href: "/thinking",  emoji: "⚡", label: "Deep Think" },
   { section: "Explore" },
-  { href: "/universe",   emoji: "🌌", label: "Universe" },
-  { href: "/settings",   emoji: "⚙️",  label: "Settings" },
+  { href: "/universe",  emoji: "🌌", label: "Universe" },
+  { href: "/settings",  emoji: "⚙️",  label: "Settings" },
 ];
 
 export default function AppLayout({
@@ -31,14 +35,50 @@ export default function AppLayout({
   const router = useRouter();
   const { user, userDoc } = useAuth();
 
+  const [conversations, setConversations] = useState([]);
+  const [convLoading, setConvLoading] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      const unsub = getUserConversations(user.uid, (convs) => {
+        setConversations(convs);
+        setConvLoading(false);
+      });
+      return () => unsub();
+    } else {
+      setConvLoading(false);
+    }
+  }, [user]);
+
   async function handleSignOut() {
     await signOutUser();
     router.push("/auth");
   }
 
+  const handleNewChat = async () => {
+    if (!user) return;
+    const newId = await createConversation(user.uid);
+    router.push(`/chat/${newId}`);
+  };
+
   const initials = userDoc?.name
     ? userDoc.name.trim()[0].toUpperCase()
     : user?.email?.[0].toUpperCase() ?? "K";
+
+  const renderNavItem = (item) => {
+    const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        className={`${styles.navItem} ${isActive ? styles.active : ""}`}
+      >
+        {isActive && <span className={styles.activeDot} />}
+        <span className={styles.navEmoji}>{item.emoji}</span>
+        <span className={styles.navLabel}>{item.label}</span>
+      </Link>
+    );
+  };
 
   return (
     <div className={styles.shell}>
@@ -65,29 +105,47 @@ export default function AppLayout({
           </div>
         </div>
 
-        <nav className={styles.nav}>
-          {NAV.map((item, i) => {
+        <div className={styles.coreNav}>
+          <div className={styles.navSectionLabel}>Core</div>
+          {CORE_NAV.map(renderNavItem)}
+        </div>
+
+        <div className={styles.convSection}>
+          <div className={styles.convHeader}>
+            <span className={styles.navSectionLabel}>CHATS</span>
+            <button className={styles.newConvBtn} onClick={handleNewChat} title="New chat">+</button>
+          </div>
+          <div className={styles.convList}>
+            {convLoading ? (
+              <div className={styles.convLoading}>
+                {[1, 2, 3].map(i => (
+                  <div key={i} className={styles.convSkeleton}></div>
+                ))}
+              </div>
+            ) : conversations.length === 0 ? (
+              <div className={styles.convEmpty}>No conversations yet</div>
+            ) : (
+              conversations.map(conv => (
+                <Link
+                  key={conv.id}
+                  href={`/chat/${conv.id}`}
+                  className={`${styles.convItem} ${pathname === `/chat/${conv.id}` ? styles.convActive : ""}`}
+                >
+                  <span className={styles.convTitle}>{conv.title || "New Conversation"}</span>
+                </Link>
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className={styles.toolsNav}>
+          {TOOLS_NAV.map((item, i) => {
             if (item.section) {
-              return (
-                <div key={i} className={styles.navSection}>
-                  {item.section}
-                </div>
-              );
+              return <div key={i} className={styles.navSectionLabel}>{item.section}</div>;
             }
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`${styles.navItem} ${isActive ? styles.active : ""}`}
-              >
-                {isActive && <span className={styles.activeDot} />}
-                <span className={styles.navEmoji}>{item.emoji}</span>
-                <span className={styles.navLabel}>{item.label}</span>
-              </Link>
-            );
+            return renderNavItem(item);
           })}
-        </nav>
+        </div>
 
         <div className={styles.divider} />
 
