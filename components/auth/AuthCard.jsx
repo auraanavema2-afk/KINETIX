@@ -1,11 +1,11 @@
 import ParticleBackground from "@/components/auth/ParticleBackground";
-import VideoBackground from "@/components/ui/VideoBackground";
+import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import styles from "./AuthCard.module.css";
 
 export default function AuthCard({ children }) {
   return (
     <div className={styles.page}>
-      <VideoBackground src="/videos/auth-bg.mp4" opacity={0.7} />
+      <AnimatedBackground variant="auth" />
       <ParticleBackground />
       <div className={styles.card}>
         <div className={styles.logo}>KINETIX</div>

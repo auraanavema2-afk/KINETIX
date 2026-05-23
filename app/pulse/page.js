@@ -1,13 +1,16 @@
 "use client";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function PulsePage() {
   return (
     <ProtectedRoute>
-      <div style={{ minHeight: "100vh", background: "#000000", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ color: "white" }}>Pulse — Building this soon</div>
-      </div>
+      <AppLayout variant="default">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", color: "white" }}>
+          Pulse — Building this soon
+        </div>
+      </AppLayout>
     </ProtectedRoute>
   );
 }

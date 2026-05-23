@@ -259,7 +259,7 @@ export default function ChatPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout videoSrc="/videos/dashboard-bg.mp4">
+      <AppLayout variant="default">
         <div className={styles.chatPage}>
           <header className={styles.header}>
             <div className={styles.headerLeft}>

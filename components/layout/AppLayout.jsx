@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { signOutUser } from "@/lib/auth";
 import { getUserConversations, createConversation } from "@/lib/firestore";
-import VideoBackground from "@/components/ui/VideoBackground";
+import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import styles from "./AppLayout.module.css";
 
 const CORE_NAV = [
@@ -28,8 +28,7 @@ const TOOLS_NAV = [
 
 export default function AppLayout({
   children,
-  videoSrc = "/videos/dashboard-bg.mp4",
-  videoOpacity = 0.88,
+  variant = "default",
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -82,7 +81,7 @@ export default function AppLayout({
 
   return (
     <div className={styles.shell}>
-      <VideoBackground src={videoSrc} opacity={videoOpacity} />
+      <AnimatedBackground variant={variant} />
 
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>

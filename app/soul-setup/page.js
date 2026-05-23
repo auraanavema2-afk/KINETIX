@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import styles from "./SoulSetup.module.css";
-import VideoBackground from "@/components/ui/VideoBackground";
+import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 const QUESTIONS = [
   { id: 1, question: "What is your name and what do you do?", placeholder: "e.g. I am Vema, a student and solo builder..." },
@@ -77,7 +77,7 @@ export default function SoulSetupPage() {
   if (isComplete) {
     return (
       <>
-        <VideoBackground src="/videos/soul-bg.mp4" opacity={0.78} />
+        <AnimatedBackground variant="soul" />
         <div className={styles.completionWrap}>
           <div className={styles.completionCard}>
             <div className={styles.completionPrismWrap}>
@@ -120,7 +120,7 @@ export default function SoulSetupPage() {
 
   return (
     <>
-      <VideoBackground src="/videos/soul-bg.mp4" opacity={0.78} />
+      <AnimatedBackground variant="soul" />
       <div className={styles.page}>
         <div className={styles.topBar}>
           <div className={styles.logo}>KINETIX</div>

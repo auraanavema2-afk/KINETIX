@@ -1,12 +1,12 @@
 "use client";
 
 import styles from "./LoadingScreen.module.css";
-import VideoBackground from "@/components/ui/VideoBackground";
+import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 export default function LoadingScreen({ fadeOut }) {
   return (
     <div className={`${styles.container} ${fadeOut ? styles.fadeOut : ""}`}>
-      <VideoBackground src="/videos/loading-bg.mp4" opacity={0.85} />
+      <AnimatedBackground variant="default" />
 
       <div className={styles.prismWrap}>
         <div className={styles.ring} />
