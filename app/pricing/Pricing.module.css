@@ -1,0 +1,470 @@
+.page {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 60px;
+}
+
+.festivalBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(0,212,255,0.06);
+  border-bottom: 1px solid rgba(0,212,255,0.12);
+  animation: bannerPulse 3s ease-in-out infinite;
+}
+
+.festivalEmoji {
+  font-size: 18px;
+}
+
+.festivalText {
+  font-size: 13px;
+  color: #00d4ff;
+  font-weight: 500;
+}
+
+.festivalTimer {
+  font-size: 12px;
+  color: #505050;
+  font-variant-numeric: tabular-nums;
+  padding: 3px 10px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+}
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: #383838;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.2s ease;
+}
+
+.backBtn:hover {
+  color: #00d4ff;
+}
+
+.navBrand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: white;
+  text-shadow:
+    0 0 8px rgba(0,212,255,0.7),
+    0 0 16px rgba(0,212,255,0.3);
+}
+
+.hero {
+  text-align: center;
+  padding: 40px 20px 32px;
+}
+
+.heroTitle {
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.heroSub {
+  font-size: 15px;
+  color: #383838;
+  max-width: 440px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.toggleLabel {
+  font-size: 13px;
+  color: #383838;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggleLabel.active {
+  color: white;
+}
+
+.toggle {
+  width: 44px;
+  height: 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.toggleOn {
+  background: rgba(0,212,255,0.15);
+  border-color: rgba(0,212,255,0.3);
+}
+
+.toggleThumb {
+  width: 18px;
+  height: 18px;
+  background: #505050;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toggleOn .toggleThumb {
+  transform: translateX(20px);
+  background: #00d4ff;
+  box-shadow: 0 0 8px rgba(0,212,255,0.6);
+}
+
+.saveBadge {
+  font-size: 10px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.15);
+  color: #00d4ff;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.03em;
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.planCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 22px 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.22s ease;
+}
+
+.planCard:hover {
+  border-color: rgba(0,212,255,0.08);
+  background: rgba(255,255,255,0.03);
+  transform: translateY(-2px);
+}
+
+.popularCard {
+  border-color: rgba(0,212,255,0.2) !important;
+  background: rgba(0,212,255,0.03) !important;
+  box-shadow:
+    0 0 30px rgba(0,212,255,0.06),
+    0 0 60px rgba(0,212,255,0.02);
+}
+
+.currentCard {
+  border-color: rgba(0,212,255,0.15) !important;
+}
+
+.popularBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00d4ff;
+  color: #000000;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.currentBadge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #606060;
+  font-size: 10px;
+  padding: 3px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.planHeader {
+  padding-top: 8px;
+}
+
+.planName {
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.planModel {
+  font-size: 10px;
+  color: #00d4ff;
+  letter-spacing: 0.04em;
+}
+
+.planPrice {
+  min-height: 60px;
+}
+
+.freePrice {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.originalPrice {
+  font-size: 13px;
+  color: #383838;
+  text-decoration: line-through;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.currency {
+  font-size: 14px;
+  color: #606060;
+  margin-right: 1px;
+}
+
+.amount {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.period {
+  font-size: 11px;
+  color: #404040;
+}
+
+.annualNote {
+  font-size: 10px;
+  color: #2a2a2a;
+  margin-top: 4px;
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.checkYes {
+  color: #00d4ff;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.checkNo {
+  color: #282828;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.featureText {
+  font-size: 12px;
+  color: #606060;
+  line-height: 1.4;
+}
+
+.featureTextNo {
+  font-size: 12px;
+  color: #282828;
+  line-height: 1.4;
+}
+
+.subscribeBtn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  color: #606060;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 11px 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.subscribeBtn:hover {
+  color: white;
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.subscribeBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.featuredBtn {
+  background: #00d4ff !important;
+  border-color: #00d4ff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 16px rgba(0,212,255,0.3);
+}
+
+.featuredBtn:hover {
+  background: #33ddff !important;
+  box-shadow: 0 0 24px rgba(0,212,255,0.5) !important;
+}
+
+.currentBtn {
+  background: transparent !important;
+  border-color: rgba(0,212,255,0.12) !important;
+  color: #383838 !important;
+  cursor: not-allowed !important;
+}
+
+.promoSection {
+  max-width: 360px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.promoLabel {
+  font-size: 12px;
+  color: #303030;
+  margin-bottom: 10px;
+}
+
+.promoRow {
+  display: flex;
+  gap: 8px;
+}
+
+.promoInput {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: white;
+  outline: none;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+  caret-color: #00d4ff;
+  transition: border-color 0.2s ease;
+}
+
+.promoInput:focus {
+  border-color: rgba(0,212,255,0.2);
+}
+
+.promoInput::placeholder {
+  color: #282828;
+  letter-spacing: 0;
+}
+
+.promoApply {
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 8px;
+  color: #00d4ff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.promoApply:hover {
+  background: rgba(0,212,255,0.14);
+}
+
+.promoApplied {
+  font-size: 12px;
+  color: #00d4ff;
+  margin-top: 8px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 20px 0;
+  flex-wrap: wrap;
+}
+
+.footerLink {
+  font-size: 12px;
+  color: #282828;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: #00d4ff;
+}
+
+@keyframes bannerPulse {
+  0%, 100% { background: rgba(0,212,255,0.06); }
+  50%       { background: rgba(0,212,255,0.09); }
+}
+
+@media (max-width: 1100px) {
+  .plansGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .plansGrid  { grid-template-columns: 1fr; }
+  .heroTitle  { font-size: 28px; }
+  .nav        { padding: 16px 20px; }
+}
