@@ -34,7 +34,7 @@ const PLANS = [
     ],
   },
   {
-    key: "launch",
+    key: "pro",
     features: [
       { text: "Unlimited messages",      included: true  },
       { text: "Unlimited projects",      included: true  },
@@ -46,7 +46,7 @@ const PLANS = [
     ],
   },
   {
-    key: "scale",
+    key: "max",
     features: [
       { text: "Everything unlimited",    included: true },
       { text: "Unlimited agents",        included: true },
@@ -58,9 +58,9 @@ const PLANS = [
     ],
   },
   {
-    key: "conquer",
+    key: "enterprise",
     features: [
-      { text: "Everything in Scale",     included: true },
+      { text: "Everything in Max",       included: true },
       { text: "10 team seats",           included: true },
       { text: "Team workspace",          included: true },
       { text: "Dedicated support",       included: true },
@@ -200,7 +200,7 @@ export default function PricingPage() {
             const originalPrice = getOriginalPrice(plan.key)
             const isDiscounted = festival && plan.key !== "spark" && price !== originalPrice
             const isCurrent = userDoc?.plan === plan.key
-            const isPopular = plan.key === "launch"
+            const isPopular = plan.key === "pro"
 
             return (
               <div

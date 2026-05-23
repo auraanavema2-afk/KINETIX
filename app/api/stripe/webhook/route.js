@@ -6,14 +6,14 @@ import { doc, updateDoc } from "firebase/firestore"
 export const dynamic = "force-dynamic"
 
 const PRICE_TO_PLAN = {
-  [process.env.STRIPE_PRICE_BUILD_MONTHLY]:   "build",
-  [process.env.STRIPE_PRICE_BUILD_ANNUAL]:    "build",
-  [process.env.STRIPE_PRICE_LAUNCH_MONTHLY]:  "launch",
-  [process.env.STRIPE_PRICE_LAUNCH_ANNUAL]:   "launch",
-  [process.env.STRIPE_PRICE_SCALE_MONTHLY]:   "scale",
-  [process.env.STRIPE_PRICE_SCALE_ANNUAL]:    "scale",
-  [process.env.STRIPE_PRICE_CONQUER_MONTHLY]: "conquer",
-  [process.env.STRIPE_PRICE_CONQUER_ANNUAL]:  "conquer",
+  [process.env.STRIPE_PRICE_BUILD_MONTHLY]:      "build",
+  [process.env.STRIPE_PRICE_BUILD_ANNUAL]:       "build",
+  [process.env.STRIPE_PRICE_PRO_MONTHLY]:        "pro",
+  [process.env.STRIPE_PRICE_PRO_ANNUAL]:         "pro",
+  [process.env.STRIPE_PRICE_MAX_MONTHLY]:        "max",
+  [process.env.STRIPE_PRICE_MAX_ANNUAL]:         "max",
+  [process.env.STRIPE_PRICE_ENTERPRISE_MONTHLY]: "enterprise",
+  [process.env.STRIPE_PRICE_ENTERPRISE_ANNUAL]:  "enterprise",
 }
 
 export async function POST(request) {
