@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
-import { getUserKines, deleteKine } from "@/lib/firestore"
+import { getUserKines, deleteKine, updateKine } from "@/lib/firestore"
 import styles from "./MyKines.module.css"
 
 export default function MyKinesPage() {
@@ -13,7 +13,6 @@ export default function MyKinesPage() {
   const { user } = useAuth()
   const [kines, setKines] = useState([])
   const [loading, setLoading] = useState(true)
-  const [deletingId, setDeletingId] = useState(null)
 
   useEffect(() => {
     if (!user) return
@@ -24,30 +23,33 @@ export default function MyKinesPage() {
     return () => unsub()
   }, [user])
 
-  const handleDelete = async (kine) => {
-    if (!confirm(`Delete "${kine.name}"? This cannot be undone.`)) return
-    setDeletingId(kine.id)
-    try {
-      await deleteKine(kine.id)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setDeletingId(null)
+  const handleDelete = async (id, name) => {
+    if (confirm(`Delete "${name}"? This cannot be undone.`)) {
+      await deleteKine(id)
     }
+  }
+
+  const togglePublic = async (id, isPublic) => {
+    await updateKine(id, { isPublic: !isPublic })
   }
 
   return (
     <ProtectedRoute>
       <AppLayout variant="universe">
         <div className={styles.page}>
-          <button className={styles.backBtn} onClick={() => router.push("/kines")}>
+          <button
+            className={styles.backBtn}
+            onClick={() => router.push("/kines")}
+          >
             ← All Kines
           </button>
 
           <div className={styles.header}>
             <div>
               <h1 className={styles.title}>My Kines</h1>
-              <p className={styles.subtitle}>{kines.length} kine{kines.length !== 1 ? "s" : ""} created</p>
+              <p className={styles.subtitle}>
+                {kines.length} Kine{kines.length !== 1 ? "s" : ""} created
+              </p>
             </div>
             <button
               className={styles.createBtn}
@@ -59,50 +61,65 @@ export default function MyKinesPage() {
 
           {loading ? (
             <div className={styles.grid}>
-              {[1, 2, 3].map(i => (
-                <div key={i} className={styles.skeleton} />
+              {[1,2,3].map(i => (
+                <div key={i} className={styles.skeleton}></div>
               ))}
             </div>
           ) : kines.length === 0 ? (
             <div className={styles.empty}>
-              <div className={styles.emptyIcon}>🌌</div>
+              <div className={styles.emptyIcon}>✦</div>
               <p className={styles.emptyTitle}>No Kines yet</p>
-              <p className={styles.emptySub}>Create your first AI persona</p>
+              <p className={styles.emptySub}>Create your first Kine and share it with the world</p>
               <button
                 className={styles.emptyBtn}
                 onClick={() => router.push("/kines/create")}
               >
-                Create a Kine
+                Create your first Kine
               </button>
             </div>
           ) : (
-            <div className={styles.list}>
+            <div className={styles.grid}>
               {kines.map(kine => (
-                <div key={kine.id} className={styles.kineRow}>
-                  <div className={styles.kineLeft}>
-                    <div className={styles.kineAvatar}>{kine.emoji || "✦"}</div>
-                    <div className={styles.kineInfo}>
+                <div key={kine.id} className={styles.kineCard}>
+                  <div className={styles.cardTop}>
+                    <div className={styles.avatar}>
+                      {kine.emoji || "✦"}
+                    </div>
+                    <div className={styles.kineMeta}>
                       <div className={styles.kineName}>{kine.name}</div>
-                      <div className={styles.kineMeta}>
-                        <span className={styles.catTag}>{kine.category || "general"}</span>
-                        <span className={styles.metaDot}>·</span>
-                        <span className={styles.metaText}>{kine.usageCount || 0} uses</span>
-                        {kine.rating > 0 && (
-                          <>
-                            <span className={styles.metaDot}>·</span>
-                            <span className={styles.metaRating}>★ {kine.rating.toFixed(1)}</span>
-                          </>
-                        )}
-                        <span className={styles.metaDot}>·</span>
-                        <span className={`${styles.visTag} ${kine.isPublic ? styles.visPublic : styles.visPrivate}`}>
-                          {kine.isPublic ? "Public" : "Private"}
-                        </span>
-                      </div>
-                      <p className={styles.kineDesc}>{kine.shortDescription}</p>
+                      <div className={styles.kineCategory}>{kine.category}</div>
+                    </div>
+                    <div className={styles.publicTag}>
+                      {kine.isPublic ? (
+                        <span className={styles.publicYes}>● Public</span>
+                      ) : (
+                        <span className={styles.publicNo}>● Private</span>
+                      )}
                     </div>
                   </div>
 
-                  <div className={styles.kineActions}>
+                  <p className={styles.kineDesc}>{kine.shortDescription}</p>
+
+                  <div className={styles.kineStats}>
+                    <div className={styles.stat}>
+                      <span className={styles.statNum}>{kine.usageCount || 0}</span>
+                      <span className={styles.statLabel}>uses</span>
+                    </div>
+                    {kine.rating > 0 && (
+                      <div className={styles.stat}>
+                        <span className={styles.statNum}>★ {kine.rating.toFixed(1)}</span>
+                        <span className={styles.statLabel}>{kine.ratingCount} reviews</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={styles.cardActions}>
+                    <button
+                      className={styles.viewBtn}
+                      onClick={() => router.push(`/kines/${kine.id}`)}
+                    >
+                      View
+                    </button>
                     <button
                       className={styles.chatBtn}
                       onClick={() => router.push(`/kines/${kine.id}/chat`)}
@@ -110,17 +127,17 @@ export default function MyKinesPage() {
                       Chat
                     </button>
                     <button
-                      className={styles.editBtn}
-                      onClick={() => router.push(`/kines/${kine.id}/edit`)}
+                      className={styles.toggleBtn}
+                      onClick={() => togglePublic(kine.id, kine.isPublic)}
+                      title={kine.isPublic ? "Make private" : "Make public"}
                     >
-                      Edit
+                      {kine.isPublic ? "🌐" : "🔒"}
                     </button>
                     <button
                       className={styles.deleteBtn}
-                      onClick={() => handleDelete(kine)}
-                      disabled={deletingId === kine.id}
+                      onClick={() => handleDelete(kine.id, kine.name)}
                     >
-                      {deletingId === kine.id ? "..." : "Delete"}
+                      ×
                     </button>
                   </div>
                 </div>
