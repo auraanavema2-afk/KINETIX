@@ -1,0 +1,362 @@
+.page {
+  padding: 32px 36px;
+  max-width: 900px;
+  min-height: 100vh;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #383838;
+}
+
+.refreshBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  color: #404040;
+  font-size: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.refreshBtn:hover {
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.04);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.goalCard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,212,255,0.1);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 0 30px rgba(0,212,255,0.04);
+}
+
+.momentumCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 160px;
+}
+
+.statsCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 22px 24px;
+  min-width: 180px;
+}
+
+.cardLabel {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: #2a2a2a;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.goalText {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.phaseRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.phaseBadge {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: rgba(0,212,255,0.07);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 20px;
+  color: #00d4ff;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.phaseTrack {
+  display: flex;
+  gap: 4px;
+}
+
+.phaseStep {
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+  background: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.phaseActive {
+  background: #00d4ff;
+  box-shadow: 0 0 6px rgba(0,212,255,0.6);
+}
+
+.momentumCircle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.momentumScore {
+  position: absolute;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.momentumNum {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.momentumPct {
+  font-size: 11px;
+  color: #505050;
+}
+
+.momentumLabel {
+  font-size: 11px;
+  color: #383838;
+  text-align: center;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.statNum {
+  font-size: 26px;
+  font-weight: 700;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0,212,255,0.4);
+}
+
+.statLabel {
+  font-size: 10px;
+  color: #2a2a2a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.statDivider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.04);
+}
+
+.actionsSection {
+  margin-bottom: 24px;
+}
+
+.actionsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.actionsTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+}
+
+.actionsCount {
+  font-size: 12px;
+  color: #303030;
+}
+
+.actionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actionSkeleton {
+  height: 72px;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #090909 25%,
+    #111111 50%,
+    #090909 75%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.actionCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.actionCard:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(0,212,255,0.1);
+  transform: translateY(-1px);
+}
+
+.actionDone {
+  background: rgba(0,212,255,0.04) !important;
+  border-color: rgba(0,212,255,0.12) !important;
+  opacity: 0.6;
+}
+
+.actionCheck {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #404040;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.actionDone .actionCheck {
+  background: #00d4ff;
+  border-color: #00d4ff;
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0,212,255,0.5);
+}
+
+.actionContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.actionText {
+  font-size: 14px;
+  color: #c0c0c0;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.actionDone .actionText {
+  text-decoration: line-through;
+  color: #404040;
+}
+
+.actionMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actionTime {
+  font-size: 11px;
+  color: #303030;
+}
+
+.actionPriority {
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.high {
+  background: rgba(0,212,255,0.08);
+  color: #00d4ff;
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.medium {
+  background: rgba(255,255,255,0.04);
+  color: #404040;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.obstacleCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+
+.obstacleText {
+  font-size: 14px;
+  color: #606060;
+  line-height: 1.6;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@media (max-width: 768px) {
+  .page { padding: 20px 16px; }
+  .grid { grid-template-columns: 1fr; }
+}
