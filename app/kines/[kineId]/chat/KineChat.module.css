@@ -1,0 +1,346 @@
+.chatPage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100vh;
+}
+
+.loadingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.4);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loadingDot:nth-child(2) { animation-delay: 0.2s; }
+.loadingDot:nth-child(3) { animation-delay: 0.4s; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 56px;
+  border-bottom: 1px solid rgba(0,212,255,0.06);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: #404040;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.backBtn:hover {
+  color: #00d4ff;
+}
+
+.kineAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.kineInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.kineName {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.kineCategory {
+  font-size: 10px;
+  color: #404040;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detailBtn {
+  font-size: 12px;
+  color: #404040;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.detailBtn:hover {
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.15);
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.06) transparent;
+}
+
+.messages::-webkit-scrollbar { width: 4px; }
+.messages::-webkit-scrollbar-track { background: transparent; }
+.messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 2px; }
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 60px 20px;
+  text-align: center;
+  gap: 10px;
+  margin: auto;
+}
+
+.emptyAvatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.06);
+  border: 1.5px solid rgba(0,212,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 8px;
+  box-shadow: 0 0 24px rgba(0,212,255,0.15);
+}
+
+.emptyName {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+}
+
+.emptyDesc {
+  font-size: 13px;
+  color: #404040;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.messageRow {
+  display: flex;
+  gap: 10px;
+  max-width: 720px;
+  width: 100%;
+}
+
+.userRow {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.assistantRow {
+  align-self: flex-start;
+}
+
+.msgAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: 14px;
+  max-width: 80%;
+}
+
+.userBubble {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-bottom-right-radius: 4px;
+}
+
+.assistantBubble {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-bottom-left-radius: 4px;
+}
+
+.bubbleText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.88);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: #00d4ff;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+
+.inputArea {
+  padding: 16px 20px 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-shrink: 0;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 10px 10px 10px 16px;
+  transition: border-color 0.2s ease;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.inputWrap:focus-within {
+  border-color: rgba(0,212,255,0.18);
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.04);
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: white;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.5;
+  caret-color: #00d4ff;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.input::placeholder {
+  color: #2a2a2a;
+}
+
+.input:disabled {
+  opacity: 0.5;
+}
+
+.sendBtn,
+.stopBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.sendBtn {
+  background: #00d4ff;
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0,212,255,0.3);
+}
+
+.sendBtn:hover:not(:disabled) {
+  background: #33ddff;
+  box-shadow: 0 0 16px rgba(0,212,255,0.5);
+}
+
+.sendBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.stopBtn {
+  background: rgba(255,80,80,0.12);
+  color: #ff6060;
+  border: 1px solid rgba(255,80,80,0.2);
+  font-size: 12px;
+}
+
+.stopBtn:hover {
+  background: rgba(255,80,80,0.2);
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .header { padding: 0 14px; }
+  .messages { padding: 16px 14px; }
+  .inputArea { padding: 12px 14px 20px; }
+  .bubble { max-width: 90%; }
+}

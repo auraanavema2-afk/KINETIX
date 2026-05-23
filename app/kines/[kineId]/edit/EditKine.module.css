@@ -1,0 +1,330 @@
+.page {
+  padding: 32px 36px;
+  max-width: 680px;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.skeleton {
+  height: 400px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #090909 25%, #111111 50%, #090909 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.notAuthorized {
+  text-align: center;
+  padding: 80px 20px;
+  color: #606060;
+}
+
+.notAuthorized button {
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #00d4ff;
+  padding: 10px 20px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.backBtn {
+  background: transparent;
+  border: none;
+  color: #404040;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-family: inherit;
+  transition: color 0.2s ease;
+}
+
+.backBtn:hover {
+  color: #00d4ff;
+}
+
+.header {
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.emojiSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.emojiBtn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.12);
+  border-radius: 14px;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.emojiBtn:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.25);
+}
+
+.emojiDisplay {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.emojiHint {
+  font-size: 12px;
+  color: #404040;
+}
+
+.emojiPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(10,10,10,0.95);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 12px;
+  max-width: 320px;
+}
+
+.emojiOption {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emojiOption:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.2);
+  transform: scale(1.1);
+}
+
+.emojiSelected {
+  background: rgba(0,212,255,0.12) !important;
+  border-color: rgba(0,212,255,0.3) !important;
+  box-shadow: 0 0 10px rgba(0,212,255,0.2);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #909090;
+  margin-bottom: 2px;
+}
+
+.fieldHint {
+  font-size: 12px;
+  color: #383838;
+  margin-top: -2px;
+  line-height: 1.5;
+}
+
+.input,
+.textarea {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: white;
+  outline: none;
+  font-family: inherit;
+  caret-color: #00d4ff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  resize: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: rgba(0,212,255,0.2);
+  box-shadow: 0 0 0 2px rgba(0,212,255,0.05);
+}
+
+.inputError {
+  border-color: rgba(255,80,80,0.3) !important;
+}
+
+.error {
+  font-size: 11px;
+  color: #ff6060;
+}
+
+.counter {
+  font-size: 11px;
+  color: #303030;
+  text-align: right;
+}
+
+.catGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.catOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12px;
+  color: #505050;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+
+.catOption:hover {
+  color: #909090;
+  border-color: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+}
+
+.catSelected {
+  color: #00d4ff !important;
+  background: rgba(0,212,255,0.08) !important;
+  border-color: rgba(0,212,255,0.25) !important;
+}
+
+.visibilityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.toggleOn {
+  background: rgba(0,212,255,0.25);
+  border-color: rgba(0,212,255,0.4);
+  box-shadow: 0 0 8px rgba(0,212,255,0.2);
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #404040;
+  transition: all 0.25s ease;
+}
+
+.toggleOn .toggleThumb {
+  left: 20px;
+  background: #00d4ff;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+.cancelBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #606060;
+  font-size: 13px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.submitBtn {
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 24px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 16px rgba(0,212,255,0.3);
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #33ddff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 24px rgba(0,212,255,0.5);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@media (max-width: 768px) {
+  .page { padding: 20px 16px; }
+  .actions { flex-direction: column-reverse; }
+  .actions button { width: 100%; }
+}

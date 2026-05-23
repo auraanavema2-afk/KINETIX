@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 export async function POST(request) {
   try {
-    const { messages, conversationId, userId, soulData, soulMemory } =
+    const { messages, conversationId, userId, soulData, soulMemory, kinePersona, kineName } =
       await request.json();
 
     const soulContext = soulData
@@ -28,7 +28,14 @@ ${soulMemory
 `
         : "";
 
-    const systemPrompt = `You are Kinet 4, the most advanced AI model powering the Kinetix platform. Kinetix is the most powerful AI platform built for India and the world.
+    const systemPrompt = kinePersona
+      ? `${kinePersona}
+
+${soulContext}
+${memoryContext}
+
+You are a Kine on the Kinetix platform. Never mention Claude or Anthropic. Stay in character as described above at all times.`
+      : `You are Kinet 4, the most advanced AI model powering the Kinetix platform. Kinetix is the most powerful AI platform built for India and the world.
 
 ${soulContext}
 ${memoryContext}
