@@ -1,8 +1,25 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import styles from "./AnimatedBackground.module.css"
 
 export default function AnimatedBackground({ variant = "default" }) {
+  const [particles, setParticles] = useState([])
+
+  useEffect(() => {
+    setParticles(
+      [...Array(20)].map((_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 6}s`,
+        animationDuration: `${4 + Math.random() * 6}s`,
+        width: `${1 + Math.random() * 2}px`,
+        height: `${1 + Math.random() * 2}px`,
+      }))
+    )
+  }, [])
+
   return (
     <div className={`${styles.wrapper} ${styles[variant] || ""}`}>
       <div className={styles.gradientBase}></div>
@@ -12,17 +29,17 @@ export default function AnimatedBackground({ variant = "default" }) {
       <div className={styles.orb3}></div>
       <div className={styles.scanLines}></div>
       <div className={styles.particles}>
-        {[...Array(20)].map((_, i) => (
+        {particles.map(p => (
           <div
-            key={i}
+            key={p.id}
             className={styles.particle}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 6}s`,
-              animationDuration: `${4 + Math.random() * 6}s`,
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
+              left: p.left,
+              top: p.top,
+              animationDelay: p.animationDelay,
+              animationDuration: p.animationDuration,
+              width: p.width,
+              height: p.height,
             }}
           ></div>
         ))}
