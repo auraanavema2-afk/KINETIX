@@ -4,7 +4,7 @@ import styles from "./AnimatedBackground.module.css"
 
 export default function AnimatedBackground({ variant = "default" }) {
   return (
-    <div className={`${styles.wrapper} ${styles[variant]}`}>
+    <div className={`${styles.wrapper} ${styles[variant] || ""}`}>
       <div className={styles.gradientBase}></div>
       <div className={styles.grid}></div>
       <div className={styles.orb1}></div>

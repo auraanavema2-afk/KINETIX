@@ -73,6 +73,22 @@
   overflow: hidden;
 }
 
+.coreNav {
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.toolsNav {
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
 .navSection {
   font-size: 9px;
   letter-spacing: 0.14em;

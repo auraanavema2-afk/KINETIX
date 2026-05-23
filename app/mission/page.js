@@ -4,10 +4,7 @@ import { useState, useEffect } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
-import { doc, updateDoc, increment } from "firebase/firestore"
-import { db } from "@/lib/firebase"
 import styles from "./Mission.module.css"
-import AnimatedBackground from "@/components/ui/AnimatedBackground"
 
 const PHASES = ["Planning", "Starting", "Building", "Launching", "Scaling"]
 
