@@ -291,23 +291,27 @@ export default function ChatPage() {
               </div>
             ) : messages.length === 0 ? (
               <div className={styles.emptyState}>
-                <svg viewBox="0 0 80 80" width="56" height="56" className={styles.emptyPrism}>
-                  <defs>
-                    <linearGradient id="elg" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.6" />
-                      <stop offset="100%" stopColor="#003344" stopOpacity="0.6" />
-                    </linearGradient>
-                  </defs>
-                  <polygon points="40,6 72,68 8,68" fill="url(#elg)" stroke="rgba(0,212,255,0.3)" strokeWidth="0.8" />
-                  <line x1="40" y1="6" x2="24" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
-                  <line x1="40" y1="6" x2="40" y2="68" stroke="rgba(0,212,255,0.3)" strokeWidth="0.5" />
-                  <line x1="40" y1="6" x2="56" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
-                </svg>
-                <p className={styles.emptyTitle}>
-                  {userDoc?.soul?.name
-                    ? `Hey ${userDoc.soul.name.split(" ")[0]}, I'm Kinet 4`
-                    : "I'm Kinet 4"}
-                </p>
+                <div className={styles.emptyPrismWrap}>
+                  <div className={styles.emptyRing} />
+                  <svg viewBox="0 0 80 80" width="56" height="56" className={styles.emptyPrism}>
+                    <defs>
+                      <linearGradient id="elg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#00d4ff" stopOpacity="0.6" />
+                        <stop offset="100%" stopColor="#003344" stopOpacity="0.6" />
+                      </linearGradient>
+                    </defs>
+                    <polygon points="40,6 72,68 8,68" fill="url(#elg)" stroke="rgba(0,212,255,0.3)" strokeWidth="0.8" />
+                    <line x1="40" y1="6" x2="24" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
+                    <line x1="40" y1="6" x2="40" y2="68" stroke="rgba(0,212,255,0.3)" strokeWidth="0.5" />
+                    <line x1="40" y1="6" x2="56" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
+                  </svg>
+                </div>
+                <p className={styles.emptyTitle}>I'm Kinet 4</p>
+                {userDoc?.soul?.name && (
+                  <p className={styles.emptyGreeting}>
+                    Hey {userDoc.soul.name.split(" ")[0]}, ready when you are
+                  </p>
+                )}
                 <p className={styles.emptySub}>
                   {userDoc?.soul?.bigGoal
                     ? `Let's work on "${userDoc.soul.bigGoal}"`
