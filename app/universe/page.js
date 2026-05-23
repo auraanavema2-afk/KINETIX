@@ -1,16 +1,10 @@
-"use client";
+"use client"
 
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import AppLayout from "@/components/layout/AppLayout";
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 
-export default function UniversePage() {
-  return (
-    <ProtectedRoute>
-      <AppLayout variant="universe">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", color: "white" }}>
-          Universe — Building this soon
-        </div>
-      </AppLayout>
-    </ProtectedRoute>
-  );
+export default function UniverseRedirect() {
+  const router = useRouter()
+  useEffect(() => { router.replace("/kines") }, [router])
+  return null
 }
