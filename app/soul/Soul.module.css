@@ -1,0 +1,284 @@
+.page {
+  padding: 32px 36px;
+  max-width: 900px;
+  min-height: 100vh;
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #383838;
+  max-width: 420px;
+}
+
+.prismWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+}
+
+.prism {
+  filter: drop-shadow(0 0 10px rgba(0,212,255,0.9));
+  animation: prismGlow 3s ease-in-out infinite;
+}
+
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.fieldCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 20px 22px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.fieldCard:first-child {
+  grid-column: 1 / -1;
+}
+
+.fieldCardEditing {
+  border-color: rgba(0,212,255,0.25);
+  background: rgba(0,212,255,0.02);
+}
+
+.fieldHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fieldLabel {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: #2a2a2a;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.savedBadge {
+  font-size: 10px;
+  color: #00d4ff;
+  letter-spacing: 0.04em;
+  animation: fadeIn 0.3s ease;
+}
+
+.editBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  color: #404040;
+  font-size: 11px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.editBtn:hover {
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.04);
+}
+
+.fieldValue {
+  font-size: 14px;
+  color: #c0c0c0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fieldEmpty {
+  color: #2a2a2a;
+  font-style: italic;
+}
+
+.editArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textarea {
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.6;
+  padding: 10px 12px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.textarea:focus {
+  border-color: rgba(0,212,255,0.4);
+  box-shadow: 0 0 0 3px rgba(0,212,255,0.05);
+}
+
+.textarea::placeholder {
+  color: #2a2a2a;
+}
+
+.editActions {
+  display: flex;
+  gap: 8px;
+}
+
+.saveBtn {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 7px;
+  color: #00d4ff;
+  font-size: 12px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: rgba(0,212,255,0.18);
+  box-shadow: 0 0 10px rgba(0,212,255,0.2);
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 7px;
+  color: #404040;
+  font-size: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.cancelBtn:hover {
+  color: #707070;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.memoriesSection {
+  margin-top: 8px;
+}
+
+.memoriesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.memoriesTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+}
+
+.memoriesCount {
+  font-size: 12px;
+  color: #303030;
+}
+
+.memoriesEmpty {
+  font-size: 13px;
+  color: #303030;
+  line-height: 1.6;
+  padding: 20px 24px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.memoriesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.memoryChip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  font-size: 12px;
+  color: #606060;
+  line-height: 1.4;
+  transition: all 0.18s ease;
+}
+
+.memoryChip:hover {
+  border-color: rgba(0,212,255,0.12);
+  color: #808080;
+  background: rgba(0,212,255,0.02);
+}
+
+.memoryDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.4);
+  flex-shrink: 0;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes prismGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(0,212,255,0.8));
+    transform: rotate(0deg);
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(0,212,255,1)) drop-shadow(0 0 32px rgba(0,212,255,0.4));
+    transform: rotate(6deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .page { padding: 20px 16px; }
+  .fieldsGrid { grid-template-columns: 1fr; }
+  .fieldCard:first-child { grid-column: auto; }
+}
