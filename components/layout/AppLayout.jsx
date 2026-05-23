@@ -105,13 +105,13 @@ export default function AppLayout({
         </div>
 
         <div className={styles.coreNav}>
-          <div className={styles.navSectionLabel}>Core</div>
+          <div className={styles.navSection}>Core</div>
           {CORE_NAV.map(renderNavItem)}
         </div>
 
         <div className={styles.convSection}>
           <div className={styles.convHeader}>
-            <span className={styles.navSectionLabel}>CHATS</span>
+            <span className={styles.navSection}>CHATS</span>
             <button className={styles.newConvBtn} onClick={handleNewChat} title="New chat">+</button>
           </div>
           <div className={styles.convList}>
@@ -140,7 +140,7 @@ export default function AppLayout({
         <div className={styles.toolsNav}>
           {TOOLS_NAV.map((item, i) => {
             if (item.section) {
-              return <div key={i} className={styles.navSectionLabel}>{item.section}</div>;
+              return <div key={i} className={styles.navSection}>{item.section}</div>;
             }
             return renderNavItem(item);
           })}
