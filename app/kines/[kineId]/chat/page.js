@@ -2,17 +2,12 @@
 
 import { useState, useEffect, useRef } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { useAuth } from "@/context/AuthContext"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
-import {
-  getKineById,
-  createConversation,
-  addMessage,
-  getMessages,
-  incrementKineUsage,
-} from "@/lib/firestore"
-import styles from "./KineChat.module.css"
+import { useAuth } from "@/context/AuthContext"
+import { getKineById, incrementKineUsage } from "@/lib/firestore"
+import SoftPaywall from "@/components/paywall/SoftPaywall"
+import styles from "../../../chat/[conversationId]/Chat.module.css"
 
 export default function KineChatPage() {
   const params = useParams()
@@ -20,16 +15,16 @@ export default function KineChatPage() {
   const { user, userDoc } = useAuth()
 
   const [kine, setKine] = useState(null)
-  const [kineLoading, setKineLoading] = useState(true)
-  const [conversationId, setConversationId] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState("")
   const [streaming, setStreaming] = useState(false)
+  const [showPaywall, setShowPaywall] = useState(false)
   const [usageIncremented, setUsageIncremented] = useState(false)
 
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
-  const abortControllerRef = useRef(null)
+  const abortRef = useRef(null)
 
   useEffect(() => {
     loadKine()
@@ -40,65 +35,76 @@ export default function KineChatPage() {
   }, [messages])
 
   const loadKine = async () => {
+    setLoading(true)
     try {
       const data = await getKineById(params.kineId)
-      if (!data) { router.push("/kines"); return }
       setKine(data)
-      if (user) {
-        const convId = await createConversation(user.uid, params.kineId)
-        setConversationId(convId)
-      }
     } catch (err) {
       console.error(err)
     } finally {
-      setKineLoading(false)
-      inputRef.current?.focus()
+      setLoading(false)
     }
   }
 
   const sendMessage = async () => {
-    if (!input.trim() || streaming || !kine) return
+    if (!input.trim() || streaming) return
 
-    const userText = input.trim()
-    const userMsg = { id: Date.now().toString(), role: "user", content: userText }
+    const userMsg = {
+      id: Date.now().toString(),
+      role: "user",
+      content: input.trim(),
+    }
+
     const updatedMessages = [...messages, userMsg]
     setMessages(updatedMessages)
     setInput("")
     setStreaming(true)
 
-    if (user && conversationId) {
-      await addMessage(conversationId, "user", userText)
-    }
-
-    if (!usageIncremented) {
-      setUsageIncremented(true)
-      incrementKineUsage(params.kineId).catch(() => {})
-    }
-
     const assistantId = Date.now().toString() + "-a"
-    setMessages(prev => [...prev, { id: assistantId, role: "assistant", content: "", streaming: true }])
+    setMessages(prev => [...prev, {
+      id: assistantId,
+      role: "assistant",
+      content: "",
+      streaming: true,
+    }])
 
-    abortControllerRef.current = new AbortController()
+    abortRef.current = new AbortController()
 
     try {
-      const apiMessages = updatedMessages.map(m => ({ role: m.role, content: m.content }))
+      const apiMessages = updatedMessages.map(m => ({
+        role: m.role,
+        content: m.content,
+      }))
+
+      const customSystemPrompt = `You are ${kine.name}, a specialised AI agent created in Kinetix. ${kine.persona}
+
+Stay in character as ${kine.name} throughout the conversation. Apply your specialised expertise to help the user. Be helpful, focused, and genuinely useful in your area of expertise.
+
+You are powered by Kinet 4 but you operate as ${kine.name}.`
 
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: apiMessages,
-          conversationId,
+          conversationId: "kine-" + params.kineId,
           userId: user?.uid,
-          kinePersona: kine.persona,
-          kineName: kine.name,
           soulData: userDoc?.soul || null,
           soulMemory: userDoc?.soulMemory || [],
+          customSystemPrompt,
         }),
-        signal: abortControllerRef.current.signal,
+        signal: abortRef.current.signal,
       })
 
-      if (!response.ok) throw new Error("API error")
+      if (!response.ok) {
+        if (response.status === 402) {
+          setShowPaywall(true)
+          setMessages(prev => prev.filter(m => m.id !== assistantId))
+          setStreaming(false)
+          return
+        }
+        throw new Error("API error")
+      }
 
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
@@ -107,43 +113,40 @@ export default function KineChatPage() {
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
-        const chunk = decoder.decode(value, { stream: true })
-        fullResponse += chunk
-        setMessages(prev =>
-          prev.map(m => m.id === assistantId ? { ...m, content: fullResponse, streaming: true } : m)
-        )
+        fullResponse += decoder.decode(value, { stream: true })
+        setMessages(prev => prev.map(m =>
+          m.id === assistantId
+            ? { ...m, content: fullResponse, streaming: true }
+            : m
+        ))
       }
 
-      setMessages(prev =>
-        prev.map(m => m.id === assistantId ? { ...m, content: fullResponse, streaming: false } : m)
-      )
+      setMessages(prev => prev.map(m =>
+        m.id === assistantId
+          ? { ...m, content: fullResponse, streaming: false }
+          : m
+      ))
 
-      if (user && conversationId) {
-        await addMessage(conversationId, "assistant", fullResponse)
+      if (!usageIncremented) {
+        incrementKineUsage(params.kineId)
+        setUsageIncremented(true)
       }
+
     } catch (err) {
       if (err.name !== "AbortError") {
-        setMessages(prev =>
-          prev.map(m => m.id === assistantId
-            ? { ...m, content: "Something went wrong. Please try again.", streaming: false }
+        setMessages(prev => prev.map(m =>
+          m.id === assistantId
+            ? { ...m, content: `${kine.name} encountered an error. Please try again.`, streaming: false }
             : m
-          )
-        )
-      } else {
-        setMessages(prev =>
-          prev.map(m => m.id === assistantId ? { ...m, streaming: false } : m)
-        )
+        ))
       }
     } finally {
       setStreaming(false)
-      abortControllerRef.current = null
-      inputRef.current?.focus()
+      abortRef.current = null
     }
   }
 
-  const stopStreaming = () => {
-    abortControllerRef.current?.abort()
-  }
+  const stopStreaming = () => abortRef.current?.abort()
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -158,14 +161,12 @@ export default function KineChatPage() {
     e.target.style.height = Math.min(e.target.scrollHeight, 140) + "px"
   }
 
-  if (kineLoading) {
+  if (loading || !kine) {
     return (
       <ProtectedRoute>
         <AppLayout variant="universe">
-          <div className={styles.loading}>
-            <div className={styles.loadingDot} />
-            <div className={styles.loadingDot} />
-            <div className={styles.loadingDot} />
+          <div style={{ padding: "60px", textAlign: "center", color: "#404040" }}>
+            Loading Kine...
           </div>
         </AppLayout>
       </ProtectedRoute>
@@ -178,21 +179,23 @@ export default function KineChatPage() {
         <div className={styles.chatPage}>
           <header className={styles.header}>
             <div className={styles.headerLeft}>
-              <button className={styles.backBtn} onClick={() => router.push(`/kines/${params.kineId}`)}>
-                ←
+              <button
+                className={styles.newChatBtn}
+                onClick={() => router.push(`/kines/${params.kineId}`)}
+                style={{ marginRight: 12 }}
+              >
+                ← Back
               </button>
-              <div className={styles.kineAvatar}>{kine?.emoji || "✦"}</div>
-              <div className={styles.kineInfo}>
-                <span className={styles.kineName}>{kine?.name}</span>
-                <span className={styles.kineCategory}>{kine?.category || "general"}</span>
+              <div className={styles.kinet4Badge}>
+                {kine.emoji} {kine.name}
               </div>
             </div>
             <div className={styles.headerRight}>
               <button
-                className={styles.detailBtn}
-                onClick={() => router.push(`/kines/${params.kineId}`)}
+                className={styles.newChatBtn}
+                onClick={() => setMessages([])}
               >
-                View Details
+                + New
               </button>
             </div>
           </header>
@@ -200,26 +203,41 @@ export default function KineChatPage() {
           <div className={styles.messages}>
             {messages.length === 0 ? (
               <div className={styles.emptyState}>
-                <div className={styles.emptyAvatar}>{kine?.emoji || "✦"}</div>
-                <p className={styles.emptyName}>{kine?.name}</p>
-                <p className={styles.emptyDesc}>
-                  {kine?.shortDescription || "Start the conversation"}
-                </p>
+                <div className={styles.emptyPrismWrap}>
+                  <div style={{
+                    width: 70,
+                    height: 70,
+                    borderRadius: "50%",
+                    background: "rgba(0,212,255,0.08)",
+                    border: "1.5px solid rgba(0,212,255,0.3)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 32,
+                    boxShadow: "0 0 20px rgba(0,212,255,0.3)",
+                    animation: "prismFloat 3.5s ease-in-out infinite",
+                  }}>
+                    {kine.emoji || "✦"}
+                  </div>
+                </div>
+                <p className={styles.emptyTitle}>{kine.name}</p>
+                <p className={styles.emptyGreeting}>by {kine.creatorName || "Anonymous"}</p>
+                <p className={styles.emptySub}>{kine.shortDescription}</p>
               </div>
             ) : (
               messages.map(msg => (
                 <div
                   key={msg.id}
-                  className={`${styles.messageRow} ${msg.role === "user" ? styles.userRow : styles.assistantRow}`}
+                  className={`${styles.messageWrap} ${msg.role === "user" ? styles.userWrap : styles.assistantWrap}`}
                 >
                   {msg.role === "assistant" && (
-                    <div className={styles.msgAvatar}>{kine?.emoji || "✦"}</div>
+                    <div className={styles.assistantAvatar} style={{ fontSize: 14 }}>
+                      {kine.emoji || "✦"}
+                    </div>
                   )}
                   <div className={`${styles.bubble} ${msg.role === "user" ? styles.userBubble : styles.assistantBubble}`}>
-                    <div className={styles.bubbleText}>
-                      {msg.content}
-                      {msg.streaming && <span className={styles.cursor} />}
-                    </div>
+                    {msg.content}
+                    {msg.streaming && <span className={styles.cursor}></span>}
                   </div>
                 </div>
               ))
@@ -235,25 +253,28 @@ export default function KineChatPage() {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder={`Message ${kine?.name || "Kine"}...`}
+                placeholder={`Message ${kine.name}...`}
                 rows={1}
                 disabled={streaming}
               />
               {streaming ? (
-                <button className={styles.stopBtn} onClick={stopStreaming}>
-                  ■
-                </button>
+                <button className={styles.stopBtn} onClick={stopStreaming}>⏹</button>
               ) : (
                 <button
                   className={styles.sendBtn}
                   onClick={sendMessage}
                   disabled={!input.trim()}
-                >
-                  ↑
-                </button>
+                >↑</button>
               )}
             </div>
           </div>
+
+          {showPaywall && (
+            <SoftPaywall
+              reason="You have reached your monthly message limit."
+              onClose={() => setShowPaywall(false)}
+            />
+          )}
         </div>
       </AppLayout>
     </ProtectedRoute>

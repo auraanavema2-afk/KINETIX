@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 
 export async function POST(request) {
   try {
-    const { messages, conversationId, userId, soulData, soulMemory, kinePersona, kineName } =
+    const { messages, conversationId, userId, soulData, soulMemory, customSystemPrompt } =
       await request.json();
 
     const soulContext = soulData
@@ -28,14 +28,7 @@ ${soulMemory
 `
         : "";
 
-    const systemPrompt = kinePersona
-      ? `${kinePersona}
-
-${soulContext}
-${memoryContext}
-
-You are a Kine on the Kinetix platform. Never mention Claude or Anthropic. Stay in character as described above at all times.`
-      : `You are Kinet 4, the most advanced AI model powering the Kinetix platform. Kinetix is the most powerful AI platform built for India and the world.
+    const systemPrompt = `You are Kinet 4, the most advanced AI model powering the Kinetix platform. Kinetix is the most powerful AI platform built for India and the world.
 
 ${soulContext}
 ${memoryContext}
@@ -46,6 +39,10 @@ You are Kinet 4. You are powerful, thoughtful, direct, and genuinely helpful. Yo
 
 Be concise when a short answer works. Be thorough when depth is needed. Always be real, never generic.`;
 
+    const finalSystemPrompt = customSystemPrompt
+      ? `${customSystemPrompt}\n\nContext about the user:\n${soulContext}\n${memoryContext}`
+      : systemPrompt;
+
     const anthropic = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY,
     });
@@ -53,7 +50,7 @@ Be concise when a short answer works. Be thorough when depth is needed. Always b
     const stream = await anthropic.messages.stream({
       model: "claude-sonnet-4-20250514",
       max_tokens: 4096,
-      system: systemPrompt,
+      system: finalSystemPrompt,
       messages: messages,
     });
 
