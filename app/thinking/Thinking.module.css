@@ -1,147 +1,173 @@
 .page {
-  padding: 32px 36px;
-  max-width: 860px;
-  animation: fadeInUp 0.4s ease forwards;
+  padding: 32px 36px 80px;
+  max-width: 880px;
+  margin: 0 auto;
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ─── HERO ─────────────────────────────────────────────────────────────────── */
-
 .heroSection {
-  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 36px;
+  position: relative;
 }
 
 .titleWrap {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
+  text-align: center;
 }
 
 .brainGlow {
   position: absolute;
-  left: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.12) 0%, transparent 70%);
   pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: 0;
 }
 
 .deepIcon {
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 12px rgba(0,212,255,0.6));
-  animation: iconFloat 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+  animation: prismFloat 3.5s ease-in-out infinite, prismGlowPulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(0,212,255,0.8)) drop-shadow(0 0 32px rgba(0,212,255,0.4));
 }
 
 .heroTitle {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  line-height: 1;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 1;
 }
 
 .titleKinet {
-  font-size: 13px;
-  font-weight: 500;
-  color: #606060;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 20px rgba(255,255,255,0.1);
 }
 
 .titleDeep {
-  font-size: 36px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #ffffff 0%, #80eaff 50%, #00d4ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-  filter: drop-shadow(0 0 16px rgba(0,212,255,0.4));
+  color: #00d4ff;
+  text-shadow:
+    0 0 10px rgba(0,212,255,1),
+    0 0 20px rgba(0,212,255,0.6),
+    0 0 40px rgba(0,212,255,0.3);
+  font-style: italic;
+  animation: deepShimmer 3s ease-in-out infinite;
 }
 
 .heroSub {
-  margin-left: 4px;
-  font-size: 13px;
-  color: #606060;
-  line-height: 1.6;
-  max-width: 440px;
-  margin-top: 8px;
-  align-self: flex-end;
-  padding-bottom: 4px;
+  font-size: 14px;
+  color: #505050;
+  max-width: 480px;
+  line-height: 1.65;
+  margin: 0;
+  position: relative;
+  z-index: 1;
 }
-
-/* ─── GATED BANNER ──────────────────────────────────────────────────────────── */
 
 .gatedBanner {
   display: flex;
   align-items: center;
   gap: 10px;
+  background: rgba(0,212,255,0.05);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 10px;
   padding: 12px 18px;
-  background: rgba(255,180,0,0.05);
-  border: 1px solid rgba(255,180,0,0.15);
-  border-radius: 12px;
   font-size: 13px;
-  color: #a0a0a0;
-  margin-bottom: 20px;
+  color: #909090;
+  margin-bottom: 16px;
 }
 
 .gatedBanner strong {
-  color: white;
+  color: #00d4ff;
 }
 
 .gatedBanner button {
   margin-left: auto;
-  background: rgba(0,212,255,0.10);
-  border: 1px solid rgba(0,212,255,0.25);
-  border-radius: 8px;
-  color: #00d4ff;
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 16px;
   font-size: 12px;
   font-weight: 600;
-  padding: 6px 14px;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
 .gatedBanner button:hover {
-  background: rgba(0,212,255,0.18);
+  background: #33ddff;
+  box-shadow: 0 0 12px rgba(0,212,255,0.4);
 }
 
-/* ─── INPUT CARD ────────────────────────────────────────────────────────────── */
-
 .inputCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 20px;
-  padding: 24px 28px;
-  margin-bottom: 24px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 20px 24px;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.inputCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.5) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .inputCard:focus-within {
-  border-color: rgba(0,212,255,0.22);
-  box-shadow: 0 0 0 3px rgba(0,212,255,0.05), 0 0 40px rgba(0,212,255,0.06);
+  border-color: rgba(0,212,255,0.18);
+  background: rgba(0,212,255,0.03);
+  box-shadow:
+    0 0 0 1px rgba(0,212,255,0.06),
+    0 0 40px rgba(0,212,255,0.06),
+    0 0 80px rgba(0,212,255,0.02);
+}
+
+.inputCard:focus-within::before {
+  opacity: 1;
 }
 
 .inputHeader {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 14px;
 }
 
 .inputLabel {
   font-size: 10px;
   color: #505050;
-  letter-spacing: 0.12em;
-  font-weight: 600;
+  letter-spacing: 0.15em;
+  font-weight: 700;
 }
 
 .charCount {
   font-size: 11px;
-  color: #383838;
+  color: #2a2a2a;
   font-variant-numeric: tabular-nums;
 }
 
@@ -150,19 +176,19 @@
   background: transparent;
   border: none;
   outline: none;
-  font-size: 15px;
+  font-size: 16px;
   color: white;
-  font-family: inherit;
-  line-height: 1.7;
   resize: none;
+  font-family: inherit;
+  line-height: 1.65;
   min-height: 80px;
+  max-height: 200px;
   caret-color: #00d4ff;
-  box-sizing: border-box;
 }
 
 .problemInput::placeholder {
-  color: #303030;
-  font-size: 14px;
+  color: #2a2a2a;
+  line-height: 1.65;
 }
 
 .problemInput:disabled {
@@ -173,65 +199,89 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  gap: 12px;
 }
 
 .inputHints {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
+  flex: 1;
 }
 
 .hintChip {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 11px;
   color: #606060;
-  font-size: 12px;
-  padding: 6px 14px;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.18s ease;
-  white-space: nowrap;
 }
 
 .hintChip:hover {
-  color: #c0c0c0;
-  border-color: rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.07);
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.04);
 }
 
 .thinkBtn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  gap: 10px;
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
   color: #000000;
   border: none;
   border-radius: 12px;
+  padding: 12px 26px;
   font-size: 14px;
   font-weight: 700;
-  padding: 12px 24px;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 24px rgba(0,212,255,0.4);
-  white-space: nowrap;
-  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 20px rgba(0,212,255,0.35),
+    0 0 40px rgba(0,212,255,0.15),
+    0 8px 24px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 
-.thinkBtn:hover:not(:disabled) {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-  box-shadow: 0 0 36px rgba(0,212,255,0.6);
+.thinkBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.thinkBtn:hover::before {
+  left: 100%;
+}
+
+.thinkBtn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 30px rgba(0,212,255,0.55),
+    0 0 60px rgba(0,212,255,0.25),
+    0 12px 32px rgba(0,0,0,0.4);
+}
+
+.thinkBtn:active {
+  transform: scale(0.97);
 }
 
 .thinkBtn:disabled {
-  opacity: 0.4;
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.15);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -239,6 +289,11 @@
 
 .thinkArrow {
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.thinkBtn:hover .thinkArrow {
+  transform: translate(2px, -2px);
 }
 
 .thinkingDots {
@@ -252,57 +307,50 @@
   height: 5px;
   border-radius: 50%;
   background: #000000;
-  animation: dotBounce 1.2s ease-in-out infinite;
+  animation: dotBounce 1.4s ease-in-out infinite;
 }
 
-.thinkingDots span:nth-child(2) { animation-delay: 0.15s; }
-.thinkingDots span:nth-child(3) { animation-delay: 0.3s; }
-
-/* ─── ERROR ─────────────────────────────────────────────────────────────────── */
+.thinkingDots span:nth-child(1) { animation-delay: 0s; }
+.thinkingDots span:nth-child(2) { animation-delay: 0.18s; }
+.thinkingDots span:nth-child(3) { animation-delay: 0.36s; }
 
 .errorCard {
-  padding: 14px 18px;
-  background: rgba(255,68,68,0.07);
+  background: rgba(255,68,68,0.06);
   border: 1px solid rgba(255,68,68,0.2);
-  border-radius: 12px;
-  color: #ff8080;
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #ff6b6b;
   font-size: 13px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  text-align: center;
 }
 
-/* ─── RESULTS ───────────────────────────────────────────────────────────────── */
-
 .resultsSection {
-  animation: fadeInUp 0.5s ease forwards;
+  margin-top: 32px;
+  animation: resultsEnter 0.5s ease forwards;
 }
 
 .resultsHeader {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
-.resultsTitle {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.resultsTitle h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  margin: 4px 0 0;
 }
 
 .resultsLabel {
   font-size: 10px;
   color: #00d4ff;
-  letter-spacing: 0.14em;
-  font-weight: 600;
-}
-
-.resultsTitle h2 {
-  font-size: 24px;
+  letter-spacing: 0.15em;
   font-weight: 700;
-  color: white;
-  margin: 0;
 }
 
 .resultsActions {
@@ -310,83 +358,59 @@
   gap: 8px;
 }
 
-.copyAllBtn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px;
-  color: #909090;
+.copyAllBtn, .resetBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 8px;
+  color: #606060;
   font-size: 12px;
-  font-weight: 500;
-  padding: 8px 16px;
+  padding: 8px 14px;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
-.copyAllBtn:hover {
-  color: white;
-  border-color: rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.08);
-}
-
-.resetBtn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px;
-  color: #909090;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.18s ease;
-}
-
-.resetBtn:hover {
+.copyAllBtn:hover, .resetBtn:hover {
   color: #00d4ff;
-  border-color: rgba(0,212,255,0.22);
-  background: rgba(0,212,255,0.06);
+  border-color: rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.04);
 }
-
-/* ─── STEPS TIMELINE ────────────────────────────────────────────────────────── */
 
 .stepsTimeline {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  gap: 0;
+  margin-bottom: 28px;
 }
 
 .stepCard {
   display: flex;
-  gap: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  gap: 20px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .stepHidden {
   opacity: 0;
-  transform: translateY(12px);
-  pointer-events: none;
+  transform: translateY(20px);
 }
 
 .stepVisible {
-  opacity: 1;
-  transform: translateY(0);
-  animation: stepReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: stepReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .stepConnector {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 48px;
   flex-shrink: 0;
-  padding-top: 2px;
 }
 
 .stepNumberWrap {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -394,11 +418,11 @@
 }
 
 .stepNumber {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(0,212,255,0.10);
-  border: 1.5px solid rgba(0,212,255,0.35);
+  background: rgba(0,212,255,0.08);
+  border: 1.5px solid rgba(0,212,255,0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -407,77 +431,121 @@
   color: #00d4ff;
   z-index: 2;
   position: relative;
-  box-shadow: 0 0 16px rgba(0,212,255,0.2);
+  box-shadow:
+    0 0 12px rgba(0,212,255,0.4),
+    inset 0 0 8px rgba(0,212,255,0.1);
+  animation: numberPulse 2.5s ease-in-out infinite;
 }
 
 .stepNumberRing {
   position: absolute;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid rgba(0,212,255,0.15);
-  animation: ringPulse 2.5s ease-out infinite;
+  animation: ringExpand 2.5s ease-out infinite;
 }
 
 .stepLine {
-  flex: 1;
   width: 1.5px;
-  background: rgba(255,255,255,0.06);
-  margin: 4px 0;
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  margin-top: 4px;
+  margin-bottom: 4px;
+  position: relative;
   overflow: hidden;
-  min-height: 32px;
 }
 
 .stepLineFill {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 0%;
-  background: linear-gradient(180deg, #00d4ff, rgba(0,212,255,0.3));
-  box-shadow: 0 0 6px rgba(0,212,255,0.5);
-  transition: height 0.6s ease;
+  background: linear-gradient(180deg, #00d4ff 0%, rgba(0,212,255,0.3) 100%);
+  transition: height 0.7s ease;
+  box-shadow: 0 0 4px rgba(0,212,255,0.6);
 }
 
 .stepLineFilled {
-  height: 100%;
+  height: 100% !important;
 }
 
 .stepContent {
   flex: 1;
-  padding: 4px 0 28px 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.stepContent::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid rgba(255,255,255,0.05);
+}
+
+.stepCard:hover .stepContent {
+  background: rgba(0,212,255,0.04);
+  border-color: rgba(0,212,255,0.12);
+  transform: translateX(2px);
 }
 
 .stepLabel {
   font-size: 9px;
-  color: #404040;
-  letter-spacing: 0.14em;
-  font-weight: 600;
+  color: #00d4ff;
+  letter-spacing: 0.15em;
+  font-weight: 700;
   margin-bottom: 6px;
 }
 
 .stepTitle {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: white;
-  margin: 0 0 10px 0;
-  line-height: 1.3;
+  margin: 0 0 8px;
+  line-height: 1.4;
 }
 
 .stepText {
   font-size: 14px;
   color: #909090;
-  line-height: 1.75;
+  line-height: 1.7;
   margin: 0;
 }
 
-/* ─── SUMMARY ───────────────────────────────────────────────────────────────── */
-
 .summaryCard {
-  background: rgba(0,212,255,0.04);
-  border: 1px solid rgba(0,212,255,0.14);
+  background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(0,150,255,0.03) 100%);
+  border: 1px solid rgba(0,212,255,0.15);
   border-radius: 16px;
-  padding: 22px 26px;
+  padding: 24px 28px;
+  margin-top: 8px;
   margin-bottom: 16px;
-  animation: fadeInUp 0.5s ease forwards;
-  box-shadow: 0 0 30px rgba(0,212,255,0.04);
+  animation: summaryEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 30px rgba(0,212,255,0.05),
+    inset 0 1px 0 rgba(0,212,255,0.1);
+}
+
+.summaryCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.6), transparent);
 }
 
 .summaryLabel {
@@ -486,8 +554,8 @@
   gap: 8px;
   font-size: 10px;
   color: #00d4ff;
-  letter-spacing: 0.14em;
-  font-weight: 600;
+  letter-spacing: 0.15em;
+  font-weight: 700;
   margin-bottom: 12px;
 }
 
@@ -496,34 +564,32 @@
   height: 6px;
   border-radius: 50%;
   background: #00d4ff;
-  box-shadow: 0 0 8px rgba(0,212,255,0.8);
-  animation: dotGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(0,212,255,0.8);
+  animation: dotPulse 1.5s ease-in-out infinite;
 }
 
 .summaryText {
   font-size: 15px;
-  color: #c0c0c0;
-  line-height: 1.8;
+  color: #e0e0e0;
+  line-height: 1.75;
   margin: 0;
+  font-weight: 400;
 }
 
-/* ─── ACTIONS ───────────────────────────────────────────────────────────────── */
-
 .actionsCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 16px;
-  padding: 22px 26px;
-  margin-bottom: 40px;
-  animation: fadeInUp 0.5s ease forwards;
+  padding: 24px 28px;
+  animation: actionsEnter 0.5s ease forwards;
 }
 
 .actionsLabel {
   font-size: 10px;
   color: #505050;
-  letter-spacing: 0.14em;
-  font-weight: 600;
-  margin-bottom: 16px;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 14px;
 }
 
 .actionsList {
@@ -537,31 +603,34 @@
   align-items: flex-start;
   gap: 14px;
   padding: 14px 16px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 12px;
-  animation: slideInLeft 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  background: rgba(0,212,255,0.03);
+  border: 1px solid rgba(0,212,255,0.08);
+  border-radius: 10px;
+  opacity: 0;
+  animation: actionItemReveal 0.4s ease forwards;
   transition: all 0.2s ease;
+  cursor: default;
 }
 
 .actionItem:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(0,212,255,0.14);
+  background: rgba(0,212,255,0.06);
+  border-color: rgba(0,212,255,0.18);
+  transform: translateX(2px);
 }
 
 .actionNum {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: rgba(0,212,255,0.10);
-  border: 1px solid rgba(0,212,255,0.25);
+  background: #00d4ff;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
   font-weight: 700;
-  color: #00d4ff;
   flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0,212,255,0.5);
 }
 
 .actionText {
@@ -572,53 +641,111 @@
   padding-top: 2px;
 }
 
-/* ─── ANIMATIONS ────────────────────────────────────────────────────────────── */
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes stepReveal {
-  from { opacity: 0; transform: translateX(-8px); }
-  to   { opacity: 1; transform: translateX(0); }
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
 }
 
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-12px); }
-  to   { opacity: 1; transform: translateX(0); }
+@keyframes prismFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(2deg); }
+  66% { transform: translateY(-5px) rotate(-2deg); }
 }
 
-@keyframes iconFloat {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
+@keyframes prismGlowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(0,212,255,0.8)) drop-shadow(0 0 32px rgba(0,212,255,0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(0,212,255,1)) drop-shadow(0 0 64px rgba(0,212,255,0.7)) drop-shadow(0 0 120px rgba(0,212,255,0.3));
+  }
 }
 
-@keyframes ringPulse {
-  0%   { transform: scale(1);   opacity: 0.6; }
-  100% { transform: scale(1.6); opacity: 0; }
+@keyframes deepShimmer {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(0,212,255,1), 0 0 20px rgba(0,212,255,0.6), 0 0 40px rgba(0,212,255,0.3);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(0,212,255,1), 0 0 32px rgba(0,212,255,0.8), 0 0 64px rgba(0,212,255,0.5), 0 0 100px rgba(0,212,255,0.2);
+  }
 }
 
 @keyframes dotBounce {
-  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
-  40%            { transform: scale(1);   opacity: 1; }
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
 }
 
-@keyframes dotGlow {
-  0%, 100% { box-shadow: 0 0 6px rgba(0,212,255,0.6); }
-  50%       { box-shadow: 0 0 14px rgba(0,212,255,1); }
+@keyframes resultsEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── RESPONSIVE ────────────────────────────────────────────────────────────── */
+@keyframes stepReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@keyframes numberPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(0,212,255,0.4), inset 0 0 8px rgba(0,212,255,0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0,212,255,0.7), 0 0 40px rgba(0,212,255,0.3), inset 0 0 12px rgba(0,212,255,0.15);
+  }
+}
+
+@keyframes ringExpand {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@keyframes summaryEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes actionsEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes actionItemReveal {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
 
 @media (max-width: 768px) {
-  .page        { padding: 20px 16px; }
-  .titleDeep   { font-size: 28px; }
-  .heroSub     { display: none; }
-  .inputCard   { padding: 18px 20px; }
+  .page { padding: 20px 16px 60px; }
+  .heroTitle { font-size: 28px; }
+  .deepIcon { width: 40px; height: 40px; }
   .inputFooter { flex-direction: column; align-items: stretch; }
-  .thinkBtn    { justify-content: center; }
-  .inputHints  { display: none; }
-  .resultsHeader { flex-direction: column; align-items: flex-start; }
-  .stepContent { padding-left: 14px; }
+  .thinkBtn { width: 100%; justify-content: center; }
+  .resultsHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .stepConnector { width: 36px; }
+  .stepNumberWrap, .stepNumberRing { width: 36px; height: 36px; }
+  .stepNumber { width: 32px; height: 32px; font-size: 12px; }
 }
