@@ -33,6 +33,13 @@ export default function ThinkingPage() {
   }, [])
 
   useEffect(() => {
+    const el = textareaRef.current
+    if (!el) return
+    el.style.height = "auto"
+    el.style.height = Math.min(el.scrollHeight, 200) + "px"
+  }, [problem])
+
+  useEffect(() => {
     if (result && resultsRef.current) {
       resultsRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
     }
@@ -121,7 +128,10 @@ export default function ThinkingPage() {
     setShowSummary(false)
     setShowActions(false)
     setError("")
-    textareaRef.current?.focus()
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"
+      textareaRef.current.focus()
+    }
   }
 
   return (
