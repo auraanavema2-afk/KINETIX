@@ -21,7 +21,7 @@
 
 .subtitle {
   font-size: 13px;
-  color: #383838;
+  color: #606060;
 }
 
 .refreshBtn {
@@ -50,16 +50,16 @@
 }
 
 .goalCard {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(0,212,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,212,255,0.14);
   border-radius: 14px;
   padding: 22px 24px;
-  box-shadow: 0 0 30px rgba(0,212,255,0.04);
+  box-shadow: 0 0 30px rgba(0,212,255,0.05);
 }
 
 .momentumCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 22px 24px;
   display: flex;
@@ -70,8 +70,8 @@
 }
 
 .statsCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 22px 24px;
   min-width: 180px;
@@ -80,7 +80,7 @@
 .cardLabel {
   font-size: 9px;
   letter-spacing: 0.14em;
-  color: #2a2a2a;
+  color: #505050;
   text-transform: uppercase;
   font-weight: 600;
   margin-bottom: 10px;
@@ -158,7 +158,7 @@
 
 .momentumLabel {
   font-size: 11px;
-  color: #383838;
+  color: #606060;
   text-align: center;
 }
 
@@ -186,7 +186,7 @@
 
 .statLabel {
   font-size: 10px;
-  color: #2a2a2a;
+  color: #606060;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -216,7 +216,7 @@
 
 .actionsCount {
   font-size: 12px;
-  color: #303030;
+  color: #606060;
 }
 
 .actionsList {
@@ -243,17 +243,18 @@
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.22s ease;
 }
 
 .actionCard:hover {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(0,212,255,0.1);
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(0,212,255,0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 
 .actionDone {
@@ -309,7 +310,7 @@
 
 .actionTime {
   font-size: 11px;
-  color: #303030;
+  color: #505050;
 }
 
 .actionPriority {
@@ -334,15 +335,15 @@
 }
 
 .obstacleCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 20px 24px;
 }
 
 .obstacleText {
   font-size: 14px;
-  color: #606060;
+  color: #808080;
   line-height: 1.6;
 }
 

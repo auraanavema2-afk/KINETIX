@@ -13,10 +13,10 @@
   top: 0;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border-right: 1px solid rgba(0,212,255,0.05);
+  background: rgba(8, 8, 12, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
   z-index: 100;
 }
 
@@ -30,7 +30,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0,212,255,0.5) 50%,
+    rgba(0, 212, 255, 0.5) 50%,
     transparent 100%
   );
   animation: topLineGlow 4s ease-in-out infinite;
@@ -38,7 +38,7 @@
 
 .sidebarTop {
   padding: 22px 18px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .brand {
@@ -48,7 +48,7 @@
 }
 
 .prismIcon {
-  filter: drop-shadow(0 0 6px rgba(0,212,255,0.8));
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.8));
   animation: prismSpin 3s ease-in-out infinite;
   flex-shrink: 0;
 }
@@ -59,9 +59,9 @@
   letter-spacing: 5px;
   color: white;
   text-shadow:
-    0 0 8px rgba(0,212,255,0.8),
-    0 0 16px rgba(0,212,255,0.4),
-    0 0 32px rgba(0,212,255,0.15);
+    0 0 8px rgba(0, 212, 255, 0.8),
+    0 0 16px rgba(0, 212, 255, 0.4),
+    0 0 32px rgba(0, 212, 255, 0.15);
 }
 
 .nav {
@@ -92,7 +92,7 @@
 .navSection {
   font-size: 9px;
   letter-spacing: 0.14em;
-  color: #222222;
+  color: #383838;
   padding: 12px 12px 5px;
   font-weight: 600;
   text-transform: uppercase;
@@ -103,8 +103,8 @@
   align-items: center;
   gap: 10px;
   padding: 9px 12px;
-  border-radius: 8px;
-  color: #404040;
+  border-radius: 9px;
+  color: #505050;
   text-decoration: none;
   transition: all 0.18s ease;
   position: relative;
@@ -112,14 +112,17 @@
 }
 
 .navItem:hover {
-  color: #909090;
-  background: rgba(255,255,255,0.025);
+  color: #c0c0c0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
 }
 
 .active {
   color: #00d4ff !important;
-  background: rgba(0,212,255,0.06) !important;
-  box-shadow: inset 0 0 20px rgba(0,212,255,0.03);
+  background: rgba(0, 212, 255, 0.08) !important;
+  border: 1px solid rgba(0, 212, 255, 0.12);
+  border-radius: 9px;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.06) inset;
 }
 
 .navEmoji {
@@ -131,7 +134,7 @@
 
 .navLabel {
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .activeDot {
@@ -149,14 +152,14 @@
   );
   border-radius: 0 2px 2px 0;
   box-shadow:
-    0 0 6px rgba(0,212,255,1),
-    0 0 12px rgba(0,212,255,0.6),
-    0 0 24px rgba(0,212,255,0.3);
+    0 0 6px rgba(0, 212, 255, 1),
+    0 0 12px rgba(0, 212, 255, 0.6),
+    0 0 24px rgba(0, 212, 255, 0.3);
 }
 
 .divider {
   height: 1px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255, 255, 255, 0.03);
   margin: 6px 10px;
 }
 
@@ -166,7 +169,7 @@
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  border-top: 1px solid rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
   margin-top: 4px;
 }
 
@@ -180,7 +183,7 @@
 
 .newConvBtn {
   background: none;
-  border: 1px solid rgba(0,212,255,0.15);
+  border: 1px solid rgba(0, 212, 255, 0.15);
   border-radius: 5px;
   color: #00d4ff;
   width: 20px;
@@ -196,9 +199,9 @@
 }
 
 .newConvBtn:hover {
-  background: rgba(0,212,255,0.08);
-  border-color: rgba(0,212,255,0.3);
-  box-shadow: 0 0 8px rgba(0,212,255,0.2);
+  background: rgba(0, 212, 255, 0.08);
+  border-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
 }
 
 .convList {
@@ -226,7 +229,7 @@
   display: block;
   padding: 7px 12px;
   border-radius: 7px;
-  color: #383838;
+  color: #454545;
   text-decoration: none;
   font-size: 12px;
   white-space: nowrap;
@@ -237,19 +240,19 @@
 }
 
 .convItem:hover {
-  color: #707070;
-  background: rgba(255,255,255,0.02);
+  color: #909090;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .convActive {
-  color: #909090 !important;
-  background: rgba(255,255,255,0.035) !important;
-  border-left: 1.5px solid rgba(0,212,255,0.2);
+  color: #c0c0c0 !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  border-left: 2px solid rgba(0, 212, 255, 0.35);
 }
 
 .convEmpty {
   font-size: 11px;
-  color: #242424;
+  color: #303030;
   padding: 16px 12px;
   text-align: center;
 }
@@ -276,7 +279,7 @@
 
 .sidebarBottom {
   padding: 12px 10px;
-  border-top: 1px solid rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
   flex-shrink: 0;
 }
 
@@ -291,15 +294,15 @@
 }
 
 .userCard:hover {
-  background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .avatar {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(0,212,255,0.07);
-  border: 1px solid rgba(0,212,255,0.2);
+  background: rgba(0, 212, 255, 0.10);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,12 +311,12 @@
   color: #00d4ff;
   flex-shrink: 0;
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(0,212,255,0.12);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.12);
 }
 
 .userCard:hover .avatar {
-  box-shadow: 0 0 12px rgba(0,212,255,0.3), 0 0 24px rgba(0,212,255,0.1);
-  border-color: rgba(0,212,255,0.35);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.3), 0 0 24px rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.35);
 }
 
 .userInfo {
@@ -323,7 +326,7 @@
 
 .userName {
   font-size: 12px;
-  color: #606060;
+  color: #808080;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -331,7 +334,7 @@
 
 .userPlan {
   font-size: 9px;
-  color: #222222;
+  color: #383838;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-top: 2px;
@@ -340,7 +343,7 @@
 .signOutBtn {
   background: none;
   border: none;
-  color: #242424;
+  color: #383838;
   cursor: pointer;
   font-size: 14px;
   padding: 4px 6px;
@@ -351,7 +354,7 @@
 
 .signOutBtn:hover {
   color: #00d4ff;
-  background: rgba(0,212,255,0.06);
+  background: rgba(0, 212, 255, 0.06);
 }
 
 .main {
@@ -369,11 +372,11 @@
 
 @keyframes prismSpin {
   0%, 100% {
-    filter: drop-shadow(0 0 6px rgba(0,212,255,0.8));
+    filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.8));
     transform: rotate(0deg);
   }
   50% {
-    filter: drop-shadow(0 0 14px rgba(0,212,255,1)) drop-shadow(0 0 28px rgba(0,212,255,0.5));
+    filter: drop-shadow(0 0 14px rgba(0, 212, 255, 1)) drop-shadow(0 0 28px rgba(0, 212, 255, 0.5));
     transform: rotate(5deg);
   }
 }

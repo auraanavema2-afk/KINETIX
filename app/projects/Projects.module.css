@@ -141,7 +141,7 @@
 
 .emptySub {
   font-size: 13px;
-  color: #303030;
+  color: #606060;
   margin: 0;
 }
 
@@ -169,18 +169,18 @@
 }
 
 .projectCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 20px;
   transition: all 0.22s ease;
 }
 
 .projectCard:hover {
-  background: rgba(255,255,255,0.035);
-  border-color: rgba(0,212,255,0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(0,212,255,0.18);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,255,0.06);
 }
 
 .projectHeader {
@@ -246,7 +246,7 @@
 .actionBtn {
   background: none;
   border: none;
-  color: #303030;
+  color: #606060;
   cursor: pointer;
   font-size: 14px;
   padding: 4px 6px;
@@ -262,7 +262,7 @@
 .deleteBtn {
   background: none;
   border: none;
-  color: #282828;
+  color: #505050;
   cursor: pointer;
   font-size: 16px;
   padding: 2px 6px;
@@ -282,7 +282,7 @@
 
 .convCount {
   font-size: 11px;
-  color: #2a2a2a;
+  color: #505050;
 }
 
 .projectConvs {
@@ -293,10 +293,10 @@
 
 .convPreview {
   font-size: 12px;
-  color: #383838;
+  color: #606060;
   padding: 6px 10px;
   border-radius: 7px;
-  background: rgba(255,255,255,0.02);
+  background: rgba(255,255,255,0.03);
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -305,13 +305,13 @@
 }
 
 .convPreview:hover {
-  color: #707070;
-  background: rgba(255,255,255,0.04);
+  color: #a0a0a0;
+  background: rgba(255,255,255,0.06);
 }
 
 .moreConvs {
   font-size: 11px;
-  color: #242424;
+  color: #505050;
   padding: 4px 10px;
   text-align: center;
 }

@@ -14,7 +14,7 @@
 .tabs {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 28px;
 }
 
@@ -22,7 +22,7 @@
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #404040;
+  color: #505050;
   font-size: 14px;
   padding: 10px 20px;
   cursor: pointer;
@@ -32,7 +32,7 @@
 }
 
 .tab:hover {
-  color: #808080;
+  color: #a0a0a0;
 }
 
 .activeTab {
@@ -66,7 +66,7 @@
 .planLabel {
   font-size: 9px;
   letter-spacing: 0.12em;
-  color: #2a2a2a;
+  color: #505050;
   text-transform: uppercase;
   margin-bottom: 8px;
   font-weight: 600;
@@ -118,12 +118,12 @@
 
 .usageLabel {
   font-size: 12px;
-  color: #404040;
+  color: #606060;
 }
 
 .usageCount {
   font-size: 12px;
-  color: #606060;
+  color: #808080;
   font-variant-numeric: tabular-nums;
 }
 
@@ -200,8 +200,8 @@
 }
 
 .infoCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 20px 24px;
 }
@@ -227,20 +227,20 @@
 
 .featureLabel {
   font-size: 10px;
-  color: #282828;
+  color: #505050;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .featureValue {
   font-size: 14px;
-  color: #606060;
+  color: #808080;
   font-weight: 500;
 }
 
 .accountCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 24px;
   display: flex;
@@ -277,7 +277,7 @@
 
 .accountEmail {
   font-size: 13px;
-  color: #404040;
+  color: #606060;
 }
 
 .dangerZone {

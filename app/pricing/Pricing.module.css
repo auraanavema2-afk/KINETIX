@@ -46,7 +46,7 @@
 .backBtn {
   background: transparent;
   border: none;
-  color: #383838;
+  color: #505050;
   font-size: 13px;
   cursor: pointer;
   font-family: inherit;
@@ -82,7 +82,7 @@
 
 .heroSub {
   font-size: 15px;
-  color: #383838;
+  color: #606060;
   max-width: 440px;
   margin: 0 auto;
   line-height: 1.6;
@@ -98,7 +98,7 @@
 
 .toggleLabel {
   font-size: 13px;
-  color: #383838;
+  color: #606060;
   transition: color 0.2s ease;
   display: flex;
   align-items: center;
@@ -163,8 +163,8 @@
 }
 
 .planCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 16px;
   padding: 22px 18px;
   position: relative;
@@ -175,9 +175,10 @@
 }
 
 .planCard:hover {
-  border-color: rgba(0,212,255,0.08);
-  background: rgba(255,255,255,0.03);
-  transform: translateY(-2px);
+  border-color: rgba(0,212,255,0.18);
+  background: rgba(255,255,255,0.07);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,255,0.06);
 }
 
 .popularCard {
@@ -250,7 +251,7 @@
 
 .originalPrice {
   font-size: 13px;
-  color: #383838;
+  color: #505050;
   text-decoration: line-through;
   display: block;
   margin-bottom: 2px;
@@ -277,12 +278,12 @@
 
 .period {
   font-size: 11px;
-  color: #404040;
+  color: #606060;
 }
 
 .annualNote {
   font-size: 10px;
-  color: #2a2a2a;
+  color: #505050;
   margin-top: 4px;
 }
 
@@ -315,13 +316,13 @@
 
 .featureText {
   font-size: 12px;
-  color: #606060;
+  color: #808080;
   line-height: 1.4;
 }
 
 .featureTextNo {
   font-size: 12px;
-  color: #282828;
+  color: #404040;
   line-height: 1.4;
 }
 
@@ -378,7 +379,7 @@
 
 .promoLabel {
   font-size: 12px;
-  color: #303030;
+  color: #606060;
   margin-bottom: 10px;
 }
 
@@ -445,7 +446,7 @@
 
 .footerLink {
   font-size: 12px;
-  color: #282828;
+  color: #505050;
   text-decoration: none;
   transition: color 0.2s ease;
 }
