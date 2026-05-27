@@ -54,14 +54,14 @@
 }
 
 .brandName {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   color: white;
   text-shadow:
-    0 0 8px rgba(0, 212, 255, 0.8),
-    0 0 16px rgba(0, 212, 255, 0.4),
-    0 0 32px rgba(0, 212, 255, 0.15);
+    0 0 8px rgba(0,212,255,0.8),
+    0 0 16px rgba(0,212,255,0.4),
+    0 0 32px rgba(0,212,255,0.15);
 }
 
 .nav {
