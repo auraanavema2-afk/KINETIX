@@ -9,7 +9,7 @@ import { db } from "@/lib/firebase"
 import styles from "./Soul.module.css"
 
 const SOUL_FIELDS = [
-  { key: "name",         label: "Your Name",         placeholder: "What should Kinet call you?" },
+  { key: "name",         label: "Your Name",         placeholder: "What should Kaizen call you?" },
   { key: "bigGoal",      label: "Big Goal",           placeholder: "What's the one thing you're building toward?" },
   { key: "bigObstacle",  label: "Biggest Obstacle",   placeholder: "What's standing in your way?" },
   { key: "helpNeeded",   label: "Help Needed",        placeholder: "What kind of support do you need most?" },
@@ -63,7 +63,7 @@ export default function SoulPage() {
             <div>
               <h1 className={styles.title}>Soul Profile</h1>
               <p className={styles.subtitle}>
-                {soul.name ? `${soul.name}'s inner blueprint` : "Your inner blueprint — shape who Kinet thinks you are"}
+                {soul.name ? `${soul.name}'s inner blueprint` : "Your inner blueprint — shape who Kaizen thinks you are"}
               </p>
             </div>
             <div className={styles.prismWrap}>
@@ -135,7 +135,7 @@ export default function SoulPage() {
             </div>
             {memories.length === 0 ? (
               <p className={styles.memoriesEmpty}>
-                Kinet will store key insights here as you chat — your values, patterns, and breakthroughs.
+                Kaizen will store key insights here as you chat — your values, patterns, and breakthroughs.
               </p>
             ) : (
               <div className={styles.memoriesGrid}>

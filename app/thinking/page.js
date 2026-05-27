@@ -112,7 +112,7 @@ export default function ThinkingPage() {
 
   const handleCopyAll = async () => {
     if (!result) return
-    const text = `KINET 4 DEEP ANALYSIS\n\nProblem: ${problem}\n\n` +
+    const text = `KAIZEN 4 DEEP ANALYSIS\n\nProblem: ${problem}\n\n` +
       result.steps.map(s => `Step ${s.step}: ${s.title}\n${s.content}`).join("\n\n") +
       `\n\nSummary: ${result.summary}\n\nNext Actions:\n` +
       result.actions.map((a, i) => `${i + 1}. ${a}`).join("\n")
@@ -161,7 +161,7 @@ export default function ThinkingPage() {
                 <circle cx="30" cy="5" r="2.5" fill="#80eaff" filter="url(#deepGlow)"/>
               </svg>
               <h1 className={styles.heroTitle}>
-                <span className={styles.titleKinet}>Kaizen 4</span>
+                <span className={styles.titleKaizen}>Kaizen 4</span>
                 <span className={styles.titleDeep}>Deep</span>
               </h1>
               <p className={styles.heroSub}>
