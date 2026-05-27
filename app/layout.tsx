@@ -3,44 +3,22 @@ import type { Metadata } from "next";
 import Providers from "@/components/providers/Providers";
 
 export const metadata: Metadata = {
-  title: {
-    default: "The Kaizen — Your Second Brain. Built for Builders.",
-    template: "%s | The Kaizen",
-  },
-  description:
-    "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
-  keywords: [
-    "AI platform India",
-    "Kaizen 4",
-    "The Kaizen",
-    "AI assistant India",
-    "app builder AI",
-    "AI memory",
-    "second brain",
-    "AI for students",
-    "AI for developers",
-    "AI for founders",
-  ],
-  authors: [{ name: "Vema", url: "https://kaizen.ai" }],
+  title: "The Kaizen — Your AI for continuous improvement",
+  description: "The first AI platform built on continuous improvement. It learns who you are, remembers everything about you, and gets smarter about you specifically every single day.",
+  keywords: ["AI", "personal AI", "kaizen", "continuous improvement", "AI assistant", "India AI"],
+  authors: [{ name: "The Kaizen" }],
   openGraph: {
-    type: "website",
-    locale: "en_IN",
-    url: "https://kaizen.ai",
+    title: "The Kaizen — Your AI for continuous improvement",
+    description: "The first AI platform that knows you and grows with you. Built on the Japanese philosophy of continuous improvement.",
+    url: "https://thekaizen.vercel.app",
     siteName: "The Kaizen",
-    title: "The Kaizen — Your Second Brain. Built for Builders.",
-    description:
-      "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
+    locale: "en_IN",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Kaizen — Your Second Brain. Built for Builders.",
-    description:
-      "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
-    creator: "@kaizenai",
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "The Kaizen — Your AI for continuous improvement",
+    description: "The first AI platform that knows you and grows with you.",
   },
 };
 
