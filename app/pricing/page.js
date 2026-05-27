@@ -158,6 +158,41 @@ export default function PricingPage() {
       <AnimatedBackground variant="default" />
       <div className={styles.page}>
 
+        <div style={{
+          background: "rgba(0,212,255,0.08)",
+          border: "1px solid rgba(0,212,255,0.2)",
+          borderRadius: "12px",
+          padding: "16px 24px",
+          textAlign: "center",
+          margin: "24px auto 0",
+          maxWidth: "800px",
+        }}>
+          <div style={{
+            fontSize: "12px",
+            color: "#00d4ff",
+            fontWeight: 700,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            marginBottom: "6px",
+          }}>
+            Soft Launch Period
+          </div>
+          <div style={{
+            fontSize: "15px",
+            color: "white",
+            fontWeight: 500,
+            marginBottom: "4px",
+          }}>
+            All features FREE during launch
+          </div>
+          <div style={{
+            fontSize: "12px",
+            color: "#707070",
+          }}>
+            Pricing activates after July 31. Early users keep free access permanently.
+          </div>
+        </div>
+
         {festival && (
           <div className={styles.festivalBanner}>
             <span className={styles.festivalEmoji}>{festival.emoji}</span>
