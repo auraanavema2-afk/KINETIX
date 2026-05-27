@@ -26,7 +26,7 @@ export default function ThinkingPage() {
   const resultsRef = useRef(null)
 
   const plan = userDoc?.plan || "spark"
-  const hasAccess = canUseFeature(plan, "structuredThinking")
+  const hasAccess = true
 
   useEffect(() => {
     textareaRef.current?.focus()
