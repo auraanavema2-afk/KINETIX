@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
@@ -13,7 +12,6 @@ import {
 import styles from "./LegacySettings.module.css"
 
 export default function LegacySettingsPage() {
-  const router = useRouter()
   const { user, userDoc, setUserDoc } = useAuth()
   const [slug, setSlug] = useState("")
   const [isPublic, setIsPublic] = useState(false)
