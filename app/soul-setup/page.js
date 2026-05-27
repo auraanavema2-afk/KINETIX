@@ -103,7 +103,7 @@ export default function SoulSetupPage() {
             <div className={styles.completionTitle}>Kaizen 4 is ready for you</div>
             <div className={styles.completionName}>{answers[0]}</div>
             <div className={styles.completionSub}>
-              Your AI now knows who you are. Every conversation starts with context.
+              Your AI now knows who you are. Every conversation makes it smarter. Continuous improvement, every day.
             </div>
             <button
               className={styles.openBtn}
