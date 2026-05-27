@@ -1,20 +1,18 @@
 .page {
   min-height: 100vh;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 20px 80px;
   position: relative;
   z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 24px 60px;
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
-/* ── NAV ─────────────────────────────────────────────────── */
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
-  margin-bottom: 32px;
+  padding: 8px 0 32px;
 }
 
 .navBrand {
@@ -26,29 +24,391 @@
   font-weight: 700;
   letter-spacing: 4px;
   color: white;
-  text-shadow: 0 0 8px rgba(0,212,255,0.8);
+  text-shadow: 0 0 8px rgba(0,212,255,0.7);
 }
 
 .navPrism {
-  filter: drop-shadow(0 0 6px rgba(0,212,255,0.8));
+  filter: drop-shadow(0 0 4px rgba(0,212,255,0.7));
+  animation: prismFloat 3s ease-in-out infinite;
 }
 
 .navBtn {
-  font-size: 12px;
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 9px;
   color: #00d4ff;
+  font-size: 12px;
+  padding: 8px 16px;
   text-decoration: none;
-  border: 1px solid rgba(0,212,255,0.2);
-  border-radius: 20px;
-  padding: 7px 16px;
   transition: all 0.2s ease;
+  font-weight: 500;
 }
 
 .navBtn:hover {
-  background: rgba(0,212,255,0.08);
-  border-color: rgba(0,212,255,0.4);
+  background: rgba(0,212,255,0.12);
+  box-shadow: 0 0 16px rgba(0,212,255,0.25);
+  transform: translateY(-1px);
 }
 
-/* ── LOADING / NOT FOUND ─────────────────────────────────── */
+.profileCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,212,255,0.1);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow:
+    0 0 60px rgba(0,212,255,0.06),
+    0 0 120px rgba(0,212,255,0.02);
+}
+
+.profileGlow {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(0,212,255,0.15) 0%, rgba(0,150,255,0.08) 100%);
+  border: 2px solid rgba(0,212,255,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #00d4ff;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 12px rgba(0,212,255,0.6);
+  box-shadow:
+    0 0 24px rgba(0,212,255,0.3),
+    inset 0 0 16px rgba(0,212,255,0.1);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarRing {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,212,255,0.2);
+  animation: ringExpand 2.5s ease-out infinite;
+}
+
+.profileName {
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.profileBio {
+  font-size: 15px;
+  color: #909090;
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.profileMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: #606060;
+  position: relative;
+  z-index: 1;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaIcon {
+  font-size: 12px;
+}
+
+.metaDivider {
+  color: #2a2a2a;
+}
+
+.shareRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.shareBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #909090;
+  font-size: 12px;
+  padding: 9px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.shareBtn:hover {
+  color: #00d4ff;
+  border-color: rgba(0,212,255,0.2);
+  background: rgba(0,212,255,0.05);
+  transform: translateY(-1px);
+}
+
+.shareBtn span {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.statCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+  transition: all 0.22s ease;
+}
+
+.statCard:hover {
+  border-color: rgba(0,212,255,0.12);
+  background: rgba(0,212,255,0.03);
+  transform: translateY(-2px);
+}
+
+.statNum {
+  font-size: 26px;
+  font-weight: 700;
+  color: #00d4ff;
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(0,212,255,0.4);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 10px;
+  color: #383838;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.kinesSection {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  margin: 0 0 12px;
+}
+
+.kinesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.kineCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.kineCard:hover {
+  background: rgba(0,212,255,0.04);
+  border-color: rgba(0,212,255,0.12);
+  transform: translateY(-1px);
+}
+
+.kineAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.kineInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.kineName {
+  font-size: 13px;
+  color: white;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.kineUses {
+  font-size: 11px;
+  color: #383838;
+}
+
+.philosophyCard {
+  background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, rgba(0,150,255,0.02) 100%);
+  border: 1px solid rgba(0,212,255,0.1);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.philosophyLabel {
+  font-size: 9px;
+  color: #00d4ff;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.philosophyText {
+  font-size: 13px;
+  color: #909090;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.philosophyText strong {
+  color: #00d4ff;
+  font-weight: 500;
+}
+
+.ctaCard {
+  background: rgba(0,212,255,0.05);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 16px;
+  padding: 24px 28px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ctaTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px;
+}
+
+.ctaText {
+  font-size: 13px;
+  color: #707070;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaBtn {
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(0,212,255,0.35);
+}
+
+.ctaBtn:hover {
+  background: #33ddff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(0,212,255,0.55);
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+
+.footer p {
+  font-size: 11px;
+  color: #2a2a2a;
+  margin: 0;
+}
+
+.footer a {
+  color: #404040;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #00d4ff;
+}
 
 .loadingState {
   display: flex;
@@ -59,393 +419,90 @@
 }
 
 .loadingDot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #00d4ff;
-  animation: dotPulse 1.4s ease-in-out infinite;
+  background: rgba(0,212,255,0.5);
+  animation: dotPulse 1.2s ease-in-out infinite;
 }
 
 .loadingDot:nth-child(2) { animation-delay: 0.2s; }
 .loadingDot:nth-child(3) { animation-delay: 0.4s; }
 
 .notFoundCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
   text-align: center;
-  gap: 12px;
+  padding: 60px 24px;
+  margin-top: 60px;
 }
 
 .notFoundIcon {
-  font-size: 32px;
-  color: #303030;
+  font-size: 48px;
+  color: rgba(0,212,255,0.3);
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 12px rgba(0,212,255,0.3));
 }
 
 .notFoundTitle {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 500;
   color: white;
+  margin: 0 0 8px;
 }
 
 .notFoundText {
   font-size: 14px;
-  color: #505050;
+  color: #404040;
+  margin: 0 0 24px;
 }
 
 .notFoundBtn {
-  margin-top: 8px;
-  background: transparent;
-  border: 1px solid rgba(0,212,255,0.2);
-  border-radius: 10px;
-  color: #00d4ff;
-  font-size: 13px;
-  padding: 10px 24px;
+  background: #00d4ff;
+  color: #000000;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.2s ease;
+  box-shadow: 0 0 16px rgba(0,212,255,0.3);
 }
 
 .notFoundBtn:hover {
-  background: rgba(0,212,255,0.08);
-  border-color: rgba(0,212,255,0.4);
-}
-
-/* ── PROFILE CARD ────────────────────────────────────────── */
-
-.profileCard {
-  position: relative;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 24px;
-  padding: 40px 32px 32px;
-  text-align: center;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.profileGlow {
-  position: absolute;
-  top: -60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 200px;
-  background: radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.avatarWrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(0,212,255,0.1);
-  border: 1px solid rgba(0,212,255,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: #00d4ff;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatarRing {
-  position: absolute;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  border: 1px solid rgba(0,212,255,0.15);
-  animation: ringPulse 3s ease-in-out infinite;
-}
-
-.profileName {
-  font-size: 28px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.profileBio {
-  font-size: 14px;
-  color: #808080;
-  line-height: 1.6;
-  max-width: 480px;
-  margin: 0 auto 16px;
-}
-
-.profileMeta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.metaItem {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  color: #606060;
-}
-
-.metaIcon {
-  font-size: 14px;
-}
-
-.metaDivider {
-  color: #303030;
-}
-
-.shareRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.shareBtn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  color: #808080;
-  font-size: 12px;
-  padding: 7px 16px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-.shareBtn:hover {
-  color: white;
-  border-color: rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.07);
-}
-
-/* ── STATS ───────────────────────────────────────────────── */
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.statCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 14px;
-  padding: 20px 12px;
-  text-align: center;
-}
-
-.statNum {
-  font-size: 26px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 4px;
-  font-variant-numeric: tabular-nums;
-}
-
-.statLabel {
-  font-size: 10px;
-  color: #404040;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-/* ── KINES ───────────────────────────────────────────────── */
-
-.kinesSection {
-  margin-bottom: 16px;
-}
-
-.sectionTitle {
-  font-size: 11px;
-  font-weight: 600;
-  color: #404040;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 10px;
-  padding-left: 4px;
-}
-
-.kinesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
-.kineCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 14px 16px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.kineCard:hover {
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(0,212,255,0.12);
-}
-
-.kineAvatar {
-  font-size: 22px;
-  flex-shrink: 0;
-}
-
-.kineInfo {
-  min-width: 0;
-}
-
-.kineName {
-  font-size: 13px;
-  font-weight: 500;
-  color: #c0c0c0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.kineUses {
-  font-size: 11px;
-  color: #404040;
-  margin-top: 2px;
-}
-
-/* ── PHILOSOPHY ──────────────────────────────────────────── */
-
-.philosophyCard {
-  background: rgba(0,212,255,0.03);
-  border: 1px solid rgba(0,212,255,0.08);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 16px;
-}
-
-.philosophyLabel {
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba(0,212,255,0.5);
-  margin-bottom: 10px;
-}
-
-.philosophyText {
-  font-size: 14px;
-  color: #707070;
-  line-height: 1.7;
-}
-
-.philosophyText strong {
-  color: #00d4ff;
-}
-
-/* ── CTA ─────────────────────────────────────────────────── */
-
-.ctaCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 20px;
-  padding: 32px;
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.ctaTitle {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 8px;
-}
-
-.ctaText {
-  font-size: 13px;
-  color: #606060;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.ctaBtn {
-  background: #00d4ff;
-  color: #000;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 12px 28px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 20px rgba(0,212,255,0.3);
-}
-
-.ctaBtn:hover {
   background: #33ddff;
   transform: translateY(-1px);
-  box-shadow: 0 0 32px rgba(0,212,255,0.5);
 }
 
-/* ── FOOTER ──────────────────────────────────────────────── */
-
-.footer {
-  text-align: center;
-  font-size: 12px;
-  color: #303030;
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.footer a {
-  color: #404040;
-  text-decoration: none;
+@keyframes ringExpand {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
 }
 
-.footer a:hover {
-  color: #00d4ff;
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes prismFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
 
 @keyframes dotPulse {
-  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes ringPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.1); }
 }
 
 @media (max-width: 600px) {
+  .page { padding: 20px 16px 40px; }
+  .profileCard { padding: 32px 20px; }
+  .profileName { font-size: 24px; }
   .statsGrid { grid-template-columns: repeat(2, 1fr); }
   .kinesGrid { grid-template-columns: 1fr; }
-  .profileCard { padding: 32px 20px 24px; }
-  .profileName { font-size: 22px; }
 }
