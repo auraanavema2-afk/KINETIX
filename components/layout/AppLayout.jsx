@@ -23,6 +23,7 @@ const TOOLS_NAV = [
   { href: "/thinking",  emoji: "⚡", label: "Deep Think" },
   { section: "Explore" },
   { href: "/kines",     emoji: "🌌", label: "Kines" },
+  { href: "/legacy",    emoji: "👤", label: "Legacy" },
   { href: "/settings",  emoji: "⚙️",  label: "Settings" },
 ];
 
