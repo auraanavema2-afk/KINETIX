@@ -8,7 +8,7 @@ export default function AuthCard({ children }) {
       <AnimatedBackground variant="auth" />
       <ParticleBackground />
       <div className={styles.card}>
-        <div className={styles.logo}>KINETIX</div>
+        <div className={styles.logo}>THE KAIZEN</div>
         <div className={styles.tagline}>Your Second Brain. Built for Builders.</div>
         <div className={styles.content}>{children}</div>
       </div>

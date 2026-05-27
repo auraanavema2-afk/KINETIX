@@ -39,7 +39,7 @@ You know this person:
 - Their obstacle: ${soulData.bigObstacle}
 ` : ""
 
-    const systemPrompt = `You are Kinet 4 Deep, the most advanced structured reasoning AI in Kinetix.
+    const systemPrompt = `You are Kaizen 4 Deep, the most advanced structured reasoning AI in The Kaizen.
 
 ${soulContext}
 

@@ -222,7 +222,7 @@ export default function ChatPage() {
               ? {
                   ...m,
                   content:
-                    "Kinet 4 encountered an error. Please try again.",
+                    "Kaizen 4 encountered an error. Please try again.",
                   streaming: false,
                 }
               : m
@@ -269,7 +269,7 @@ export default function ChatPage() {
                   <line x1="10" y1="2" x2="6" y2="17" stroke="rgba(0,212,255,0.4)" strokeWidth="0.6" />
                   <line x1="10" y1="2" x2="14" y2="17" stroke="rgba(0,212,255,0.4)" strokeWidth="0.6" />
                 </svg>
-                Kinet 4
+                Kaizen 4
               </div>
             </div>
             <div className={styles.headerRight}>
@@ -306,7 +306,7 @@ export default function ChatPage() {
                     <line x1="40" y1="6" x2="56" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
                   </svg>
                 </div>
-                <p className={styles.emptyTitle}>I'm Kinet 4</p>
+                <p className={styles.emptyTitle}>I'm Kaizen 4</p>
                 {userDoc?.soul?.name && (
                   <p className={styles.emptyGreeting}>
                     Hey {userDoc.soul.name.split(" ")[0]}, ready when you are
@@ -394,7 +394,7 @@ export default function ChatPage() {
                 value={input}
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
-                placeholder={`Message Kinet 4${
+                placeholder={`Message Kaizen 4${
                   userDoc?.soul?.name ? `, ${userDoc.soul.name.split(" ")[0]}` : ""
                 }...`}
                 rows={1}
@@ -416,7 +416,7 @@ export default function ChatPage() {
               )}
             </div>
             <p className={styles.disclaimer}>
-              Kinet 4 can make mistakes. Verify important information.
+              Kaizen 4 can make mistakes. Verify important information.
             </p>
           </div>
         </div>

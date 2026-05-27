@@ -104,7 +104,7 @@ export default function ThinkingPage() {
       setShowActions(true)
 
     } catch (err) {
-      setError("Kinet 4 Deep encountered an issue. Please try again.")
+      setError("Kaizen 4 Deep encountered an issue. Please try again.")
     } finally {
       setThinking(false)
     }
@@ -161,7 +161,7 @@ export default function ThinkingPage() {
                 <circle cx="30" cy="5" r="2.5" fill="#80eaff" filter="url(#deepGlow)"/>
               </svg>
               <h1 className={styles.heroTitle}>
-                <span className={styles.titleKinet}>Kinet 4</span>
+                <span className={styles.titleKinet}>Kaizen 4</span>
                 <span className={styles.titleDeep}>Deep</span>
               </h1>
               <p className={styles.heroSub}>
@@ -173,7 +173,7 @@ export default function ThinkingPage() {
           {!hasAccess && (
             <div className={styles.gatedBanner}>
               <span>🔒</span>
-              <span>Kinet 4 Deep requires <strong>Build</strong> or higher plan</span>
+              <span>Kaizen 4 Deep requires <strong>Build</strong> or higher plan</span>
               <button onClick={() => router.push("/pricing")}>Upgrade</button>
             </div>
           )}
@@ -220,7 +220,7 @@ export default function ThinkingPage() {
                     <span className={styles.thinkingDots}>
                       <span></span><span></span><span></span>
                     </span>
-                    Kinet 4 is thinking
+                    Kaizen 4 is thinking
                   </>
                 ) : (
                   <>
@@ -322,7 +322,7 @@ export default function ThinkingPage() {
 
           {showPaywall && (
             <SoftPaywall
-              reason="Kinet 4 Deep is the most advanced reasoning mode in Kinetix. It requires a Build plan or higher."
+              reason="Kaizen 4 Deep is the most advanced reasoning mode in The Kaizen. It requires a Build plan or higher."
               onClose={() => setShowPaywall(false)}
             />
           )}

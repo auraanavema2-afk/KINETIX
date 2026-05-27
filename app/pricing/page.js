@@ -53,7 +53,7 @@ const PLANS = [
       { text: "White-label export",      included: true },
       { text: "Custom domain",           included: true },
       { text: "API access",              included: true },
-      { text: "Priority Kinet 4",        included: true },
+      { text: "Priority Kaizen 4",        included: true },
       { text: "Advanced analytics",      included: true },
     ],
   },
@@ -172,7 +172,7 @@ export default function PricingPage() {
           <button className={styles.backBtn} onClick={() => router.push("/pulse")}>
             ← Back
           </button>
-          <div className={styles.navBrand}>KINETIX</div>
+          <div className={styles.navBrand}>THE KAIZEN</div>
         </div>
 
         <div className={styles.hero}>
@@ -296,7 +296,7 @@ export default function PricingPage() {
           <a href="/terms" className={styles.footerLink}>Terms</a>
           <a href="/privacy" className={styles.footerLink}>Privacy</a>
           <a href="/refund" className={styles.footerLink}>Refund Policy</a>
-          <a href="mailto:support@kinetix.ai" className={styles.footerLink}>support@kinetix.ai</a>
+          <a href="mailto:support@kaizen.ai" className={styles.footerLink}>support@kaizen.ai</a>
         </div>
       </div>
     </>

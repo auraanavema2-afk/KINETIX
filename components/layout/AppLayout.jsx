@@ -100,7 +100,7 @@ export default function AppLayout({
                 strokeLinejoin="round"
               />
             </svg>
-            <span className={styles.brandName}>KINETIX</span>
+            <span className={styles.brandName}>THE KAIZEN</span>
           </div>
         </div>
 

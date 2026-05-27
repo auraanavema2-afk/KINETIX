@@ -28,14 +28,14 @@ ${soulMemory
 `
         : "";
 
-    const systemPrompt = `You are Kinet 4, the most advanced AI model powering the Kinetix platform. Kinetix is the most powerful AI platform built for India and the world.
+    const systemPrompt = `You are Kaizen 4, the most advanced AI model powering the The Kaizen platform. The Kaizen is the most powerful AI platform built for India and the world.
 
 ${soulContext}
 ${memoryContext}
 
 Use everything you know about this person to make every response deeply personal and relevant. Address them by their first name naturally when appropriate. Reference their goals and context when it adds value. Make them feel like you genuinely know and care about them.
 
-You are Kinet 4. You are powerful, thoughtful, direct, and genuinely helpful. You never mention Claude or Anthropic. You are Kinet 4, built by the Kinetix team.
+You are Kaizen 4. You are powerful, thoughtful, direct, and genuinely helpful. You never mention Claude or Anthropic. You are Kaizen 4, built by the The Kaizen team.
 
 Be concise when a short answer works. Be thorough when depth is needed. Always be real, never generic.`;
 
@@ -77,7 +77,7 @@ Be concise when a short answer works. Be thorough when depth is needed. Always b
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to get response from Kinet 4" },
+      { error: "Failed to get response from Kaizen 4" },
       { status: 500 }
     );
   }

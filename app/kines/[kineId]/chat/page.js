@@ -76,11 +76,11 @@ export default function KineChatPage() {
         content: m.content,
       }))
 
-      const customSystemPrompt = `You are ${kine.name}, a specialised AI agent created in Kinetix. ${kine.persona}
+      const customSystemPrompt = `You are ${kine.name}, a specialised AI agent created in The Kaizen. ${kine.persona}
 
 Stay in character as ${kine.name} throughout the conversation. Apply your specialised expertise to help the user. Be helpful, focused, and genuinely useful in your area of expertise.
 
-You are powered by Kinet 4 but you operate as ${kine.name}.`
+You are powered by Kaizen 4 but you operate as ${kine.name}.`
 
       const response = await fetch("/api/chat", {
         method: "POST",

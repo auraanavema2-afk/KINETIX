@@ -4,15 +4,15 @@ import Providers from "@/components/providers/Providers";
 
 export const metadata: Metadata = {
   title: {
-    default: "Kinetix — Your Second Brain. Built for Builders.",
-    template: "%s | Kinetix",
+    default: "The Kaizen — Your Second Brain. Built for Builders.",
+    template: "%s | The Kaizen",
   },
   description:
     "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
   keywords: [
     "AI platform India",
-    "Kinet 4",
-    "Kinetix",
+    "Kaizen 4",
+    "The Kaizen",
     "AI assistant India",
     "app builder AI",
     "AI memory",
@@ -21,22 +21,22 @@ export const metadata: Metadata = {
     "AI for developers",
     "AI for founders",
   ],
-  authors: [{ name: "Vema", url: "https://kinetix.ai" }],
+  authors: [{ name: "Vema", url: "https://kaizen.ai" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://kinetix.ai",
-    siteName: "Kinetix",
-    title: "Kinetix — Your Second Brain. Built for Builders.",
+    url: "https://kaizen.ai",
+    siteName: "The Kaizen",
+    title: "The Kaizen — Your Second Brain. Built for Builders.",
     description:
       "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kinetix — Your Second Brain. Built for Builders.",
+    title: "The Kaizen — Your Second Brain. Built for Builders.",
     description:
       "The first AI platform that actually knows you. Soul memory, goal tracking, app building, and an agent marketplace. All in one dark platform. Built for builders.",
-    creator: "@kinetixai",
+    creator: "@kaizenai",
   },
   robots: {
     index: true,

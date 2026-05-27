@@ -10,9 +10,9 @@ import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
 const QUESTIONS = [
   { id: 1, question: "What is your name and what do you do?", placeholder: "e.g. I am Vema, a student and solo builder..." },
-  { id: 2, question: "What is your biggest goal in the next 6 months?", placeholder: "e.g. Launch Kinetix and get 100 paying users..." },
+  { id: 2, question: "What is your biggest goal in the next 6 months?", placeholder: "e.g. Launch The Kaizen and get 100 paying users..." },
   { id: 3, question: "What is your biggest obstacle right now?", placeholder: "e.g. Limited time between studies and building..." },
-  { id: 4, question: "What do you want Kinetix to help you with most?", placeholder: "e.g. Coding, writing, thinking through decisions..." },
+  { id: 4, question: "What do you want The Kaizen to help you with most?", placeholder: "e.g. Coding, writing, thinking through decisions..." },
   { id: 5, question: "What do you want to build or create this week?", placeholder: "e.g. The authentication system for my app..." },
 ];
 
@@ -100,7 +100,7 @@ export default function SoulSetupPage() {
                 </svg>
               </div>
             </div>
-            <div className={styles.completionTitle}>Kinet 4 is ready for you</div>
+            <div className={styles.completionTitle}>Kaizen 4 is ready for you</div>
             <div className={styles.completionName}>{answers[0]}</div>
             <div className={styles.completionSub}>
               Your AI now knows who you are. Every conversation starts with context.
@@ -110,7 +110,7 @@ export default function SoulSetupPage() {
               onClick={() => router.push("/chat")}
               disabled={saving}
             >
-              Open Kinetix →
+              Open The Kaizen →
             </button>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function SoulSetupPage() {
       <AnimatedBackground variant="soul" />
       <div className={styles.page}>
         <div className={styles.topBar}>
-          <div className={styles.logo}>KINETIX</div>
+          <div className={styles.logo}>THE KAIZEN</div>
           <div className={styles.step}>{currentQuestion + 1} / 5</div>
         </div>
 

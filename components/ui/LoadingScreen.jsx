@@ -30,7 +30,7 @@ export default function LoadingScreen({ fadeOut }) {
         </div>
       </div>
 
-      <div className={styles.text}>KINETIX</div>
+      <div className={styles.text}>THE KAIZEN</div>
 
       <div className={styles.bar}>
         <div className={styles.barFill}></div>
