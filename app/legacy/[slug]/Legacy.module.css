@@ -1,0 +1,451 @@
+.page {
+  min-height: 100vh;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin-bottom: 32px;
+}
+
+.navBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: white;
+  text-shadow: 0 0 8px rgba(0,212,255,0.8);
+}
+
+.navPrism {
+  filter: drop-shadow(0 0 6px rgba(0,212,255,0.8));
+}
+
+.navBtn {
+  font-size: 12px;
+  color: #00d4ff;
+  text-decoration: none;
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 20px;
+  padding: 7px 16px;
+  transition: all 0.2s ease;
+}
+
+.navBtn:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.4);
+}
+
+/* ── LOADING / NOT FOUND ─────────────────────────────────── */
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 60vh;
+}
+
+.loadingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00d4ff;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loadingDot:nth-child(2) { animation-delay: 0.2s; }
+.loadingDot:nth-child(3) { animation-delay: 0.4s; }
+
+.notFoundCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 12px;
+}
+
+.notFoundIcon {
+  font-size: 32px;
+  color: #303030;
+}
+
+.notFoundTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+}
+
+.notFoundText {
+  font-size: 14px;
+  color: #505050;
+}
+
+.notFoundBtn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 10px;
+  color: #00d4ff;
+  font-size: 13px;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.notFoundBtn:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.4);
+}
+
+/* ── PROFILE CARD ────────────────────────────────────────── */
+
+.profileCard {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 24px;
+  padding: 40px 32px 32px;
+  text-align: center;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.profileGlow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(0,212,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.avatarWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #00d4ff;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarRing {
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,212,255,0.15);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+
+.profileName {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.profileBio {
+  font-size: 14px;
+  color: #808080;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 16px;
+}
+
+.profileMeta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #606060;
+}
+
+.metaIcon {
+  font-size: 14px;
+}
+
+.metaDivider {
+  color: #303030;
+}
+
+.shareRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.shareBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  color: #808080;
+  font-size: 12px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.shareBtn:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.07);
+}
+
+/* ── STATS ───────────────────────────────────────────────── */
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.statCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 20px 12px;
+  text-align: center;
+}
+
+.statNum {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: 10px;
+  color: #404040;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── KINES ───────────────────────────────────────────────── */
+
+.kinesSection {
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: #404040;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+.kinesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.kineCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.kineCard:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(0,212,255,0.12);
+}
+
+.kineAvatar {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.kineInfo {
+  min-width: 0;
+}
+
+.kineName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #c0c0c0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kineUses {
+  font-size: 11px;
+  color: #404040;
+  margin-top: 2px;
+}
+
+/* ── PHILOSOPHY ──────────────────────────────────────────── */
+
+.philosophyCard {
+  background: rgba(0,212,255,0.03);
+  border: 1px solid rgba(0,212,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.philosophyLabel {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(0,212,255,0.5);
+  margin-bottom: 10px;
+}
+
+.philosophyText {
+  font-size: 14px;
+  color: #707070;
+  line-height: 1.7;
+}
+
+.philosophyText strong {
+  color: #00d4ff;
+}
+
+/* ── CTA ─────────────────────────────────────────────────── */
+
+.ctaCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ctaTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.ctaText {
+  font-size: 13px;
+  color: #606060;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.ctaBtn {
+  background: #00d4ff;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 28px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(0,212,255,0.3);
+}
+
+.ctaBtn:hover {
+  background: #33ddff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(0,212,255,0.5);
+}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #303030;
+}
+
+.footer a {
+  color: #404040;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #00d4ff;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@media (max-width: 600px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .kinesGrid { grid-template-columns: 1fr; }
+  .profileCard { padding: 32px 20px 24px; }
+  .profileName { font-size: 22px; }
+}
