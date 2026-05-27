@@ -331,7 +331,7 @@ export default function PricingPage() {
           <a href="/terms" className={styles.footerLink}>Terms</a>
           <a href="/privacy" className={styles.footerLink}>Privacy</a>
           <a href="/refund" className={styles.footerLink}>Refund Policy</a>
-          <a href="mailto:support@kaizen.ai" className={styles.footerLink}>support@kaizen.ai</a>
+          <a href="mailto:support@thekaizen.ai" className={styles.footerLink}>support@thekaizen.ai</a>
         </div>
       </div>
     </>
