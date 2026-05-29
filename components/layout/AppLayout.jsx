@@ -19,8 +19,9 @@ const CORE_NAV = [
 const TOOLS_NAV = [
   { section: "Create" },
   { href: "/projects",  emoji: "📁", label: "Projects" },
-  { href: "/studio",    emoji: "🛠️",  label: "Studio" },
-  { href: "/thinking",  emoji: "⚡", label: "Deep Think" },
+  { href: "/studio",    emoji: "✦",  label: "Mint" },
+  { href: "/thinking",  emoji: "🧠", label: "Deep Think" },
+  { href: "/arena",     emoji: "🤝", label: "Arena" },
   { section: "Explore" },
   { href: "/kines",     emoji: "🌌", label: "Kines" },
   { href: "/legacy",    emoji: "👤", label: "Legacy" },
