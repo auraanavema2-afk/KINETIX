@@ -1,22 +1,26 @@
 import { NextResponse } from "next/server"
 import { getStripeServer } from "@/lib/stripe"
-import { db } from "@/lib/firebase"
-import { doc, getDoc } from "firebase/firestore"
+import { getAdminDb } from "@/lib/firebaseAdmin"
+import { verifyAuth } from "@/lib/authMiddleware"
 
 export const dynamic = "force-dynamic"
 
 export async function POST(request) {
+  const authResult = await verifyAuth(request)
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status })
+  }
+  const verifiedUid = authResult.uid
+
   try {
-    const { userId } = await request.json()
+    const adminDb = getAdminDb()
+    const userDoc = await adminDb.collection("users").doc(verifiedUid).get()
 
-    const userRef = doc(db, "users", userId)
-    const userSnap = await getDoc(userRef)
-
-    if (!userSnap.exists()) {
+    if (!userDoc.exists) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
 
-    const userData = userSnap.data()
+    const userData = userDoc.data()
     const customerId = userData.stripeCustomerId
 
     if (!customerId) {

@@ -1,13 +1,20 @@
 import { NextResponse } from "next/server"
 import { getStripeServer } from "@/lib/stripe"
+import { verifyAuth } from "@/lib/authMiddleware"
 
 export const dynamic = "force-dynamic"
 
 export async function POST(request) {
-  try {
-    const { priceId, userId, userEmail, promoCode } = await request.json()
+  const authResult = await verifyAuth(request)
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status })
+  }
+  const verifiedUid = authResult.uid
 
-    if (!priceId || !userId) {
+  try {
+    const { priceId, userEmail, promoCode } = await request.json()
+
+    if (!priceId) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
@@ -20,7 +27,7 @@ export async function POST(request) {
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/pulse?subscription=success`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
       customer_email: userEmail,
-      metadata: { userId },
+      metadata: { userId: verifiedUid },
       allow_promotion_codes: !promoCode,
     }
 

@@ -3,10 +3,17 @@ import Anthropic from "@anthropic-ai/sdk"
 import { db } from "@/lib/firebase"
 import { doc, getDoc } from "firebase/firestore"
 import { canUseFeature } from "@/lib/gates"
+import { verifyAuth } from "@/lib/authMiddleware"
 
 export async function POST(request) {
+  const authResult = await verifyAuth(request)
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status })
+  }
+  const verifiedUid = authResult.uid
+
   try {
-    const { problem, userId, soulData, soulMemory } = await request.json()
+    const { problem, soulData, soulMemory } = await request.json()
 
     if (!problem || problem.trim().length < 10) {
       return NextResponse.json(
@@ -15,8 +22,8 @@ export async function POST(request) {
       )
     }
 
-    if (userId) {
-      const userSnap = await getDoc(doc(db, "users", userId))
+    if (db) {
+      const userSnap = await getDoc(doc(db, "users", verifiedUid))
       if (userSnap.exists()) {
         const plan = userSnap.data().plan || "spark"
         if (!canUseFeature(plan, "structuredThinking")) {

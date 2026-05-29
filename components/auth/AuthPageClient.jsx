@@ -9,11 +9,15 @@ import FloatingInput from "@/components/auth/FloatingInput";
 import GoogleButton from "@/components/auth/GoogleButton";
 import SubmitButton from "@/components/auth/SubmitButton";
 import OrDivider from "@/components/auth/OrDivider";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 import styles from "./AuthPageClient.module.css";
 
 export default function AuthPageClient() {
   const router = useRouter();
-  const { user, userDoc } = useAuth();
+  const { user, userDoc, loading: authLoading } = useAuth();
+
+  if (authLoading) return <LoadingScreen />;
+  if (user) return <LoadingScreen />;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

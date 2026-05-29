@@ -1,15 +1,20 @@
 import { NextResponse } from "next/server"
 import Anthropic from "@anthropic-ai/sdk"
-import { canUseFeature } from "@/lib/gates"
 import { db } from "@/lib/firebase"
-import { doc, getDoc, updateDoc, increment } from "firebase/firestore"
+import { doc, updateDoc, increment } from "firebase/firestore"
+import { verifyAuth } from "@/lib/authMiddleware"
 
 export async function POST(request) {
+  const authResult = await verifyAuth(request)
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status })
+  }
+  const verifiedUid = authResult.uid
+
   try {
     const {
       prompt,
       type,
-      userId,
       soulData,
       iterating,
       previousCode,
@@ -94,9 +99,9 @@ CRITICAL RULES:
             )
           }
         }
-        if (userId) {
+        if (verifiedUid && db) {
           try {
-            await updateDoc(doc(db, "users", userId), {
+            await updateDoc(doc(db, "users", verifiedUid), {
               mintBuilds: increment(1)
             })
           } catch (e) {

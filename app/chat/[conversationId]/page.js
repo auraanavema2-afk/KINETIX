@@ -11,6 +11,7 @@ import {
   updateConversationTitle,
   addSoulMemory,
 } from "@/lib/firestore";
+import { authenticatedFetch } from "@/lib/apiClient";
 import styles from "./Chat.module.css";
 
 export default function ChatPage() {
@@ -71,7 +72,7 @@ export default function ChatPage() {
 
   const generateTitle = async (firstMessage) => {
     try {
-      const res = await fetch("/api/soul", {
+      const res = await authenticatedFetch("/api/soul", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,7 +97,7 @@ export default function ChatPage() {
         .slice(-6)
         .map((m) => `${m.role}: ${m.content.substring(0, 200)}`)
         .join("\n");
-      const res = await fetch("/api/soul", {
+      const res = await authenticatedFetch("/api/soul", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: "memory", content: excerpt }),
@@ -156,7 +157,7 @@ export default function ChatPage() {
         content: m.content,
       }));
 
-      const response = await fetch("/api/chat", {
+      const response = await authenticatedFetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

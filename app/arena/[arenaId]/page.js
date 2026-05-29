@@ -17,6 +17,7 @@ import {
   updateTyping,
   watchTyping,
 } from "@/lib/arena"
+import { authenticatedFetch } from "@/lib/apiClient"
 import styles from "./ArenaRoom.module.css"
 
 export default function ArenaRoomPage() {
@@ -168,7 +169,7 @@ export default function ArenaRoomPage() {
         return acc
       }, [])
 
-      const response = await fetch("/api/arena", {
+      const response = await authenticatedFetch("/api/arena", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

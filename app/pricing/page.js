@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
 import { getActiveFestival, getDiscountedPrice } from "@/lib/festivals"
 import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS } from "@/lib/gates"
+import { authenticatedFetch } from "@/lib/apiClient"
 import AnimatedBackground from "@/components/ui/AnimatedBackground"
 import styles from "./Pricing.module.css"
 
@@ -134,7 +135,7 @@ export default function PricingPage() {
       const priceEnvKey = annual ? "ANNUAL" : "MONTHLY"
       const priceId = process.env[`NEXT_PUBLIC_STRIPE_PRICE_${planKey.toUpperCase()}_${priceEnvKey}`]
 
-      const res = await fetch("/api/stripe/checkout", {
+      const res = await authenticatedFetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

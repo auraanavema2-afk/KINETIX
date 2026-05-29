@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
+import { authenticatedFetch } from "@/lib/apiClient"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { canUseFeature } from "@/lib/gates"
@@ -67,7 +68,7 @@ export default function ThinkingPage() {
     setError("")
 
     try {
-      const res = await fetch("/api/thinking", {
+      const res = await authenticatedFetch("/api/thinking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

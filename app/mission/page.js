@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
+import { authenticatedFetch } from "@/lib/apiClient"
 import styles from "./Mission.module.css"
 
 const PHASES = ["Planning", "Starting", "Building", "Launching", "Scaling"]
@@ -40,7 +41,7 @@ export default function MissionPage() {
   const fetchActions = async () => {
     setLoadingActions(true)
     try {
-      const res = await fetch("/api/mission", {
+      const res = await authenticatedFetch("/api/mission", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

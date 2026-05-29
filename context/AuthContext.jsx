@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { onAuthChange } from "@/lib/auth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
 export const AuthContext = createContext(null);
@@ -14,29 +14,44 @@ export function AuthProvider({ children }) {
   const docUnsubRef = useRef(null);
 
   useEffect(() => {
-    const authUnsub = onAuthChange((firebaseUser) => {
+    const authUnsub = onAuthChange(async (firebaseUser) => {
       if (docUnsubRef.current) {
         docUnsubRef.current();
         docUnsubRef.current = null;
       }
 
-      if (firebaseUser) {
-        setUser(firebaseUser);
-        if (db) {
-          docUnsubRef.current = onSnapshot(
-            doc(db, "users", firebaseUser.uid),
-            (snap) => {
-              setUserDoc(snap.exists() ? snap.data() : null);
-              setLoading(false);
+      try {
+        if (firebaseUser) {
+          try {
+            await firebaseUser.getIdToken(true)
+          } catch (tokenError) {
+            console.error("Token expired:", tokenError)
+            setUser(null)
+            setUserDoc(null)
+            setLoading(false)
+            return
+          }
+          setUser(firebaseUser)
+          if (db) {
+            try {
+              const docRef = doc(db, "users", firebaseUser.uid)
+              const docSnap = await getDoc(docRef)
+              if (docSnap.exists()) setUserDoc(docSnap.data())
+            } catch (firestoreError) {
+              console.error("Failed to fetch user doc:", firestoreError)
             }
-          );
+          }
+          setLoading(false)
         } else {
-          setLoading(false);
+          setUser(null)
+          setUserDoc(null)
+          setLoading(false)
         }
-      } else {
-        setUser(null);
-        setUserDoc(null);
-        setLoading(false);
+      } catch (err) {
+        console.error("Auth state error:", err)
+        setUser(null)
+        setUserDoc(null)
+        setLoading(false)
       }
     });
 
@@ -45,6 +60,20 @@ export function AuthProvider({ children }) {
       if (docUnsubRef.current) docUnsubRef.current();
     };
   }, []);
+
+  useEffect(() => {
+    if (!user) return
+    const interval = setInterval(async () => {
+      try {
+        await user.getIdToken(true)
+      } catch (err) {
+        console.error("Token refresh failed:", err)
+        setUser(null)
+        setUserDoc(null)
+      }
+    }, 50 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [user])
 
   return (
     <AuthContext.Provider value={{ user, userDoc, loading, setUserDoc }}>

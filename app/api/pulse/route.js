@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server"
 import Anthropic from "@anthropic-ai/sdk"
+import { verifyAuth } from "@/lib/authMiddleware"
 
 export async function POST(request) {
+  const authResult = await verifyAuth(request)
+  if (authResult.error) {
+    return NextResponse.json({ error: authResult.error }, { status: authResult.status })
+  }
+
   try {
     const { soulData, soulMemory, messageCount, streakDays, lastActiveDate } = await request.json()
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })

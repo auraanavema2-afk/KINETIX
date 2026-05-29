@@ -1,11 +1,14 @@
-"use client";
+"use client"
 
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "@/context/AuthContext"
+import AuthErrorBoundary from "./AuthErrorBoundary"
 
 export default function Providers({ children }) {
   return (
     <AuthProvider>
-      {children}
+      <AuthErrorBoundary>
+        {children}
+      </AuthErrorBoundary>
     </AuthProvider>
-  );
+  )
 }

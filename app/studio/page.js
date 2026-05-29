@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
+import { authenticatedFetch } from "@/lib/apiClient"
 import styles from "./Mint.module.css"
 
 const BUILD_TYPES = [
@@ -105,7 +106,7 @@ export default function MintPage() {
         body.iterationRequest = iterateText
       }
 
-      const res = await fetch("/api/mint", {
+      const res = await authenticatedFetch("/api/mint", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
         body:    JSON.stringify(body),

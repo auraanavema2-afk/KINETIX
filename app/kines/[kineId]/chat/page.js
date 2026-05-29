@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { getKineById, incrementKineUsage } from "@/lib/firestore"
+import { authenticatedFetch } from "@/lib/apiClient"
 import SoftPaywall from "@/components/paywall/SoftPaywall"
 import styles from "../../../chat/[conversationId]/Chat.module.css"
 
@@ -82,7 +83,7 @@ Stay in character as ${kine.name} throughout the conversation. Apply your specia
 
 You are powered by Kaizen 4 but you operate as ${kine.name}.`
 
-      const response = await fetch("/api/chat", {
+      const response = await authenticatedFetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

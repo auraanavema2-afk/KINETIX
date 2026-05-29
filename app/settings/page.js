@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import { signOutUser } from "@/lib/auth"
 import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS, getLimit } from "@/lib/gates"
+import { authenticatedFetch } from "@/lib/apiClient"
 import styles from "./Settings.module.css"
 
 export default function SettingsPage() {
@@ -22,7 +23,7 @@ export default function SettingsPage() {
   const handlePortal = async () => {
     setPortalLoading(true)
     try {
-      const res = await fetch("/api/stripe/portal", {
+      const res = await authenticatedFetch("/api/stripe/portal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user?.uid }),
