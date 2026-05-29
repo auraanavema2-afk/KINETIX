@@ -128,7 +128,6 @@ export default function MintPage() {
         setCode(built)
       }
 
-      setCode(built)
       stopProgress()
       if (isIteration) setIterateText("")
       setTab("preview")
@@ -153,7 +152,10 @@ export default function MintPage() {
     const a    = document.createElement("a")
     a.href     = url
     a.download = `kaizen-mint-${Date.now()}.html`
+    a.style.display = "none"
+    document.body.appendChild(a)
     a.click()
+    document.body.removeChild(a)
     URL.revokeObjectURL(url)
   }
 
