@@ -7,16 +7,16 @@ import { useAuth } from "@/context/AuthContext"
 import styles from "./Mint.module.css"
 
 const BUILD_TYPES = [
-  { id: "app",     emoji: "⚡", label: "App",     desc: "Interactive web app" },
-  { id: "website", emoji: "🌐", label: "Website",  desc: "Landing page / site" },
-  { id: "deck",    emoji: "📊", label: "Deck",     desc: "Presentation slides" },
+  { id: "app",     emoji: "⚡", label: "App" },
+  { id: "website", emoji: "🌐", label: "Website" },
+  { id: "deck",    emoji: "📊", label: "Deck" },
 ]
 
 const EXAMPLES = {
   app: [
-    "A habit tracker with streaks and a satisfying check-off animation",
+    "A habit tracker with streaks and satisfying check-off animations",
     "A Pomodoro timer with ambient sounds and focus statistics",
-    "A mood journal that shows patterns over the last 30 days",
+    "A mood journal that visualises patterns over 30 days",
     "A personal finance dashboard with spending categories",
     "A vocabulary flashcard app with spaced repetition",
   ],
@@ -24,8 +24,8 @@ const EXAMPLES = {
     "A SaaS landing page for an AI writing tool, dark theme",
     "A portfolio site for a UX designer with project cards",
     "A startup homepage for a fintech app targeting Gen Z",
-    "A personal blog homepage with featured articles section",
-    "A fitness coaching landing page with testimonials and pricing",
+    "A personal blog homepage with featured articles",
+    "A fitness coaching page with testimonials and pricing",
   ],
   deck: [
     "A pitch deck for an AI startup raising a seed round",
@@ -36,11 +36,11 @@ const EXAMPLES = {
   ],
 }
 
-const DEVICE_SIZES = {
-  desktop: "100%",
-  tablet:  "768px",
-  mobile:  "375px",
-}
+const DEVICES = [
+  { id: "desktop", icon: "🖥", width: "100%" },
+  { id: "tablet",  icon: "▭",  width: "768px" },
+  { id: "mobile",  icon: "▯",  width: "375px" },
+]
 
 export default function MintPage() {
   const { user, userDoc } = useAuth()
@@ -52,19 +52,16 @@ export default function MintPage() {
   const [code,        setCode]        = useState("")
   const [tab,         setTab]         = useState("preview")
   const [device,      setDevice]      = useState("desktop")
-  const [iterateMode, setIterateMode] = useState(false)
   const [iterateText, setIterateText] = useState("")
+  const [copied,      setCopied]      = useState(false)
   const [error,       setError]       = useState("")
 
   const abortRef    = useRef(null)
-  const iframeRef   = useRef(null)
   const progressRef = useRef(null)
 
-  useEffect(() => {
-    return () => {
-      if (abortRef.current) abortRef.current.abort()
-      if (progressRef.current) clearInterval(progressRef.current)
-    }
+  useEffect(() => () => {
+    if (abortRef.current) abortRef.current.abort()
+    if (progressRef.current) clearInterval(progressRef.current)
   }, [])
 
   const startProgress = () => {
@@ -80,12 +77,12 @@ export default function MintPage() {
   const stopProgress = () => {
     clearInterval(progressRef.current)
     setProgress(100)
-    setTimeout(() => setProgress(0), 800)
+    setTimeout(() => setProgress(0), 600)
   }
 
   const handleBuild = async (isIteration = false) => {
-    const buildPrompt = isIteration ? iterateText : prompt
-    if (!buildPrompt.trim() || building) return
+    const trigger = isIteration ? iterateText : prompt
+    if (!trigger.trim() || building) return
 
     setBuilding(true)
     setError("")
@@ -133,10 +130,7 @@ export default function MintPage() {
 
       setCode(built)
       stopProgress()
-      if (isIteration) {
-        setIterateText("")
-        setIterateMode(false)
-      }
+      if (isIteration) setIterateText("")
       setTab("preview")
     } catch (err) {
       if (err.name === "AbortError") return
@@ -165,132 +159,121 @@ export default function MintPage() {
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1800)
   }
 
-  const soulData = userDoc?.soul || null
+  const deviceWidth = DEVICES.find(d => d.id === device)?.width || "100%"
+  const lineCount   = code ? code.split("\n").length : 0
 
   return (
     <ProtectedRoute>
       <AppLayout variant="studio">
-        <div className={styles.workspace}>
+        <div className={styles.page}>
 
-          {/* ── LEFT PANEL ───────────────────────────── */}
-          <div className={styles.leftPanel}>
+          {/* ── LEFT PANEL ─────────────────────── */}
+          <div className={styles.left}>
 
-            <div className={styles.panelHeader}>
-              <span className={styles.panelLabel}>KAIZEN MINT</span>
-              <span className={styles.panelSub}>Build anything with one prompt</span>
+            <div className={styles.leftHeader}>
+              <div className={styles.brand}>
+                <svg className={styles.brandIcon} viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <polygon points="12,2 22,20 2,20" stroke="#00d4ff" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+                Kaizen Mint
+              </div>
+              <span className={styles.buildBadge}>AI Builder</span>
             </div>
 
             {/* Type selector */}
-            <div className={styles.typeGrid}>
+            <div className={styles.types}>
               {BUILD_TYPES.map(t => (
                 <button
                   key={t.id}
-                  className={`${styles.typeBtn} ${type === t.id ? styles.typeActive : ""}`}
+                  className={`${styles.typeBtn} ${type === t.id ? styles.typeOn : ""}`}
                   onClick={() => setType(t.id)}
                 >
-                  <span className={styles.typeEmoji}>{t.emoji}</span>
-                  <span className={styles.typeLabel}>{t.label}</span>
-                  <span className={styles.typeDesc}>{t.desc}</span>
+                  <span style={{ fontSize: 18 }}>{t.emoji}</span>
+                  {t.label}
                 </button>
               ))}
             </div>
 
             {/* Prompt */}
-            <div className={styles.promptWrap}>
-              <textarea
-                className={styles.promptInput}
-                value={prompt}
-                onChange={e => setPrompt(e.target.value)}
-                placeholder={`Describe the ${type} you want to build...`}
-                rows={5}
-              />
-              <div className={styles.promptHint}>Be specific. More detail = better output.</div>
-            </div>
-
-            {/* Examples */}
-            <div className={styles.examplesWrap}>
-              <div className={styles.examplesLabel}>Examples</div>
-              <div className={styles.examplesList}>
-                {EXAMPLES[type].map((ex, i) => (
-                  <button
-                    key={i}
-                    className={styles.exampleBtn}
-                    onClick={() => setPrompt(ex)}
-                  >
-                    {ex}
-                  </button>
-                ))}
+            <div className={styles.inputWrap}>
+              <div className={styles.inputLabel}>DESCRIBE YOUR BUILD</div>
+              <div className={styles.textWrap}>
+                <textarea
+                  className={styles.textarea}
+                  value={prompt}
+                  onChange={e => setPrompt(e.target.value)}
+                  placeholder={`What ${type} do you want to build?`}
+                  rows={4}
+                  disabled={building}
+                />
+                <span className={styles.hint}>{prompt.length} chars</span>
               </div>
             </div>
 
-            {/* Build button */}
-            {building ? (
-              <button className={styles.stopBtn} onClick={handleStop}>
-                <span className={styles.stopDot} />
-                Stop
-              </button>
-            ) : (
-              <button
-                className={styles.buildBtn}
-                onClick={() => handleBuild(false)}
-                disabled={!prompt.trim()}
-              >
-                <span className={styles.buildShimmer} />
-                Build {BUILD_TYPES.find(t => t.id === type)?.label}
-                <span className={styles.buildArrow}>→</span>
-              </button>
-            )}
+            {/* Examples */}
+            <div className={styles.examples}>
+              <div className={styles.examplesLabel}>EXAMPLES</div>
+              {EXAMPLES[type].map((ex, i) => (
+                <button
+                  key={i}
+                  className={styles.exampleBtn}
+                  onClick={() => setPrompt(ex)}
+                  disabled={building}
+                >
+                  {ex}
+                </button>
+              ))}
+            </div>
 
-            {error && <div className={styles.errorMsg}>{error}</div>}
-
-            {/* Iterate section */}
-            {code && !building && (
-              <div className={styles.iterateSection}>
-                <div className={styles.divider} />
-                {!iterateMode ? (
-                  <button
-                    className={styles.iterateToggle}
-                    onClick={() => setIterateMode(true)}
-                  >
-                    ✦ Iterate on this build
-                  </button>
-                ) : (
-                  <div className={styles.iterateWrap}>
-                    <div className={styles.iterateLabel}>WHAT SHOULD CHANGE?</div>
-                    <textarea
-                      className={styles.iterateInput}
-                      value={iterateText}
-                      onChange={e => setIterateText(e.target.value)}
-                      placeholder="Describe what you want to change or improve..."
-                      rows={3}
-                    />
-                    <div className={styles.iterateBtns}>
-                      <button
-                        className={styles.cancelIterateBtn}
-                        onClick={() => { setIterateMode(false); setIterateText("") }}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className={styles.applyIterateBtn}
-                        onClick={() => handleBuild(true)}
-                        disabled={!iterateText.trim()}
-                      >
-                        Apply Changes
-                      </button>
-                    </div>
+            {/* Build / Stop */}
+            <button
+              className={`${styles.buildBtn} ${building ? styles.stopBtn : ""}`}
+              onClick={building ? handleStop : () => handleBuild(false)}
+              disabled={!building && !prompt.trim()}
+            >
+              {building ? (
+                <>
+                  <div className={styles.dots}>
+                    <span /><span /><span />
                   </div>
-                )}
+                  Stop
+                </>
+              ) : (
+                <>Build {BUILD_TYPES.find(t => t.id === type)?.label} →</>
+              )}
+            </button>
 
-                {/* Actions */}
-                <div className={styles.actionsGrid}>
-                  <button className={styles.actionBtn} onClick={handleDownload}>
-                    ↓ Download
+            {error && <div style={{ fontSize: 12, color: "#ff7070", lineHeight: 1.5 }}>{error}</div>}
+
+            {/* Iterate + Actions */}
+            {code && !building && (
+              <div className={styles.iterate}>
+                <div className={styles.iterateRow}>
+                  <input
+                    className={styles.iterateInput}
+                    value={iterateText}
+                    onChange={e => setIterateText(e.target.value)}
+                    placeholder="Describe a change to iterate…"
+                    onKeyDown={e => e.key === "Enter" && handleBuild(true)}
+                  />
+                  <button
+                    className={styles.iterateBtn}
+                    onClick={() => handleBuild(true)}
+                    disabled={!iterateText.trim()}
+                    title="Apply iteration"
+                  >
+                    ↑
                   </button>
-                  <button className={styles.actionBtn} onClick={handleCopy}>
-                    ⧉ Copy HTML
+                </div>
+
+                <div className={styles.actions}>
+                  <button className={styles.downloadBtn} onClick={handleDownload}>↓ Download</button>
+                  <button className={styles.copyBtn} onClick={handleCopy}>
+                    {copied ? "✓ Copied" : "⧉ Copy"}
                   </button>
                 </div>
               </div>
@@ -298,36 +281,37 @@ export default function MintPage() {
 
           </div>
 
-          {/* ── RIGHT PANEL ──────────────────────────── */}
-          <div className={styles.rightPanel}>
+          {/* ── RIGHT PANEL ─────────────────────── */}
+          <div className={styles.right}>
 
             {/* Tab bar */}
             <div className={styles.tabBar}>
               <div className={styles.tabs}>
                 <button
-                  className={`${styles.tab} ${tab === "preview" ? styles.tabActive : ""}`}
+                  className={`${styles.tab} ${tab === "preview" ? styles.tabOn : ""}`}
                   onClick={() => setTab("preview")}
                 >
                   Preview
                 </button>
                 <button
-                  className={`${styles.tab} ${tab === "code" ? styles.tabActive : ""}`}
+                  className={`${styles.tab} ${tab === "code" ? styles.tabOn : ""}`}
                   onClick={() => setTab("code")}
                   disabled={!code}
                 >
                   Code
                 </button>
               </div>
+
               {tab === "preview" && (
-                <div className={styles.deviceBtns}>
-                  {Object.keys(DEVICE_SIZES).map(d => (
+                <div className={styles.devices}>
+                  {DEVICES.map(d => (
                     <button
-                      key={d}
-                      className={`${styles.deviceBtn} ${device === d ? styles.deviceActive : ""}`}
-                      onClick={() => setDevice(d)}
-                      title={d}
+                      key={d.id}
+                      className={`${styles.deviceBtn} ${device === d.id ? styles.deviceOn : ""}`}
+                      onClick={() => setDevice(d.id)}
+                      title={d.id}
                     >
-                      {d === "desktop" ? "🖥" : d === "tablet" ? "📱" : "📲"}
+                      {d.icon}
                     </button>
                   ))}
                 </div>
@@ -335,55 +319,57 @@ export default function MintPage() {
             </div>
 
             {/* Progress bar */}
-            {progress > 0 && (
-              <div className={styles.progressBar}>
-                <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-              </div>
-            )}
+            <div className={styles.progressBar}>
+              <div className={styles.progressFill} style={{ width: `${progress}%` }} />
+            </div>
 
-            {/* Content area */}
-            <div className={styles.previewArea}>
+            {/* Preview area */}
+            <div className={styles.preview}>
               {!code && !building ? (
-                <div className={styles.emptyState}>
-                  <svg className={styles.emptyPrism} viewBox="0 0 24 24" width="52" height="52" fill="none">
+                <div className={styles.empty}>
+                  <svg className={styles.emptyPrism} viewBox="0 0 48 48" width="64" height="64" fill="none">
                     <polygon
-                      points="12,2 22,20 2,20"
-                      stroke="rgba(0,212,255,0.4)"
-                      strokeWidth="1.2"
+                      points="24,4 44,40 4,40"
+                      stroke="rgba(0,212,255,0.6)"
+                      strokeWidth="1.5"
                       strokeLinejoin="round"
                     />
                     <polygon
-                      points="12,6 19,18 5,18"
-                      stroke="rgba(0,212,255,0.15)"
-                      strokeWidth="0.8"
+                      points="24,12 38,36 10,36"
+                      stroke="rgba(0,212,255,0.2)"
+                      strokeWidth="1"
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <div className={styles.emptyTitle}>Your build appears here</div>
-                  <div className={styles.emptyText}>
-                    Describe what you want, hit Build, and watch it come to life.
-                  </div>
+                  <p className={styles.emptyTitle}>Your build appears here</p>
+                  <p className={styles.emptySub}>
+                    Describe what you want, choose a type, and hit Build.
+                    It streams live as it's generated.
+                  </p>
                 </div>
-              ) : tab === "code" && code ? (
-                <div className={styles.codeView}>
-                  <pre className={styles.codeContent}>{code}</pre>
+              ) : tab === "code" ? (
+                <div className={styles.codeWrap}>
+                  <div className={styles.codeHeader}>
+                    <span className={styles.codeLines}>{lineCount} lines</span>
+                    <button className={styles.codeCopy} onClick={handleCopy}>
+                      {copied ? "✓ Copied" : "Copy"}
+                    </button>
+                  </div>
+                  {code ? (
+                    <pre className={styles.code}>{code}</pre>
+                  ) : (
+                    <div className={styles.emptyCode}>Building…</div>
+                  )}
                 </div>
               ) : (
-                <div
-                  className={styles.iframeWrap}
-                  style={{ maxWidth: DEVICE_SIZES[device] }}
-                >
+                <div className={styles.iframeWrap} style={{ width: deviceWidth }}>
                   {building && (
                     <div className={styles.buildingBadge}>
-                      <span className={styles.dot} />
-                      <span className={styles.dot} />
-                      <span className={styles.dot} />
-                      Building
+                      Building your {type}…
                     </div>
                   )}
                   <iframe
-                    ref={iframeRef}
-                    className={styles.preview}
+                    className={styles.iframe}
                     srcDoc={code || "<html><body style='background:#050508'></body></html>"}
                     sandbox="allow-scripts"
                     title="Mint Preview"
