@@ -144,15 +144,27 @@ export default function ArenaRoomPage() {
     setAiThinking(false)
 
     try {
-      const recentMessages = messages.slice(-10).map(m => ({
-        role: m.isAI ? "assistant" : "user",
-        content: `${m.isAI ? "" : m.userName + ": "}${m.content}`,
-      }))
+      // Build alternating role history — Anthropic requires user/assistant alternation
+      const rawMessages = messages
+        .filter(m => m.content)
+        .slice(-10)
+        .map(m => ({
+          role: (m.isAI || m.userId === "kaizen4") ? "assistant" : "user",
+          content: (m.isAI || m.userId === "kaizen4") ? m.content : `${m.userName}: ${m.content}`,
+        }))
 
-      recentMessages.push({
-        role: "user",
-        content: triggerMessage,
-      })
+      rawMessages.push({ role: "user", content: triggerMessage })
+
+      // Merge consecutive same-role messages to satisfy API requirements
+      const recentMessages = rawMessages.reduce((acc, msg) => {
+        const last = acc[acc.length - 1]
+        if (last && last.role === msg.role) {
+          last.content += "\n" + msg.content
+        } else {
+          acc.push({ ...msg })
+        }
+        return acc
+      }, [])
 
       const response = await fetch("/api/arena", {
         method: "POST",
