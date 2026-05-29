@@ -10,7 +10,7 @@ import styles from "./Arena.module.css"
 
 export default function ArenaPage() {
   const router = useRouter()
-  const { user, userDoc } = useAuth()
+  const { user, userDoc, loading: authLoading } = useAuth()
   const [arenas, setArenas] = useState([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
@@ -18,16 +18,16 @@ export default function ArenaPage() {
   const [showCreate, setShowCreate] = useState(false)
 
   useEffect(() => {
-    if (!user) return
+    if (!user || authLoading) return
     const unsub = getUserArenas(user.uid, (data) => {
       setArenas(data)
       setLoading(false)
     })
     return () => unsub()
-  }, [user])
+  }, [user, authLoading])
 
   const handleCreate = async () => {
-    if (!newName.trim() || !user) return
+    if (!newName.trim() || !user || creating) return
     setCreating(true)
     try {
       const id = await createArena(user.uid, newName.trim())
@@ -39,7 +39,7 @@ export default function ArenaPage() {
   }
 
   const handleQuickCreate = async () => {
-    if (!user) return
+    if (!user || creating) return
     setCreating(true)
     try {
       const name = `Arena ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short" })}`
@@ -49,6 +49,26 @@ export default function ArenaPage() {
       console.error(err)
       setCreating(false)
     }
+  }
+
+  if (authLoading) {
+    return (
+      <ProtectedRoute>
+        <AppLayout variant="default">
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+            gap: "6px",
+          }}>
+            <div className={styles.skeleton} style={{ width: 6, height: 6, borderRadius: "50%", animation: "shimmer 1s infinite" }}></div>
+            <div className={styles.skeleton} style={{ width: 6, height: 6, borderRadius: "50%", animation: "shimmer 1s infinite 0.2s" }}></div>
+            <div className={styles.skeleton} style={{ width: 6, height: 6, borderRadius: "50%", animation: "shimmer 1s infinite 0.4s" }}></div>
+          </div>
+        </AppLayout>
+      </ProtectedRoute>
+    )
   }
 
   return (
