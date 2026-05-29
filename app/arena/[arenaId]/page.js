@@ -22,7 +22,7 @@ import styles from "./ArenaRoom.module.css"
 export default function ArenaRoomPage() {
   const params = useParams()
   const router = useRouter()
-  const { user, userDoc } = useAuth()
+  const { user, userDoc, loading: authLoading } = useAuth()
   const arenaId = params.arenaId
 
   const [arena, setArena] = useState(null)
@@ -42,7 +42,7 @@ export default function ArenaRoomPage() {
   const abortRef = useRef(null)
 
   useEffect(() => {
-    if (!user || !arenaId) return
+    if (!user || !arenaId || authLoading) return
 
     loadArena()
     setupPresence()
@@ -63,13 +63,14 @@ export default function ArenaRoomPage() {
       if (presenceCleanupRef.current) presenceCleanupRef.current()
       if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
     }
-  }, [user, arenaId])
+  }, [user, arenaId, authLoading])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
   const loadArena = async () => {
+    if (!user) return
     try {
       const data = await getArena(arenaId)
       if (!data) { router.push("/arena"); return }
@@ -83,6 +84,7 @@ export default function ArenaRoomPage() {
   }
 
   const setupPresence = async () => {
+    if (!user || !userDoc) return
     const name = userDoc?.soul?.name || userDoc?.name || "Builder"
     const cleanup = await joinArenaPresence(arenaId, user.uid, name)
     presenceCleanupRef.current = cleanup
@@ -98,7 +100,7 @@ export default function ArenaRoomPage() {
   }
 
   const sendMessage = async () => {
-    if (!input.trim() || streaming) return
+    if (!user || !input.trim() || streaming) return
 
     const messageContent = input.trim()
     setInput("")
@@ -243,7 +245,7 @@ export default function ArenaRoomPage() {
     return colors[index]
   }
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <ProtectedRoute>
         <AppLayout variant="default">
