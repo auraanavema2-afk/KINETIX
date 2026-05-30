@@ -1,0 +1,294 @@
+.page {
+  padding: 32px 36px;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.headerLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #00d4ff;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.refreshBtn {
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 9px;
+  color: #00d4ff;
+  font-size: 13px;
+  padding: 9px 18px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.refreshBtn:hover:not(:disabled) {
+  background: rgba(0,212,255,0.12);
+}
+
+.refreshBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Error ─────────────────────────────────────── */
+
+.errorCard {
+  background: rgba(255,68,68,0.06);
+  border: 1px solid rgba(255,68,68,0.15);
+  border-radius: 14px;
+  padding: 20px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.errorCard p {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.errorCard button {
+  background: rgba(255,68,68,0.1);
+  border: 1px solid rgba(255,68,68,0.2);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 13px;
+  padding: 8px 18px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.errorCard button:hover {
+  background: rgba(255,68,68,0.16);
+}
+
+/* ── Loading skeleton ──────────────────────────── */
+
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.skeletonCard {
+  height: 180px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #090909 25%, #111111 50%, #090909 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* ── Grid ──────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── Cards shared ──────────────────────────────── */
+
+.cardLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(0,212,255,0.6);
+  margin-bottom: 12px;
+}
+
+/* ── Focus card ────────────────────────────────── */
+
+.focusCard {
+  grid-column: 1 / -1;
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.12);
+  border-radius: 16px;
+  padding: 22px 24px;
+}
+
+.focusTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 8px;
+}
+
+.focusWhy {
+  font-size: 14px;
+  color: #707070;
+  margin: 0 0 14px;
+  line-height: 1.6;
+}
+
+.focusAction {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: #00d4ff;
+  background: rgba(0,212,255,0.06);
+  border: 1px solid rgba(0,212,255,0.12);
+  border-radius: 10px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
+.actionIcon {
+  flex-shrink: 0;
+  font-weight: 700;
+}
+
+/* ── Insight card ──────────────────────────────── */
+
+.insightCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
+.insightPattern {
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.insightSuggestion {
+  font-size: 13px;
+  color: #606060;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Pulse card ────────────────────────────────── */
+
+.pulseCard {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 22px;
+}
+
+.pulseList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pulseItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.pulseIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.pulseContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pulseItemTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+}
+
+.pulseItemSummary {
+  font-size: 12px;
+  color: #606060;
+  line-height: 1.5;
+}
+
+/* ── Quote card ────────────────────────────────── */
+
+.quoteCard {
+  grid-column: 1 / -1;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.quote {
+  font-size: 15px;
+  color: #909090;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ── Subscription toast ────────────────────────── */
+
+.subscriptionToast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #00d4ff;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(0,212,255,0.15);
+  animation: slideInRight 0.4s ease forwards;
+}
+
+/* ── Animations ────────────────────────────────── */
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Responsive ────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .page { padding: 20px 16px; }
+  .grid { grid-template-columns: 1fr; }
+  .focusCard { grid-column: 1; }
+  .quoteCard { grid-column: 1; }
+}

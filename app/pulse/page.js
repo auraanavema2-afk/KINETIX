@@ -4,6 +4,9 @@ import { useEffect, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
+import { useAuth } from "@/context/AuthContext"
+import { authenticatedFetch } from "@/lib/apiClient"
+import styles from "./Pulse.module.css"
 
 function SubscriptionToast() {
   const searchParams = useSearchParams()
@@ -22,36 +25,131 @@ function SubscriptionToast() {
   if (!showToast) return null
 
   return (
-    <div style={{
-      position: "fixed",
-      top: "20px",
-      right: "20px",
-      background: "rgba(0,212,255,0.1)",
-      border: "1px solid rgba(0,212,255,0.25)",
-      borderRadius: "12px",
-      padding: "14px 20px",
-      color: "#00d4ff",
-      fontSize: "14px",
-      fontWeight: "500",
-      zIndex: 9999,
-      backdropFilter: "blur(12px)",
-      animation: "slideInRight 0.4s ease forwards",
-      boxShadow: "0 0 20px rgba(0,212,255,0.15)",
-    }}>
+    <div className={styles.subscriptionToast}>
       ✓ Plan upgraded successfully
     </div>
   )
 }
 
 export default function PulsePage() {
+  const { user, userDoc } = useAuth()
+  const [briefing, setBriefing] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (userDoc) generateBriefing()
+  }, [userDoc])
+
+  const generateBriefing = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await authenticatedFetch("/api/pulse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          soulData: userDoc?.soul,
+          soulMemory: userDoc?.soulMemory,
+          messageCount: userDoc?.messageCount,
+          streakDays: userDoc?.streakDays,
+          lastActiveDate: userDoc?.lastActiveDate,
+        })
+      })
+      if (!res.ok) throw new Error("Failed to generate briefing")
+      const data = await res.json()
+      setBriefing(data)
+    } catch (err) {
+      console.error(err)
+      setError("Could not generate your Pulse briefing. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <ProtectedRoute>
       <Suspense>
         <SubscriptionToast />
       </Suspense>
       <AppLayout variant="default">
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", color: "white" }}>
-          Pulse — Building this soon
+        <div className={styles.page}>
+
+          <div className={styles.header}>
+            <div>
+              <div className={styles.headerLabel}>DAILY BRIEFING</div>
+              <h1 className={styles.title}>
+                {briefing?.greeting || `Good morning, ${userDoc?.soul?.name?.split(" ")[0] || "Builder"}`}
+              </h1>
+            </div>
+            <button
+              className={styles.refreshBtn}
+              onClick={generateBriefing}
+              disabled={loading}
+            >
+              {loading ? "Generating..." : "↻ Refresh"}
+            </button>
+          </div>
+
+          {error && (
+            <div className={styles.errorCard}>
+              <p>{error}</p>
+              <button onClick={generateBriefing}>Try Again</button>
+            </div>
+          )}
+
+          {loading && !briefing && (
+            <div className={styles.loadingGrid}>
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className={styles.skeletonCard}></div>
+              ))}
+            </div>
+          )}
+
+          {briefing && (
+            <div className={styles.grid}>
+
+              <div className={styles.focusCard}>
+                <div className={styles.cardLabel}>TODAY'S FOCUS</div>
+                <h2 className={styles.focusTitle}>{briefing.todayFocus?.title}</h2>
+                <p className={styles.focusWhy}>{briefing.todayFocus?.why}</p>
+                <div className={styles.focusAction}>
+                  <span className={styles.actionIcon}>→</span>
+                  {briefing.todayFocus?.action}
+                </div>
+              </div>
+
+              <div className={styles.insightCard}>
+                <div className={styles.cardLabel}>PERSONAL INSIGHT</div>
+                <p className={styles.insightPattern}>{briefing.personalInsight?.pattern}</p>
+                <p className={styles.insightSuggestion}>{briefing.personalInsight?.suggestion}</p>
+              </div>
+
+              <div className={styles.pulseCard}>
+                <div className={styles.cardLabel}>INDUSTRY PULSE</div>
+                <div className={styles.pulseList}>
+                  {briefing.industryPulse?.map((item, i) => (
+                    <div key={i} className={styles.pulseItem}>
+                      <span className={styles.pulseIcon}>{item.icon}</span>
+                      <div className={styles.pulseContent}>
+                        <div className={styles.pulseItemTitle}>{item.title}</div>
+                        <div className={styles.pulseItemSummary}>{item.summary}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.quoteCard}>
+                <div className={styles.cardLabel}>TODAY'S QUOTE</div>
+                <blockquote className={styles.quote}>
+                  "{briefing.todayQuote}"
+                </blockquote>
+              </div>
+
+            </div>
+          )}
+
         </div>
       </AppLayout>
     </ProtectedRoute>
