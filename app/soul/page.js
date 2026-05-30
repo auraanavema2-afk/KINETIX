@@ -1,11 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
+import { useToast } from "@/components/ui/Toast"
+import PageWrapper from "@/components/ui/PageWrapper"
 import styles from "./Soul.module.css"
 
 const SOUL_FIELDS = [
@@ -18,39 +20,49 @@ const SOUL_FIELDS = [
 
 export default function SoulPage() {
   const { user, userDoc, setUserDoc } = useAuth()
-  const [editing, setEditing]   = useState(null)
-  const [draft, setDraft]       = useState("")
-  const [saved, setSaved]       = useState(null)
-  const [saving, setSaving]     = useState(false)
+  const { success, error: showError } = useToast()
+  const [editing, setEditing]       = useState(null)
+  const [editValue, setEditValue]   = useState("")
+  const [savedField, setSavedField] = useState(null)
+  const [saving, setSaving]         = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
+
+  useEffect(() => {
+    if (userDoc !== null) setPageLoading(false)
+  }, [userDoc])
 
   const soul = userDoc?.soul || {}
 
   const handleEdit = (key) => {
     setEditing(key)
-    setDraft(soul[key] || "")
-    setSaved(null)
+    setEditValue(soul[key] || "")
+    setSavedField(null)
   }
 
   const handleCancel = () => {
     setEditing(null)
-    setDraft("")
+    setEditValue("")
   }
 
   const handleSave = async (key) => {
     if (!user) return
     setSaving(true)
-    const updated = { ...soul, [key]: draft.trim() }
-    setUserDoc((prev) => ({ ...prev, soul: updated }))
     try {
-      await updateDoc(doc(db, "users", user.uid), { soul: updated })
+      const updatedSoul = { ...soul, [key]: editValue }
+      await updateDoc(doc(db, "users", user.uid), {
+        soul: updatedSoul
+      })
+      setUserDoc(prev => ({ ...prev, soul: updatedSoul }))
+      setEditing(null)
+      setSavedField(key)
+      success("Soul updated successfully")
+      setTimeout(() => setSavedField(null), 2000)
     } catch (err) {
       console.error(err)
+      showError("Failed to save. Please try again.")
+    } finally {
+      setSaving(false)
     }
-    setSaving(false)
-    setEditing(null)
-    setDraft("")
-    setSaved(key)
-    setTimeout(() => setSaved(null), 2000)
   }
 
   const memories = userDoc?.soulMemory || []
@@ -58,7 +70,11 @@ export default function SoulPage() {
   return (
     <ProtectedRoute>
       <AppLayout variant="soul">
-        <div className={styles.page}>
+        <PageWrapper
+          loading={pageLoading}
+          maxWidth="820px"
+          padding="32px 36px"
+        >
           <div className={styles.header}>
             <div>
               <h1 className={styles.title}>Soul Profile</h1>
@@ -86,7 +102,7 @@ export default function SoulPage() {
               >
                 <div className={styles.fieldHeader}>
                   <span className={styles.fieldLabel}>{label}</span>
-                  {saved === key && (
+                  {savedField === key && (
                     <span className={styles.savedBadge}>✓ saved</span>
                   )}
                   {editing !== key && (
@@ -100,8 +116,8 @@ export default function SoulPage() {
                   <div className={styles.editArea}>
                     <textarea
                       className={styles.textarea}
-                      value={draft}
-                      onChange={(e) => setDraft(e.target.value)}
+                      value={editValue}
+                      onChange={(e) => setEditValue(e.target.value)}
                       placeholder={placeholder}
                       rows={3}
                       autoFocus
@@ -148,7 +164,7 @@ export default function SoulPage() {
               </div>
             )}
           </div>
-        </div>
+        </PageWrapper>
       </AppLayout>
     </ProtectedRoute>
   )
