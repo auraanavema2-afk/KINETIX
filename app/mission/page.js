@@ -5,16 +5,20 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { authenticatedFetch } from "@/lib/apiClient"
+import { useToast } from "@/components/ui/Toast"
+import PageWrapper from "@/components/ui/PageWrapper"
 import styles from "./Mission.module.css"
 
 const PHASES = ["Planning", "Starting", "Building", "Launching", "Scaling"]
 
 export default function MissionPage() {
   const { user, userDoc } = useAuth()
+  const { success, error: showError } = useToast()
   const [actions, setActions] = useState([])
   const [loadingActions, setLoadingActions] = useState(true)
   const [completedActions, setCompletedActions] = useState([])
   const [momentum, setMomentum] = useState(0)
+  const [error, setError] = useState(null)
 
   const soul = userDoc?.soul
   const soulMemory = userDoc?.soulMemory || []
@@ -40,6 +44,7 @@ export default function MissionPage() {
 
   const fetchActions = async () => {
     setLoadingActions(true)
+    setError(null)
     try {
       const res = await authenticatedFetch("/api/mission", {
         method: "POST",
@@ -51,10 +56,18 @@ export default function MissionPage() {
           currentPhase,
         })
       })
+      if (!res.ok) throw new Error("Failed to generate actions")
       const data = await res.json()
       setActions(data.actions || [])
+      success("Daily actions refreshed")
     } catch (err) {
       console.error(err)
+      setError("Could not load your daily actions. Please try again.")
+      setActions([
+        { action: "Review your main goal and write next steps", time: "10 min", priority: "high" },
+        { action: "Work on your most important task", time: "1 hour", priority: "high" },
+        { action: "Reflect and plan tomorrow", time: "15 min", priority: "medium" },
+      ])
     } finally {
       setLoadingActions(false)
     }
@@ -74,7 +87,7 @@ export default function MissionPage() {
   return (
     <ProtectedRoute>
       <AppLayout variant="mission">
-        <div className={styles.page}>
+        <PageWrapper maxWidth="900px" padding="32px 36px">
           <div className={styles.header}>
             <div>
               <h1 className={styles.title}>Mission Control</h1>
@@ -171,6 +184,19 @@ export default function MissionPage() {
                 {completedActions.length} / {actions.length} done
               </span>
             </div>
+            {error && (
+              <div style={{
+                background: "rgba(255,68,68,0.06)",
+                border: "1px solid rgba(255,68,68,0.15)",
+                borderRadius: "10px",
+                padding: "10px 16px",
+                color: "#ff6b6b",
+                fontSize: "13px",
+                marginBottom: "12px",
+              }}>
+                {error}
+              </div>
+            )}
             <div className={styles.actionsList}>
               {loadingActions ? (
                 [1, 2, 3].map(i => (
@@ -207,7 +233,7 @@ export default function MissionPage() {
               {soul?.bigObstacle || "No obstacle defined"}
             </p>
           </div>
-        </div>
+        </PageWrapper>
       </AppLayout>
     </ProtectedRoute>
   )
