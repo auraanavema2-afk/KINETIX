@@ -508,3 +508,32 @@
   0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
   40% { opacity: 1; transform: scale(1.1); }
 }
+
+.historySkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.skeletonMsg {
+  height: 48px;
+  width: 60%;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #090909 25%, #111111 50%, #090909 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.skeletonRight {
+  align-self: flex-end;
+}
+
+.skeletonLeft {
+  align-self: flex-start;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}

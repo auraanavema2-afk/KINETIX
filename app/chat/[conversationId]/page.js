@@ -26,6 +26,7 @@ export default function ChatPage() {
   const [streaming, setStreaming] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(true);
   const [titleGenerated, setTitleGenerated] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -38,8 +39,8 @@ export default function ChatPage() {
   useEffect(() => {
     if (!conversationId) return;
     if (conversationId === "new") {
-      router.replace("/chat");
       setLoadingHistory(false);
+      inputRef.current?.focus();
       return;
     }
     loadHistory();
@@ -216,19 +217,18 @@ export default function ChatPage() {
             m.id === assistantMessageId ? { ...m, streaming: false } : m
           )
         );
+      } else if (err.message === "Not authenticated") {
+        router.push("/auth");
       } else {
+        setConnectionError(true);
         setMessages((prev) =>
           prev.map((m) =>
             m.id === assistantMessageId
-              ? {
-                  ...m,
-                  content:
-                    "Kaizen 4 encountered an error. Please try again.",
-                  streaming: false,
-                }
+              ? { ...m, content: "Connection error. Please check your internet and try again.", streaming: false }
               : m
           )
         );
+        setTimeout(() => setConnectionError(false), 5000);
       }
     } finally {
       setStreaming(false);
@@ -284,13 +284,14 @@ export default function ChatPage() {
           </header>
 
           <div className={styles.messages}>
-            {loadingHistory ? (
-              <div className={styles.loadingHistory}>
-                <div className={styles.loadingDot}></div>
-                <div className={styles.loadingDot}></div>
-                <div className={styles.loadingDot}></div>
+            {loadingHistory && (
+              <div className={styles.historySkeleton}>
+                {[1,2,3].map(i => (
+                  <div key={i} className={`${styles.skeletonMsg} ${i % 2 === 0 ? styles.skeletonRight : styles.skeletonLeft}`}></div>
+                ))}
               </div>
-            ) : messages.length === 0 ? (
+            )}
+            {!loadingHistory && messages.length === 0 ? (
               <div className={styles.emptyState}>
                 <div className={styles.emptyPrismWrap}>
                   <div className={styles.emptyRing} />
@@ -386,6 +387,21 @@ export default function ChatPage() {
             )}
             <div ref={messagesEndRef} />
           </div>
+
+          {connectionError && (
+            <div style={{
+              background: "rgba(255,68,68,0.08)",
+              border: "1px solid rgba(255,68,68,0.18)",
+              borderRadius: "8px",
+              padding: "10px 16px",
+              color: "#ff6b6b",
+              fontSize: "12px",
+              margin: "0 20px 8px",
+              textAlign: "center",
+            }}>
+              Connection issue. Check your internet and try again.
+            </div>
+          )}
 
           <div className={styles.inputArea}>
             <div className={styles.inputWrap}>
