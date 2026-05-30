@@ -12,14 +12,18 @@ import {
   deleteProject,
   getUserConversations,
 } from "@/lib/firestore"
+import { useToast } from "@/components/ui/Toast"
+import PageWrapper from "@/components/ui/PageWrapper"
 import styles from "./Projects.module.css"
 
 export default function ProjectsPage() {
   const { user } = useAuth()
   const router = useRouter()
+  const { success, error: showError } = useToast()
   const [projects, setProjects] = useState([])
   const [conversations, setConversations] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [creating, setCreating] = useState(false)
   const [newName, setNewName] = useState("")
   const [editingId, setEditingId] = useState(null)
@@ -28,14 +32,20 @@ export default function ProjectsPage() {
 
   useEffect(() => {
     if (!user) return
-    const unsub1 = getUserProjects(user.uid, (projs) => {
-      setProjects(projs)
+    try {
+      const unsub1 = getUserProjects(user.uid, (projs) => {
+        setProjects(projs)
+        setLoading(false)
+      })
+      const unsub2 = getUserConversations(user.uid, (convs) => {
+        setConversations(convs)
+      })
+      return () => { unsub1(); unsub2() }
+    } catch (err) {
+      console.error(err)
+      setError("Failed to load projects. Please refresh.")
       setLoading(false)
-    })
-    const unsub2 = getUserConversations(user.uid, (convs) => {
-      setConversations(convs)
-    })
-    return () => { unsub1(); unsub2() }
+    }
   }, [user])
 
   useEffect(() => {
@@ -45,6 +55,7 @@ export default function ProjectsPage() {
   const handleCreate = async () => {
     if (!newName.trim() || !user) return
     await createProject(user.uid, newName.trim())
+    success(`Project "${newName.trim()}" created`)
     setNewName("")
     setCreating(false)
   }
@@ -63,6 +74,7 @@ export default function ProjectsPage() {
   const handleDelete = async (id) => {
     if (confirm("Delete this project?")) {
       await deleteProject(id)
+      success("Project deleted")
     }
   }
 
@@ -77,7 +89,13 @@ export default function ProjectsPage() {
   return (
     <ProtectedRoute>
       <AppLayout variant="default">
-        <div className={styles.page}>
+        <PageWrapper
+          loading={loading}
+          error={error}
+          onRetry={() => window.location.reload()}
+          maxWidth="900px"
+          padding="32px 36px"
+        >
           <div className={styles.header}>
             <h1 className={styles.title}>Projects</h1>
             <button
@@ -110,13 +128,7 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {loading ? (
-            <div className={styles.skeletonGrid}>
-              {[1, 2, 3].map(i => (
-                <div key={i} className={styles.skeleton}></div>
-              ))}
-            </div>
-          ) : projects.length === 0 ? (
+          {projects.length === 0 ? (
             <div className={styles.empty}>
               <div className={styles.emptyIcon}>📁</div>
               <p className={styles.emptyTitle}>No projects yet</p>
@@ -200,7 +212,7 @@ export default function ProjectsPage() {
               })}
             </div>
           )}
-        </div>
+        </PageWrapper>
       </AppLayout>
     </ProtectedRoute>
   )
