@@ -288,5 +288,5 @@
 @media (max-width: 768px) {
   .page { padding: 20px 16px; }
   .fieldsGrid { grid-template-columns: 1fr; }
-  .fieldCard:first-child { grid-column: auto; }
+  .header { flex-direction: column; gap: 12px; }
 }

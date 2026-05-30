@@ -360,4 +360,8 @@
 @media (max-width: 768px) {
   .page { padding: 20px 16px; }
   .grid { grid-template-columns: 1fr; }
+  .header { flex-direction: column; gap: 12px; }
+  .actionsHeader { flex-direction: column; gap: 8px; }
+  .momentumCard { min-width: unset; }
+  .statsCard { min-width: unset; }
 }

@@ -740,12 +740,13 @@
 
 @media (max-width: 768px) {
   .page { padding: 20px 16px 60px; }
-  .heroTitle { font-size: 28px; }
-  .deepIcon { width: 40px; height: 40px; }
-  .inputFooter { flex-direction: column; align-items: stretch; }
+  .heroTitle { font-size: 26px; }
+  .deepIcon { width: 36px; height: 36px; }
+  .inputFooter { flex-direction: column; }
   .thinkBtn { width: 100%; justify-content: center; }
-  .resultsHeader { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .stepConnector { width: 36px; }
-  .stepNumberWrap, .stepNumberRing { width: 36px; height: 36px; }
-  .stepNumber { width: 32px; height: 32px; font-size: 12px; }
+  .resultsHeader { flex-direction: column; gap: 10px; }
+  .resultsActions { width: 100%; }
+  .stepCard { gap: 12px; }
+  .stepContent { padding: 14px 16px; }
+  .stepTitle { font-size: 14px; }
 }

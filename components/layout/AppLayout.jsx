@@ -38,6 +38,7 @@ export default function AppLayout({
 
   const [conversations, setConversations] = useState([]);
   const [convLoading, setConvLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -73,6 +74,7 @@ export default function AppLayout({
         key={item.href}
         href={item.href}
         className={`${styles.navItem} ${isActive ? styles.active : ""}`}
+        onClick={() => setSidebarOpen(false)}
       >
         {isActive && <span className={styles.activeDot} />}
         <span className={styles.navEmoji}>{item.emoji}</span>
@@ -85,7 +87,19 @@ export default function AppLayout({
     <div className={styles.shell}>
       <AnimatedBackground variant={variant} />
 
-      <aside className={styles.sidebar}>
+      <button
+        className={styles.hamburger}
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? "✕" : "☰"}
+      </button>
+
+      <div
+        className={`${styles.overlay} ${sidebarOpen ? styles.overlayVisible : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      ></div>
+
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarTop}>
           <div className={styles.brand}>
             <svg
@@ -131,6 +145,7 @@ export default function AppLayout({
                   key={conv.id}
                   href={`/chat/${conv.id}`}
                   className={`${styles.convItem} ${pathname === `/chat/${conv.id}` ? styles.convActive : ""}`}
+                  onClick={() => setSidebarOpen(false)}
                 >
                   <span className={styles.convTitle}>{conv.title || "New Conversation"}</span>
                 </Link>
