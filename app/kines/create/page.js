@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { createKine } from "@/lib/firestore"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./CreateKine.module.css"
 
 const CATEGORIES = [
@@ -22,6 +23,7 @@ const EMOJI_OPTIONS = ["✦","🧠","💡","🎯","🚀","🔬","📚","💼","�
 export default function CreateKinePage() {
   const router = useRouter()
   const { user, userDoc } = useAuth()
+  const { success, error: showError } = useToast()
   const [step, setStep] = useState(1)
   const [creating, setCreating] = useState(false)
 
@@ -53,10 +55,11 @@ export default function CreateKinePage() {
         ...form,
         creatorName: userDoc?.soul?.name || userDoc?.name || "Anonymous",
       })
+      success("Kine created successfully")
       router.push(`/kines/${id}`)
     } catch (err) {
       console.error(err)
-      alert("Failed to create Kine. Please try again.")
+      showError("Failed to create Kine. Please try again.")
       setCreating(false)
     }
   }

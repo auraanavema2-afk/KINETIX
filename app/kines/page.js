@@ -30,16 +30,23 @@ export default function KinesPage() {
   const { userDoc } = useAuth()
   const [kines, setKines] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
   const [sort, setSort] = useState("popular")
 
   useEffect(() => {
-    const unsub = getPublicKines((data) => {
-      setKines(data)
+    try {
+      const unsub = getPublicKines((data) => {
+        setKines(data)
+        setLoading(false)
+      })
+      return () => unsub()
+    } catch (err) {
+      console.error(err)
+      setError("Failed to load Kines. Please refresh.")
       setLoading(false)
-    })
-    return () => unsub()
+    }
   }, [])
 
   const filteredKines = kines
@@ -127,6 +134,13 @@ export default function KinesPage() {
               </button>
             ))}
           </div>
+
+          {error && (
+            <div className={styles.errorBanner}>
+              {error}
+              <button onClick={() => window.location.reload()}>Refresh</button>
+            </div>
+          )}
 
           {loading ? (
             <div className={styles.grid}>
