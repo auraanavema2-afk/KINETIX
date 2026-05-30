@@ -7,6 +7,7 @@ export default function AnimatedBackground({ variant = "default" }) {
   const [particles, setParticles] = useState([])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(
       [...Array(20)].map((_, i) => ({
         id: i,

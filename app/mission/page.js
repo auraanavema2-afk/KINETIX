@@ -12,8 +12,8 @@ import styles from "./Mission.module.css"
 const PHASES = ["Planning", "Starting", "Building", "Launching", "Scaling"]
 
 export default function MissionPage() {
-  const { user, userDoc } = useAuth()
-  const { success, error: showError } = useToast()
+  const { userDoc } = useAuth()
+  const { success } = useToast()
   const [actions, setActions] = useState([])
   const [loadingActions, setLoadingActions] = useState(true)
   const [completedActions, setCompletedActions] = useState([])
@@ -27,13 +27,6 @@ export default function MissionPage() {
     4
   )
   const currentPhase = PHASES[currentPhaseIndex]
-
-  useEffect(() => {
-    if (userDoc) {
-      fetchActions()
-      calculateMomentum()
-    }
-  }, [userDoc])
 
   const calculateMomentum = () => {
     const messageCount = userDoc?.messageCount || 0
@@ -72,6 +65,15 @@ export default function MissionPage() {
       setLoadingActions(false)
     }
   }
+
+  useEffect(() => {
+    if (userDoc) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchActions()
+      calculateMomentum()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDoc])
 
   const toggleAction = (index) => {
     setCompletedActions(prev =>
@@ -179,7 +181,7 @@ export default function MissionPage() {
 
           <div className={styles.actionsSection}>
             <div className={styles.actionsHeader}>
-              <h2 className={styles.actionsTitle}>Today's Actions</h2>
+              <h2 className={styles.actionsTitle}>Today&apos;s Actions</h2>
               <span className={styles.actionsCount}>
                 {completedActions.length} / {actions.length} done
               </span>

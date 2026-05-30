@@ -6,7 +6,6 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import { authenticatedFetch } from "@/lib/apiClient"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
-import { canUseFeature } from "@/lib/gates"
 import SoftPaywall from "@/components/paywall/SoftPaywall"
 import { useToast } from "@/components/ui/Toast"
 import styles from "./Thinking.module.css"
@@ -28,7 +27,6 @@ export default function ThinkingPage() {
   const textareaRef = useRef(null)
   const resultsRef = useRef(null)
 
-  const plan = userDoc?.plan || "spark"
   const hasAccess = true
 
   useEffect(() => {
@@ -126,10 +124,14 @@ export default function ThinkingPage() {
       result.steps.map(s => `Step ${s.step}: ${s.title}\n${s.content}`).join("\n\n") +
       `\n\nSummary: ${result.summary}\n\nNext Actions:\n` +
       result.actions.map((a, i) => `${i + 1}. ${a}`).join("\n")
-    await navigator.clipboard.writeText(text)
-    success("Analysis copied to clipboard")
-    setCopySuccess(true)
-    setTimeout(() => setCopySuccess(false), 2000)
+    try {
+      await navigator.clipboard.writeText(text)
+      success("Analysis copied to clipboard")
+      setCopySuccess(true)
+      setTimeout(() => setCopySuccess(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy analysis:", err)
+    }
   }
 
   const handleReset = () => {

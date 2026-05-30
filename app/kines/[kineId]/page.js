@@ -11,16 +11,12 @@ import styles from "./KineDetail.module.css"
 export default function KineDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const { user, userDoc } = useAuth()
+  const { user } = useAuth()
   const [kine, setKine] = useState(null)
   const [loading, setLoading] = useState(true)
   const [userRating, setUserRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
-
-  useEffect(() => {
-    loadKine()
-  }, [params.kineId])
 
   const loadKine = async () => {
     setLoading(true)
@@ -33,6 +29,12 @@ export default function KineDetailPage() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadKine()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.kineId])
 
   const handleRate = async (rating) => {
     if (!user || ratingSubmitted) return

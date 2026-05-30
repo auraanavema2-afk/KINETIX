@@ -48,6 +48,7 @@ export default function AppLayout({
       });
       return () => unsub();
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setConvLoading(false);
     }
   }, [user]);

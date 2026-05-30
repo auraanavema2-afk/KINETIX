@@ -10,7 +10,7 @@ import styles from "./Arena.module.css"
 
 export default function ArenaPage() {
   const router = useRouter()
-  const { user, userDoc, loading: authLoading } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const [arenas, setArenas] = useState([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)

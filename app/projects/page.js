@@ -19,7 +19,7 @@ import styles from "./Projects.module.css"
 export default function ProjectsPage() {
   const { user } = useAuth()
   const router = useRouter()
-  const { success, error: showError } = useToast()
+  const { success } = useToast()
   const [projects, setProjects] = useState([])
   const [conversations, setConversations] = useState([])
   const [loading, setLoading] = useState(true)
@@ -43,6 +43,7 @@ export default function ProjectsPage() {
       return () => { unsub1(); unsub2() }
     } catch (err) {
       console.error(err)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setError("Failed to load projects. Please refresh.")
       setLoading(false)
     }

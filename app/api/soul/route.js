@@ -9,7 +9,7 @@ export async function POST(request) {
   }
 
   try {
-    const { type, content, conversationId } = await request.json();
+    const { type, content } = await request.json();
 
     const anthropic = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY,
@@ -44,7 +44,7 @@ export async function POST(request) {
     }
 
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to process soul request" },
       { status: 500 }

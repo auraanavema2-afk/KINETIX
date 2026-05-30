@@ -171,9 +171,13 @@ export default function MintPage() {
   }
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1800)
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch (err) {
+      console.error("Failed to copy code:", err)
+    }
   }
 
   const deviceWidth = DEVICES.find(d => d.id === device)?.width || "100%"
@@ -375,7 +379,7 @@ export default function MintPage() {
                   <p className={styles.emptyTitle}>Your build appears here</p>
                   <p className={styles.emptySub}>
                     Describe what you want, choose a type, and hit Build.
-                    It streams live as it's generated.
+                    It streams live as it&apos;s generated.
                   </p>
                 </div>
               ) : tab === "code" ? (

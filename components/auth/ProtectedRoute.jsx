@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }) {
     if (!loading && user === null) {
       router.push("/auth");
     }
-  }, [user, loading]);
+  }, [user, loading, router]);
 
   if (loading) return <LoadingScreen fadeOut={false} />;
   if (user === null) return null;

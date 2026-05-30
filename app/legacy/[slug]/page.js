@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
+import Link from "next/link"
 import { getUserPublicProfile, incrementLegacyView } from "@/lib/firestore"
 import AnimatedBackground from "@/components/ui/AnimatedBackground"
 import styles from "./Legacy.module.css"
@@ -13,10 +14,6 @@ export default function PublicLegacyPage() {
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
   const [copyState, setCopyState] = useState("")
-
-  useEffect(() => {
-    loadProfile()
-  }, [params.slug])
 
   const loadProfile = async () => {
     setLoading(true)
@@ -36,6 +33,12 @@ export default function PublicLegacyPage() {
     }
   }
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadProfile()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.slug])
+
   const handleShareLinkedIn = () => {
     const url = `${window.location.origin}/legacy/${profile.slug}`
     const text = `Check out my Legacy on The Kaizen — the AI platform built on continuous improvement.`
@@ -50,9 +53,13 @@ export default function PublicLegacyPage() {
 
   const handleCopyLink = async () => {
     const url = `${window.location.origin}/legacy/${profile.slug}`
-    await navigator.clipboard.writeText(url)
-    setCopyState("Copied!")
-    setTimeout(() => setCopyState(""), 2000)
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopyState("Copied!")
+      setTimeout(() => setCopyState(""), 2000)
+    } catch (err) {
+      console.error("Failed to copy link:", err)
+    }
   }
 
   if (loading) {
@@ -113,15 +120,15 @@ export default function PublicLegacyPage() {
       <div className={styles.page}>
 
         <nav className={styles.nav}>
-          <a className={styles.navBrand} href="/">
+          <Link className={styles.navBrand} href="/">
             <svg viewBox="0 0 24 24" width="20" height="20" className={styles.navPrism}>
               <polygon points="12,3 22,21 2,21" fill="#00d4ff" stroke="#00d4ff" strokeWidth="0.5"/>
             </svg>
             <span>THE KAIZEN</span>
-          </a>
-          <a className={styles.navBtn} href="/auth">
+          </Link>
+          <Link className={styles.navBtn} href="/auth">
             Get your Legacy →
-          </a>
+          </Link>
         </nav>
 
         <div className={styles.profileCard}>
@@ -130,10 +137,13 @@ export default function PublicLegacyPage() {
           <div className={styles.avatarWrap}>
             <div className={styles.avatar}>
               {profile.avatar ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={profile.avatar} alt={profile.name} />
-              ) : (
-                initials
-              )}
+              </>
+            ) : (
+              initials
+            )}
             </div>
             <div className={styles.avatarRing}></div>
           </div>
@@ -190,7 +200,7 @@ export default function PublicLegacyPage() {
             <h2 className={styles.sectionTitle}>Public Kines</h2>
             <div className={styles.kinesGrid}>
               {profile.recentKines.map(kine => (
-                <a
+                <Link
                   key={kine.id}
                   className={styles.kineCard}
                   href={`/kines/${kine.id}`}
@@ -200,7 +210,7 @@ export default function PublicLegacyPage() {
                     <div className={styles.kineName}>{kine.name}</div>
                     <div className={styles.kineUses}>{kine.usageCount || 0} uses</div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -228,7 +238,7 @@ export default function PublicLegacyPage() {
         </div>
 
         <footer className={styles.footer}>
-          <p>Made with The Kaizen · <a href="/">thekaizen.vercel.app</a></p>
+          <p>Made with The Kaizen · <Link href="/">thekaizen.vercel.app</Link></p>
         </footer>
 
       </div>

@@ -20,6 +20,7 @@ export function useKines(userId, count = 100) {
 
   useEffect(() => {
     if (!userId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setKines([]);
       setLoading(false);
       return;

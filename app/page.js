@@ -22,7 +22,7 @@ export default function Home() {
         router.push("/soul-setup");
       }
     }
-  }, [user, userDoc, loading]);
+  }, [user, userDoc, loading, router]);
 
   return <LoadingScreen fadeOut={false} />;
 }

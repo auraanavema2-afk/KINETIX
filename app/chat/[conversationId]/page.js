@@ -32,21 +32,6 @@ export default function ChatPage() {
   const inputRef = useRef(null);
   const abortControllerRef = useRef(null);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    if (!conversationId) return;
-    if (conversationId === "new") {
-      setLoadingHistory(false);
-      inputRef.current?.focus();
-      return;
-    }
-    loadHistory();
-    inputRef.current?.focus();
-  }, [conversationId]);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -70,6 +55,23 @@ export default function ChatPage() {
       setLoadingHistory(false);
     }
   };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (!conversationId) return;
+    if (conversationId === "new") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLoadingHistory(false);
+      inputRef.current?.focus();
+      return;
+    }
+    loadHistory();
+    inputRef.current?.focus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId]);
 
   const generateTitle = async (firstMessage) => {
     try {
@@ -255,7 +257,11 @@ export default function ChatPage() {
   };
 
   const copyMessage = async (content) => {
-    await navigator.clipboard.writeText(content);
+    try {
+      await navigator.clipboard.writeText(content);
+    } catch (err) {
+      console.error("Failed to copy message:", err);
+    }
   };
 
   return (
@@ -308,7 +314,7 @@ export default function ChatPage() {
                     <line x1="40" y1="6" x2="56" y2="68" stroke="rgba(0,212,255,0.2)" strokeWidth="0.5" />
                   </svg>
                 </div>
-                <p className={styles.emptyTitle}>I'm Kaizen 4</p>
+                <p className={styles.emptyTitle}>I&apos;m Kaizen 4</p>
                 {userDoc?.soul?.name && (
                   <p className={styles.emptyGreeting}>
                     Hey {userDoc.soul.name.split(" ")[0]}, ready when you are

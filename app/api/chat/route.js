@@ -7,10 +7,9 @@ export async function POST(request) {
   if (authResult.error) {
     return NextResponse.json({ error: authResult.error }, { status: authResult.status })
   }
-  const verifiedUid = authResult.uid
 
   try {
-    const { messages, conversationId, soulData, soulMemory, customSystemPrompt } =
+    const { messages, soulData, soulMemory, customSystemPrompt } =
       await request.json();
 
     const soulContext = soulData
@@ -82,7 +81,7 @@ Be concise when short answers work. Be thorough when depth helps. Always real, n
         "Transfer-Encoding": "chunked",
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to get response from Kaizen 4" },
       { status: 500 }

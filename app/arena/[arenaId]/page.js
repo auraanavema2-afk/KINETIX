@@ -45,34 +45,6 @@ export default function ArenaRoomPage() {
   const presenceCleanupRef = useRef(null)
   const abortRef = useRef(null)
 
-  useEffect(() => {
-    if (!user || !arenaId || authLoading) return
-
-    loadArena()
-    setupPresence()
-
-    const unsubMessages = getArenaMessages(arenaId, (msgs) => {
-      setMessages(msgs)
-      setLoading(false)
-    })
-
-    const unsubPresence = watchPresence(arenaId, setMembers)
-
-    const unsubTyping = watchTyping(arenaId, user.uid, setTypingUsers)
-
-    return () => {
-      unsubMessages()
-      unsubPresence()
-      unsubTyping()
-      if (presenceCleanupRef.current) presenceCleanupRef.current()
-      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
-    }
-  }, [user, arenaId, authLoading])
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
-
   const loadArena = async () => {
     if (!user) return
     try {
@@ -98,6 +70,36 @@ export default function ArenaRoomPage() {
     const cleanup = await joinArenaPresence(arenaId, user.uid, name)
     presenceCleanupRef.current = cleanup
   }
+
+  useEffect(() => {
+    if (!user || !arenaId || authLoading) return
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadArena()
+    setupPresence()
+
+    const unsubMessages = getArenaMessages(arenaId, (msgs) => {
+      setMessages(msgs)
+      setLoading(false)
+    })
+
+    const unsubPresence = watchPresence(arenaId, setMembers)
+
+    const unsubTyping = watchTyping(arenaId, user.uid, setTypingUsers)
+
+    return () => {
+      unsubMessages()
+      unsubPresence()
+      unsubTyping()
+      if (presenceCleanupRef.current) presenceCleanupRef.current()
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, arenaId, authLoading])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   const handleTyping = (value) => {
     setInput(value)
@@ -234,9 +236,13 @@ export default function ArenaRoomPage() {
 
   const handleCopyLink = async () => {
     const url = `${window.location.origin}/arena/${arenaId}`
-    await navigator.clipboard.writeText(url)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy link:", err)
+    }
   }
 
   const getInitials = (name) => {

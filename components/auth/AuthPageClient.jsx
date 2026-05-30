@@ -16,9 +16,6 @@ export default function AuthPageClient() {
   const router = useRouter();
   const { user, userDoc, loading: authLoading } = useAuth();
 
-  if (authLoading) return <LoadingScreen />;
-  if (user) return <LoadingScreen />;
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,6 +32,9 @@ export default function AuthPageClient() {
       }
     }
   }, [user, userDoc, router]);
+
+  if (authLoading) return <LoadingScreen />;
+  if (user) return <LoadingScreen />;
 
   function switchMode(toSignIn) {
     setIsSignIn(toSignIn);

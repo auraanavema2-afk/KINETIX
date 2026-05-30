@@ -27,14 +27,6 @@ export default function KineChatPage() {
   const inputRef = useRef(null)
   const abortRef = useRef(null)
 
-  useEffect(() => {
-    loadKine()
-  }, [params.kineId])
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
-
   const loadKine = async () => {
     setLoading(true)
     try {
@@ -46,6 +38,16 @@ export default function KineChatPage() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadKine()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.kineId])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   const sendMessage = async () => {
     if (!input.trim() || streaming) return

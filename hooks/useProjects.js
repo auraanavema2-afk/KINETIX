@@ -7,7 +7,6 @@ import {
   where,
   orderBy,
   onSnapshot,
-  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { createDoc, updateDocById, deleteDocById } from "@/lib/firestore";
@@ -19,6 +18,7 @@ export function useProjects(userId) {
 
   useEffect(() => {
     if (!userId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setProjects([]);
       setLoading(false);
       return;

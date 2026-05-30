@@ -23,6 +23,7 @@ export default function LegacySettingsPage() {
 
   useEffect(() => {
     if (userDoc) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSlug(userDoc.slug || "")
       setIsPublic(userDoc.isLegacyPublic || false)
       setBio(userDoc.bioPublic || "")
@@ -81,9 +82,13 @@ export default function LegacySettingsPage() {
   }
 
   const handleCopyUrl = async () => {
-    await navigator.clipboard.writeText(publicUrl)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(publicUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error("Failed to copy URL:", err)
+    }
   }
 
   return (

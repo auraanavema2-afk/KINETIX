@@ -19,6 +19,7 @@ export function useConversations(userId, count = 50) {
 
   useEffect(() => {
     if (!userId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setConversations([]);
       setLoading(false);
       return;

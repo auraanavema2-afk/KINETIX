@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { useAuth } from "@/context/AuthContext"
 import { getActiveFestival, getDiscountedPrice } from "@/lib/festivals"
 import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS } from "@/lib/gates"
@@ -84,6 +85,7 @@ export default function PricingPage() {
 
   useEffect(() => {
     const activeFestival = getActiveFestival()
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFestival(activeFestival)
   }, [])
 
@@ -146,6 +148,7 @@ export default function PricingPage() {
         }),
       })
       const data = await res.json()
+      // eslint-disable-next-line react-hooks/immutability
       if (data.url) window.location.href = data.url
     } catch (err) {
       console.error(err)
@@ -329,9 +332,9 @@ export default function PricingPage() {
         </div>
 
         <div className={styles.footer}>
-          <a href="/terms" className={styles.footerLink}>Terms</a>
-          <a href="/privacy" className={styles.footerLink}>Privacy</a>
-          <a href="/refund" className={styles.footerLink}>Refund Policy</a>
+          <Link href="/terms" className={styles.footerLink}>Terms</Link>
+          <Link href="/privacy" className={styles.footerLink}>Privacy</Link>
+          <Link href="/refund" className={styles.footerLink}>Refund Policy</Link>
           <a href="mailto:support@thekaizen.ai" className={styles.footerLink}>support@thekaizen.ai</a>
         </div>
       </div>

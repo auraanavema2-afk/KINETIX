@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
-import { useAuth } from "@/context/AuthContext"
 import { getPublicKines } from "@/lib/firestore"
 import styles from "./Kines.module.css"
 
@@ -27,7 +26,6 @@ const SORT_OPTIONS = [
 
 export default function KinesPage() {
   const router = useRouter()
-  const { userDoc } = useAuth()
   const [kines, setKines] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -44,6 +42,7 @@ export default function KinesPage() {
       return () => unsub()
     } catch (err) {
       console.error(err)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setError("Failed to load Kines. Please refresh.")
       setLoading(false)
     }

@@ -6,16 +6,13 @@ import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import { signOutUser } from "@/lib/auth"
-import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS, getLimit } from "@/lib/gates"
-import { authenticatedFetch } from "@/lib/apiClient"
-import { useToast } from "@/components/ui/Toast"
+import { PLAN_NAMES, KINET_MODELS, getLimit } from "@/lib/gates"
 import PageWrapper from "@/components/ui/PageWrapper"
 import styles from "./Settings.module.css"
 
 export default function SettingsPage() {
   const { user, userDoc } = useAuth()
   const router = useRouter()
-  const { success } = useToast()
   const [activeTab, setActiveTab] = useState("billing")
   const [portalLoading, setPortalLoading] = useState(false)
 

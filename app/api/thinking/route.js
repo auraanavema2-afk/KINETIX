@@ -13,7 +13,7 @@ export async function POST(request) {
   const verifiedUid = authResult.uid
 
   try {
-    const { problem, soulData, soulMemory } = await request.json()
+    const { problem, soulData } = await request.json()
 
     if (!problem || problem.trim().length < 10) {
       return NextResponse.json(

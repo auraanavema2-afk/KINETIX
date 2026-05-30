@@ -9,7 +9,7 @@ export async function POST(request) {
   }
 
   try {
-    const { soulData, soulMemory, messageCount, streakDays, lastActiveDate } = await request.json()
+    const { soulData, soulMemory, messageCount, streakDays } = await request.json()
     const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
     const today = new Date().toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
     const context = soulData ? `

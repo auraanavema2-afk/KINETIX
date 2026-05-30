@@ -32,10 +32,6 @@ export default function EditKinePage() {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [notAuthorized, setNotAuthorized] = useState(false)
 
-  useEffect(() => {
-    loadKine()
-  }, [params.kineId])
-
   const loadKine = async () => {
     try {
       const data = await getKineById(params.kineId)
@@ -55,6 +51,12 @@ export default function EditKinePage() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadKine()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.kineId])
 
   const set = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }))
@@ -109,7 +111,7 @@ export default function EditKinePage() {
         <AppLayout variant="universe">
           <div className={styles.page}>
             <div className={styles.notAuthorized}>
-              <p>You don't have permission to edit this Kine.</p>
+              <p>You don&apos;t have permission to edit this Kine.</p>
               <button onClick={() => router.push("/kines")}>← Back to Kines</button>
             </div>
           </div>

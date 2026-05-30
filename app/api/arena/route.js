@@ -11,9 +11,7 @@ export async function POST(request) {
   try {
     const {
       messages,
-      arenaId,
       soulData,
-      soulMemory,
       memberCount,
     } = await request.json()
 

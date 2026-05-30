@@ -16,11 +16,12 @@ function SubscriptionToast() {
   useEffect(() => {
     const success = searchParams.get("subscription")
     if (success === "success") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowToast(true)
       setTimeout(() => setShowToast(false), 4000)
       router.replace("/pulse")
     }
-  }, [])
+  }, [searchParams, router])
 
   if (!showToast) return null
 
@@ -32,14 +33,10 @@ function SubscriptionToast() {
 }
 
 export default function PulsePage() {
-  const { user, userDoc } = useAuth()
+  const { userDoc } = useAuth()
   const [briefing, setBriefing] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
-  useEffect(() => {
-    if (userDoc) generateBriefing()
-  }, [userDoc])
 
   const generateBriefing = async () => {
     setLoading(true)
@@ -66,6 +63,12 @@ export default function PulsePage() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (userDoc) generateBriefing()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userDoc])
 
   return (
     <ProtectedRoute>
@@ -110,7 +113,7 @@ export default function PulsePage() {
             <div className={styles.grid}>
 
               <div className={styles.focusCard}>
-                <div className={styles.cardLabel}>TODAY'S FOCUS</div>
+                <div className={styles.cardLabel}>TODAY&apos;S FOCUS</div>
                 <h2 className={styles.focusTitle}>{briefing.todayFocus?.title}</h2>
                 <p className={styles.focusWhy}>{briefing.todayFocus?.why}</p>
                 <div className={styles.focusAction}>
@@ -141,9 +144,9 @@ export default function PulsePage() {
               </div>
 
               <div className={styles.quoteCard}>
-                <div className={styles.cardLabel}>TODAY'S QUOTE</div>
+                <div className={styles.cardLabel}>TODAY&apos;S QUOTE</div>
                 <blockquote className={styles.quote}>
-                  "{briefing.todayQuote}"
+                  &ldquo;{briefing.todayQuote}&rdquo;
                 </blockquote>
               </div>
 

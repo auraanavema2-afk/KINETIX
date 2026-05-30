@@ -28,6 +28,7 @@ export default function SoulPage() {
   const [pageLoading, setPageLoading] = useState(true)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (userDoc !== null) setPageLoading(false)
   }, [userDoc])
 

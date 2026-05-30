@@ -173,7 +173,7 @@ export default function CreateKinePage() {
             {step === 3 && (
               <div className={styles.stepContent}>
                 <h2 className={styles.stepTitle}>Persona</h2>
-                <p className={styles.stepDesc}>Write detailed instructions defining your Kine's personality, expertise, and behaviour</p>
+                <p className={styles.stepDesc}>Write detailed instructions defining your Kine&apos;s personality, expertise, and behaviour</p>
 
                 <div className={styles.fieldGroup}>
                   <label className={styles.label}>Persona Instructions</label>
