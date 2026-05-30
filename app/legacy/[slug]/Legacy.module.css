@@ -5,7 +5,7 @@
   max-width: 720px;
   margin: 0 auto;
   padding: 24px 24px 60px;
-  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .nav {
@@ -53,7 +53,7 @@
 .profileCard {
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(0,212,255,0.1);
-  border-radius: 24px;
+  border-radius: 14px;
   padding: 40px 32px;
   text-align: center;
   position: relative;
@@ -250,10 +250,10 @@
 }
 
 .sectionTitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: white;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 
 .kinesGrid {
@@ -268,7 +268,7 @@
   gap: 12px;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 14px;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -277,7 +277,7 @@
 .kineCard:hover {
   background: rgba(0,212,255,0.04);
   border-color: rgba(0,212,255,0.12);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .kineAvatar {
@@ -316,7 +316,7 @@
 .philosophyCard {
   background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, rgba(0,150,255,0.02) 100%);
   border: 1px solid rgba(0,212,255,0.1);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px 24px;
   margin-bottom: 20px;
   text-align: center;
@@ -345,7 +345,7 @@
 .ctaCard {
   background: rgba(0,212,255,0.05);
   border: 1px solid rgba(0,212,255,0.2);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 24px 28px;
   text-align: center;
   margin-bottom: 24px;
@@ -372,7 +372,7 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 10px;
+  border-radius: 9px;
   padding: 12px 28px;
   font-size: 14px;
   font-weight: 700;

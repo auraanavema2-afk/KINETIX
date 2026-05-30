@@ -54,7 +54,7 @@
   color: #707070;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 8px;
+  border-radius: 9px;
   padding: 6px 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -152,8 +152,8 @@
 }
 
 .emptyTitle {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 500;
   color: white;
   margin: 0;
 }
@@ -168,7 +168,7 @@
 
 .emptySub {
   font-size: 13px;
-  color: #505050;
+  color: #383838;
   max-width: 360px;
   line-height: 1.7;
   margin: 0;

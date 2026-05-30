@@ -6,6 +6,7 @@
   align-items: center;
   padding: 0 20px 60px;
   z-index: 1;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .topBar {
@@ -111,8 +112,8 @@
 
 .stepLabel {
   font-size: 10px;
-  color: #343434;
-  letter-spacing: 0.12em;
+  color: #505050;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 18px;
   font-weight: 500;
@@ -171,11 +172,11 @@
 
 .backBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
   padding: 11px 22px;
   font-size: 13px;
-  color: #404040;
+  color: #909090;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -295,7 +296,7 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 17px 48px;
   font-size: 15px;
   font-weight: 700;

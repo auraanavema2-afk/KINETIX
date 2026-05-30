@@ -72,7 +72,7 @@
 .errorCard button {
   background: rgba(255,68,68,0.1);
   border: 1px solid rgba(255,68,68,0.2);
-  border-radius: 8px;
+  border-radius: 9px;
   color: #ff6b6b;
   font-size: 13px;
   padding: 8px 18px;
@@ -95,7 +95,7 @@
 
 .skeletonCard {
   height: 180px;
-  border-radius: 16px;
+  border-radius: 14px;
   background: linear-gradient(90deg, #090909 25%, #111111 50%, #090909 75%);
   background-size: 200% auto;
   animation: shimmer 1.8s linear infinite;
@@ -125,7 +125,7 @@
   grid-column: 1 / -1;
   background: rgba(0,212,255,0.04);
   border: 1px solid rgba(0,212,255,0.12);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 22px 24px;
 }
 
@@ -178,10 +178,10 @@
 }
 
 .markDoneBtn {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  color: #606060;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #909090;
   font-size: 12px;
   padding: 7px 14px;
   cursor: pointer;
@@ -203,7 +203,7 @@
 .workOnBtn {
   background: rgba(0,212,255,0.08);
   border: 1px solid rgba(0,212,255,0.2);
-  border-radius: 8px;
+  border-radius: 9px;
   color: #00d4ff;
   font-size: 12px;
   padding: 7px 14px;
@@ -225,7 +225,7 @@
 .insightCard {
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px 22px;
 }
 
@@ -249,7 +249,7 @@
 .pulseCard {
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px 22px;
 }
 
@@ -295,7 +295,7 @@
   grid-column: 1 / -1;
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px 24px;
 }
 

@@ -26,7 +26,7 @@
 .page {
   padding: 32px 36px;
   max-width: 1200px;
-  animation: fadeInUp 0.4s ease forwards;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .header {
@@ -39,8 +39,8 @@
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 600;
   color: white;
   margin-bottom: 4px;
 }
@@ -56,9 +56,9 @@
 }
 
 .myKinesBtn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
   color: #909090;
   font-size: 13px;
   padding: 10px 18px;
@@ -77,7 +77,7 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   font-size: 13px;
   font-weight: 600;
   padding: 10px 18px;
@@ -235,7 +235,7 @@
 
 .skeleton {
   height: 180px;
-  border-radius: 16px;
+  border-radius: 14px;
   background: linear-gradient(
     90deg,
     #090909 25%,
@@ -249,7 +249,7 @@
 .kineCard {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 20px;
   cursor: pointer;
   transition: all 0.22s ease;
@@ -377,7 +377,7 @@
 }
 
 .emptyIcon {
-  font-size: 48px;
+  font-size: 40px;
   margin-bottom: 4px;
   opacity: 0.4;
 }
@@ -390,7 +390,7 @@
 
 .emptySub {
   font-size: 13px;
-  color: #606060;
+  color: #383838;
   margin-bottom: 8px;
 }
 
@@ -398,7 +398,7 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 11px 20px;
   font-size: 13px;
   font-weight: 600;
@@ -412,6 +412,11 @@
   background: #33ddff;
   transform: translateY(-1px);
   box-shadow: 0 0 28px rgba(0,212,255,0.55);
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {

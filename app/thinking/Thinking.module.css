@@ -2,7 +2,7 @@
   padding: 32px 36px 80px;
   max-width: 880px;
   margin: 0 auto;
-  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .heroSection {
@@ -99,9 +99,9 @@
 .gatedBanner button {
   margin-left: auto;
   background: #00d4ff;
-  color: #000000;
+  color: #000;
   border: none;
-  border-radius: 7px;
+  border-radius: 9px;
   padding: 7px 16px;
   font-size: 12px;
   font-weight: 600;
@@ -118,7 +118,7 @@
 .inputCard {
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 18px;
+  border-radius: 14px;
   padding: 20px 24px;
   transition: all 0.3s ease;
   margin-bottom: 16px;
@@ -233,9 +233,9 @@
   align-items: center;
   gap: 10px;
   background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  color: #000000;
+  color: #000;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   padding: 12px 26px;
   font-size: 14px;
   font-weight: 700;
@@ -360,9 +360,9 @@
 
 .copyAllBtn, .resetBtn {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 8px;
-  color: #606060;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #909090;
   font-size: 12px;
   padding: 8px 14px;
   cursor: pointer;
@@ -526,7 +526,7 @@
 .summaryCard {
   background: linear-gradient(135deg, rgba(0,212,255,0.06) 0%, rgba(0,150,255,0.03) 100%);
   border: 1px solid rgba(0,212,255,0.15);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 24px 28px;
   margin-top: 8px;
   margin-bottom: 16px;
@@ -579,7 +579,7 @@
 .actionsCard {
   background: rgba(255,255,255,0.02);
   border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 24px 28px;
   animation: actionsEnter 0.5s ease forwards;
 }

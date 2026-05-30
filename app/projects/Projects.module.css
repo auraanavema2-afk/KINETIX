@@ -1,14 +1,14 @@
 .page {
   padding: 32px 36px;
   max-width: 900px;
-  animation: fadeInUp 0.4s ease forwards;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .title {
@@ -68,13 +68,13 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 7px;
+  border-radius: 9px;
   padding: 8px 16px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
 .createSave:hover {
@@ -83,14 +83,14 @@
 
 .createCancel {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 7px;
-  color: #404040;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  color: #909090;
   padding: 8px 14px;
   font-size: 13px;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.18s ease;
+  transition: all 0.2s ease;
 }
 
 .createCancel:hover {
@@ -136,13 +136,13 @@
   font-size: 18px;
   font-weight: 500;
   color: white;
-  margin: 0;
+  margin: 0 0 6px;
 }
 
 .emptySub {
   font-size: 13px;
-  color: #606060;
-  margin: 0;
+  color: #383838;
+  margin: 0 0 16px;
 }
 
 .emptyBtn {
@@ -173,7 +173,7 @@
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 20px;
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
 }
 
 .projectCard:hover {
@@ -317,6 +317,11 @@
 }
 
 @keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pageEnter {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }

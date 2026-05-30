@@ -1,12 +1,12 @@
 .page {
   padding: 32px 36px;
   max-width: 820px;
-  animation: fadeInUp 0.4s ease forwards;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .skeleton {
   height: 400px;
-  border-radius: 20px;
+  border-radius: 14px;
   background: linear-gradient(
     90deg,
     #090909 25%,
@@ -61,7 +61,7 @@
   gap: 24px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 20px;
+  border-radius: 14px;
   padding: 32px;
   margin-bottom: 16px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
@@ -154,7 +154,7 @@
   background: #00d4ff;
   color: #000000;
   border: none;
-  border-radius: 12px;
+  border-radius: 9px;
   font-size: 13px;
   font-weight: 600;
   padding: 11px 22px;
@@ -172,9 +172,9 @@
 
 .shareBtn,
 .editBtn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
   color: #909090;
   font-size: 13px;
   padding: 11px 18px;
@@ -200,7 +200,7 @@
 .statCard {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 16px 18px;
   text-align: center;
   transition: all 0.22s ease;
@@ -223,7 +223,7 @@
 
 .statLabel {
   font-size: 10px;
-  color: #606060;
+  color: #505050;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
@@ -232,17 +232,17 @@
 .personaCard {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 22px 24px;
   margin-bottom: 16px;
 }
 
 .personaHeader {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .sectionTitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: white;
 }
@@ -257,7 +257,7 @@
 .ratingCard {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(0,212,255,0.12);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 22px 24px;
   text-align: center;
   margin-bottom: 16px;
@@ -327,6 +327,11 @@
   filter: brightness(1.12);
   transform: translateY(-2px);
   box-shadow: 0 4px 48px rgba(0,212,255,0.65);
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
