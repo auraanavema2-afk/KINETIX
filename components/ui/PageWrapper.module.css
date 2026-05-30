@@ -1,0 +1,110 @@
+.wrapper {
+  min-height: 100vh;
+  animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  margin: 0 auto;
+}
+
+.skeletonHeader {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeletonTitle {
+  height: 28px;
+  width: 200px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #0a0a0a 25%, #141414 50%, #0a0a0a 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.skeletonSub {
+  height: 14px;
+  width: 300px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #0a0a0a 25%, #141414 50%, #0a0a0a 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite 0.2s;
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.skeletonCard {
+  height: 160px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #090909 25%, #111111 50%, #090909 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  gap: 12px;
+  min-height: 60vh;
+}
+
+.errorIcon {
+  font-size: 36px;
+  color: #ff6b6b;
+  margin-bottom: 4px;
+}
+
+.errorTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+}
+
+.errorText {
+  font-size: 14px;
+  color: #606060;
+  max-width: 360px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.retryBtn {
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 9px;
+  color: #00d4ff;
+  font-size: 13px;
+  padding: 10px 22px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.retryBtn:hover {
+  background: rgba(0,212,255,0.14);
+  transform: translateY(-1px);
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px 16px !important;
+  }
+}
