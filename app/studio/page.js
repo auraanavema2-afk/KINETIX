@@ -5,6 +5,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { authenticatedFetch } from "@/lib/apiClient"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./Mint.module.css"
 
 const BUILD_TYPES = [
@@ -45,6 +46,7 @@ const DEVICES = [
 
 export default function MintPage() {
   const { user, userDoc } = useAuth()
+  const { success } = useToast()
 
   const [type,        setType]        = useState("app")
   const [prompt,      setPrompt]      = useState("")
@@ -56,6 +58,7 @@ export default function MintPage() {
   const [iterateText, setIterateText] = useState("")
   const [copied,      setCopied]      = useState(false)
   const [error,       setError]       = useState("")
+  const [buildError,  setBuildError]  = useState("")
 
   const abortRef    = useRef(null)
   const progressRef = useRef(null)
@@ -132,10 +135,17 @@ export default function MintPage() {
       stopProgress()
       if (isIteration) setIterateText("")
       setTab("preview")
+      success("Build complete")
     } catch (err) {
-      if (err.name === "AbortError") return
-      setError(err.message || "Something went wrong. Please try again.")
-      stopProgress()
+      if (err.name !== "AbortError") {
+        setBuildError(
+          err.message === "Not authenticated"
+            ? "Please sign in to use Kaizen Mint"
+            : "Build failed. Please try again."
+        )
+        setTimeout(() => setBuildError(""), 4000)
+        stopProgress()
+      }
     } finally {
       setBuilding(false)
     }
@@ -327,7 +337,25 @@ export default function MintPage() {
             </div>
 
             {/* Preview area */}
-            <div className={styles.preview}>
+            <div className={styles.preview} style={{ position: "relative" }}>
+              {buildError && (
+                <div style={{
+                  position: "absolute",
+                  bottom: "20px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  background: "rgba(255,68,68,0.1)",
+                  border: "1px solid rgba(255,68,68,0.2)",
+                  borderRadius: "10px",
+                  padding: "10px 20px",
+                  color: "#ff6b6b",
+                  fontSize: "13px",
+                  whiteSpace: "nowrap",
+                  zIndex: 10,
+                }}>
+                  {buildError}
+                </div>
+              )}
               {!code && !building ? (
                 <div className={styles.empty}>
                   <svg className={styles.emptyPrism} viewBox="0 0 48 48" width="64" height="64" fill="none">
