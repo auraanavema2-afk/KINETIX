@@ -18,15 +18,18 @@ import {
   watchTyping,
 } from "@/lib/arena"
 import { authenticatedFetch } from "@/lib/apiClient"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./ArenaRoom.module.css"
 
 export default function ArenaRoomPage() {
   const params = useParams()
   const router = useRouter()
   const { user, userDoc, loading: authLoading } = useAuth()
+  const { info } = useToast()
   const arenaId = params.arenaId
 
   const [arena, setArena] = useState(null)
+  const [arenaError, setArenaError] = useState(null)
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(true)
@@ -74,13 +77,18 @@ export default function ArenaRoomPage() {
     if (!user) return
     try {
       const data = await getArena(arenaId)
-      if (!data) { router.push("/arena"); return }
+      if (!data) {
+        setArenaError("This Arena does not exist or has been deleted.")
+        return
+      }
       setArena(data)
       if (!data.members?.includes(user.uid)) {
         await joinArena(arenaId, user.uid)
+        info("You joined the Arena")
       }
     } catch (err) {
       console.error(err)
+      setArenaError("Failed to load Arena. Please try again.")
     }
   }
 
@@ -244,6 +252,49 @@ export default function ArenaRoomPage() {
     ]
     const index = userId.charCodeAt(0) % colors.length
     return colors[index]
+  }
+
+  if (arenaError) {
+    return (
+      <ProtectedRoute>
+        <AppLayout variant="default">
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+            gap: "12px",
+            textAlign: "center",
+            padding: "40px",
+          }}>
+            <div style={{ fontSize: "36px", opacity: 0.3 }}>🤝</div>
+            <h2 style={{ color: "white", fontSize: "20px", margin: 0 }}>
+              Arena unavailable
+            </h2>
+            <p style={{ color: "#606060", fontSize: "14px", margin: 0 }}>
+              {arenaError}
+            </p>
+            <button
+              style={{
+                background: "rgba(0,212,255,0.08)",
+                border: "1px solid rgba(0,212,255,0.2)",
+                borderRadius: "9px",
+                color: "#00d4ff",
+                fontSize: "13px",
+                padding: "10px 22px",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                marginTop: "8px",
+              }}
+              onClick={() => router.push("/arena")}
+            >
+              Back to Arenas
+            </button>
+          </div>
+        </AppLayout>
+      </ProtectedRoute>
+    )
   }
 
   if (authLoading || loading) {
