@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation"
 import { signOutUser } from "@/lib/auth"
 import { PLAN_NAMES, KINET_MODELS, getLimit } from "@/lib/gates"
 import PageWrapper from "@/components/ui/PageWrapper"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./Settings.module.css"
 
 export default function SettingsPage() {
   const { user, userDoc } = useAuth()
   const router = useRouter()
+  const { error: showError } = useToast()
   const [activeTab, setActiveTab] = useState("billing")
   const [portalLoading, setPortalLoading] = useState(false)
 
@@ -36,7 +38,7 @@ export default function SettingsPage() {
       }
     } catch (err) {
       console.error(err)
-      alert("Could not open billing portal. Please try again.")
+      showError("Could not open billing portal. Please try again.")
     } finally {
       setPortalLoading(false)
     }
@@ -48,7 +50,7 @@ export default function SettingsPage() {
       router.push("/auth")
     } catch (err) {
       console.error(err)
-      alert("Failed to sign out. Please try again.")
+      showError("Failed to sign out. Please try again.")
     }
   }
 

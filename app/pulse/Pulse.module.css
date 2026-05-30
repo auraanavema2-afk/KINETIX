@@ -161,6 +161,65 @@
   font-weight: 700;
 }
 
+.focusDone {
+  opacity: 0.55;
+}
+
+.focusDone .focusTitle {
+  text-decoration: line-through;
+  color: #606060;
+}
+
+.focusActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.markDoneBtn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #606060;
+  font-size: 12px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.markDoneBtn:hover {
+  background: rgba(255,255,255,0.08);
+  color: #909090;
+}
+
+.markDoneActive {
+  background: rgba(0,212,255,0.08);
+  border-color: rgba(0,212,255,0.25);
+  color: #00d4ff;
+}
+
+.workOnBtn {
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  border-radius: 8px;
+  color: #00d4ff;
+  font-size: 12px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.workOnBtn:hover {
+  background: rgba(0,212,255,0.14);
+}
+
+.nameHighlight {
+  color: #00d4ff;
+}
+
 /* ── Insight card ──────────────────────────────── */
 
 .insightCard {

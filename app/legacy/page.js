@@ -9,10 +9,12 @@ import {
   toggleLegacyPublic,
   updatePublicBio,
 } from "@/lib/firestore"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./LegacySettings.module.css"
 
 export default function LegacySettingsPage() {
   const { user, userDoc, setUserDoc } = useAuth()
+  const { error: showError } = useToast()
   const [slug, setSlug] = useState("")
   const [isPublic, setIsPublic] = useState(false)
   const [bio, setBio] = useState("")
@@ -51,7 +53,7 @@ export default function LegacySettingsPage() {
   const handleTogglePublic = async () => {
     if (!user || !slug) {
       if (!slug) {
-        alert("Please generate your Legacy URL first")
+        showError("Please generate your Legacy URL first")
         return
       }
       return

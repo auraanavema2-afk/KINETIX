@@ -90,6 +90,7 @@ export default function ThinkingPage() {
       }
 
       const data = await res.json()
+      if (!data.steps || !Array.isArray(data.steps)) throw new Error("Invalid response")
       setResult(data)
 
       // Reveal steps one by one with timing
@@ -255,7 +256,7 @@ export default function ThinkingPage() {
               <div className={styles.resultsHeader}>
                 <div className={styles.resultsTitle}>
                   <span className={styles.resultsLabel}>ANALYSIS COMPLETE</span>
-                  <h2>5 thinking steps</h2>
+                  <h2>{result.steps.length} thinking steps</h2>
                 </div>
                 <div className={styles.resultsActions}>
                   <button

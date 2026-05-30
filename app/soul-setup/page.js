@@ -43,10 +43,14 @@ export default function SoulSetupPage() {
       createdAt: new Date().toISOString(),
     };
     if (user && db) {
-      await updateDoc(doc(db, "users", user.uid), {
-        soul: soulData,
-        hasCompletedSoulSetup: true,
-      });
+      try {
+        await updateDoc(doc(db, "users", user.uid), {
+          soul: soulData,
+          hasCompletedSoulSetup: true,
+        });
+      } catch (err) {
+        console.error("Failed to save soul data:", err);
+      }
     }
     setIsComplete(true);
     setSaving(false);
@@ -107,7 +111,7 @@ export default function SoulSetupPage() {
             </div>
             <button
               className={styles.openBtn}
-              onClick={() => router.push("/chat")}
+              onClick={() => router.push("/pulse")}
               disabled={saving}
             >
               Open The Kaizen →

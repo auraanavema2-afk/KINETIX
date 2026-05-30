@@ -15,9 +15,14 @@ function ChatRedirect() {
   useEffect(() => {
     if (!user || creating.current) return;
     creating.current = true;
-    createConversation(user.uid).then((id) => {
-      router.replace(`/chat/${id}`);
-    });
+    createConversation(user.uid)
+      .then((id) => {
+        router.replace(`/chat/${id}`);
+      })
+      .catch((err) => {
+        console.error("Failed to create conversation:", err);
+        creating.current = false;
+      });
   }, [user, router]);
 
   return <LoadingScreen fadeOut={false} />;

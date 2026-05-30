@@ -17,6 +17,7 @@ export default function KineDetailPage() {
   const [userRating, setUserRating] = useState(0)
   const [hoverRating, setHoverRating] = useState(0)
   const [ratingSubmitted, setRatingSubmitted] = useState(false)
+  const [shareCopied, setShareCopied] = useState(false)
 
   const loadKine = async () => {
     setLoading(true)
@@ -57,7 +58,8 @@ export default function KineDetailPage() {
     const url = `${window.location.origin}/kines/${params.kineId}`
     try {
       await navigator.clipboard.writeText(url)
-      alert("Link copied to clipboard")
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
     } catch (err) {
       console.error(err)
     }
@@ -136,7 +138,7 @@ export default function KineDetailPage() {
                   className={styles.shareBtn}
                   onClick={handleShare}
                 >
-                  ↗ Share
+                  {shareCopied ? "✓ Copied" : "↗ Share"}
                 </button>
                 {isOwner && (
                   <button

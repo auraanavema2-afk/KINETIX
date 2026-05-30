@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, Suspense } from "react"
+import { useEffect, useState, Suspense, useCallback } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
@@ -34,9 +34,11 @@ function SubscriptionToast() {
 
 export default function PulsePage() {
   const { userDoc } = useAuth()
+  const router = useRouter()
   const [briefing, setBriefing] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [focusDone, setFocusDone] = useState(false)
 
   const generateBriefing = async () => {
     setLoading(true)
@@ -64,6 +66,18 @@ export default function PulsePage() {
     }
   }
 
+  const highlightName = useCallback((text) => {
+    const firstName = userDoc?.soul?.name?.split(" ")[0]
+    if (!firstName || !text) return text
+    const parts = text.split(new RegExp(`(${firstName})`, "i"))
+    if (parts.length === 1) return text
+    return parts.map((part, i) =>
+      part.toLowerCase() === firstName.toLowerCase()
+        ? <span key={i} className={styles.nameHighlight}>{part}</span>
+        : part
+    )
+  }, [userDoc?.soul?.name])
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (userDoc) generateBriefing()
@@ -82,7 +96,10 @@ export default function PulsePage() {
             <div>
               <div className={styles.headerLabel}>DAILY BRIEFING</div>
               <h1 className={styles.title}>
-                {briefing?.greeting || `Good morning, ${userDoc?.soul?.name?.split(" ")[0] || "Builder"}`}
+                {briefing?.greeting
+                  ? highlightName(briefing.greeting)
+                  : <>Good morning, <span className={styles.nameHighlight}>{userDoc?.soul?.name?.split(" ")[0] || "Builder"}</span></>
+                }
               </h1>
             </div>
             <button
@@ -112,13 +129,27 @@ export default function PulsePage() {
           {briefing && (
             <div className={styles.grid}>
 
-              <div className={styles.focusCard}>
+              <div className={`${styles.focusCard} ${focusDone ? styles.focusDone : ""}`}>
                 <div className={styles.cardLabel}>TODAY&apos;S FOCUS</div>
                 <h2 className={styles.focusTitle}>{briefing.todayFocus?.title}</h2>
                 <p className={styles.focusWhy}>{briefing.todayFocus?.why}</p>
                 <div className={styles.focusAction}>
                   <span className={styles.actionIcon}>→</span>
                   {briefing.todayFocus?.action}
+                </div>
+                <div className={styles.focusActions}>
+                  <button
+                    className={`${styles.markDoneBtn} ${focusDone ? styles.markDoneActive : ""}`}
+                    onClick={() => setFocusDone(v => !v)}
+                  >
+                    {focusDone ? "✓ Done" : "Mark Done"}
+                  </button>
+                  <button
+                    className={styles.workOnBtn}
+                    onClick={() => router.push("/chat")}
+                  >
+                    Work on this →
+                  </button>
                 </div>
               </div>
 
