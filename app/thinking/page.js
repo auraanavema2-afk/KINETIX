@@ -8,11 +8,13 @@ import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { canUseFeature } from "@/lib/gates"
 import SoftPaywall from "@/components/paywall/SoftPaywall"
+import { useToast } from "@/components/ui/Toast"
 import styles from "./Thinking.module.css"
 
 export default function ThinkingPage() {
   const router = useRouter()
   const { user, userDoc } = useAuth()
+  const { success } = useToast()
   const [problem, setProblem] = useState("")
   const [thinking, setThinking] = useState(false)
   const [result, setResult] = useState(null)
@@ -103,9 +105,16 @@ export default function ThinkingPage() {
 
       await new Promise(r => setTimeout(r, 400))
       setShowActions(true)
+      success("Analysis complete")
 
     } catch (err) {
-      setError("Kaizen 4 Deep encountered an issue. Please try again.")
+      if (err.name !== "AbortError") {
+        setError(
+          err.message === "Not authenticated"
+            ? "Please sign in to use Kaizen 4 Deep"
+            : "Kaizen 4 Deep encountered an issue. Please check your connection and try again."
+        )
+      }
     } finally {
       setThinking(false)
     }
@@ -113,11 +122,12 @@ export default function ThinkingPage() {
 
   const handleCopyAll = async () => {
     if (!result) return
-    const text = `KAIZEN 4 DEEP ANALYSIS\n\nProblem: ${problem}\n\n` +
+    const text = `THE KAIZEN — KAIZEN 4 DEEP ANALYSIS\n\nProblem: ${problem}\n\n` +
       result.steps.map(s => `Step ${s.step}: ${s.title}\n${s.content}`).join("\n\n") +
       `\n\nSummary: ${result.summary}\n\nNext Actions:\n` +
       result.actions.map((a, i) => `${i + 1}. ${a}`).join("\n")
     await navigator.clipboard.writeText(text)
+    success("Analysis copied to clipboard")
     setCopySuccess(true)
     setTimeout(() => setCopySuccess(false), 2000)
   }
