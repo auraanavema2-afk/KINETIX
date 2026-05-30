@@ -8,11 +8,14 @@ import { useRouter } from "next/navigation"
 import { signOutUser } from "@/lib/auth"
 import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS, getLimit } from "@/lib/gates"
 import { authenticatedFetch } from "@/lib/apiClient"
+import { useToast } from "@/components/ui/Toast"
+import PageWrapper from "@/components/ui/PageWrapper"
 import styles from "./Settings.module.css"
 
 export default function SettingsPage() {
   const { user, userDoc } = useAuth()
   const router = useRouter()
+  const { success } = useToast()
   const [activeTab, setActiveTab] = useState("billing")
   const [portalLoading, setPortalLoading] = useState(false)
 
@@ -23,29 +26,49 @@ export default function SettingsPage() {
   const handlePortal = async () => {
     setPortalLoading(true)
     try {
-      const res = await authenticatedFetch("/api/stripe/portal", {
+      const res = await fetch("/api/stripe/portal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user?.uid }),
       })
       const data = await res.json()
-      if (data.url) window.location.href = data.url
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error("No portal URL returned")
+      }
     } catch (err) {
       console.error(err)
+      alert("Could not open billing portal. Please try again.")
     } finally {
       setPortalLoading(false)
     }
   }
 
   const handleSignOut = async () => {
-    await signOutUser()
-    router.push("/auth")
+    try {
+      await signOutUser()
+      router.push("/auth")
+    } catch (err) {
+      console.error(err)
+      alert("Failed to sign out. Please try again.")
+    }
   }
 
   const TABS = [
     { key: "billing", label: "Billing" },
     { key: "account", label: "Account" },
   ]
+
+  if (!userDoc) {
+    return (
+      <ProtectedRoute>
+        <AppLayout variant="default">
+          <PageWrapper loading={true} maxWidth="640px" padding="32px 36px" />
+        </AppLayout>
+      </ProtectedRoute>
+    )
+  }
 
   return (
     <ProtectedRoute>
