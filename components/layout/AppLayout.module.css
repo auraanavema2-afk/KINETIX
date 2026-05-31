@@ -47,10 +47,24 @@
   gap: 10px;
 }
 
-.prismIcon {
-  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.8));
-  animation: prismSpin 3s ease-in-out infinite;
+.brandLogo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
   flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255,45,45,0.7));
+  animation: dragonGlow 3s ease-in-out infinite;
+}
+
+@keyframes dragonGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(255,45,45,0.7));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 12px rgba(255,45,45,1))
+      drop-shadow(0 0 24px rgba(255,45,45,0.5));
+  }
 }
 
 .brandName {

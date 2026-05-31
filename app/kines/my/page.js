@@ -67,7 +67,19 @@ export default function MyKinesPage() {
             </div>
           ) : kines.length === 0 ? (
             <div className={styles.empty}>
-              <div className={styles.emptyIcon}>✦</div>
+              <div className={styles.emptyIcon}>
+                <img
+                  src="/images/kaizen-icon.png"
+                  alt="The Kaizen"
+                  width={56}
+                  height={56}
+                  style={{
+                    opacity: 0.4,
+                    filter: "drop-shadow(0 0 12px rgba(255,45,45,0.5))",
+                    animation: "logoFloat 3s ease-in-out infinite",
+                  }}
+                />
+              </div>
               <p className={styles.emptyTitle}>No Kines yet</p>
               <p className={styles.emptySub}>Create your first Kine and share it with the world</p>
               <button

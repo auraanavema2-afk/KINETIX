@@ -119,11 +119,22 @@ export default function PulsePage() {
           )}
 
           {loading && !briefing && (
-            <div className={styles.loadingGrid}>
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className={styles.skeletonCard}></div>
-              ))}
-            </div>
+            <>
+              <div className={styles.loadingPrismWrap}>
+                <img
+                  src="/images/kaizen-icon.png"
+                  alt="The Kaizen"
+                  width={56}
+                  height={56}
+                  className={styles.loadingLogo}
+                />
+              </div>
+              <div className={styles.loadingGrid}>
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className={styles.skeletonCard}></div>
+                ))}
+              </div>
+            </>
           )}
 
           {briefing && (

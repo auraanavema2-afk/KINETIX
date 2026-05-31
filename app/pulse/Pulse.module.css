@@ -85,6 +85,41 @@
   background: rgba(255,68,68,0.16);
 }
 
+/* ── Loading logo ──────────────────────────────── */
+
+.loadingPrismWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.loadingLogo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  animation: pulseLogoFloat 3.5s ease-in-out infinite,
+             pulseLogoGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseLogoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes pulseLogoGlow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 12px rgba(255,45,45,0.8))
+      drop-shadow(0 0 32px rgba(255,45,45,0.4));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 24px rgba(255,45,45,1))
+      drop-shadow(0 0 60px rgba(255,45,45,0.7));
+  }
+}
+
 /* ── Loading skeleton ──────────────────────────── */
 
 .loadingGrid {

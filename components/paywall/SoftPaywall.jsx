@@ -10,7 +10,13 @@ export default function SoftPaywall({ reason, onClose }) {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.iconWrap}>
-          <span className={styles.icon}>⚡</span>
+          <img
+            src="/images/kaizen-icon.png"
+            alt="The Kaizen"
+            width={40}
+            height={40}
+            className={styles.prism}
+          />
         </div>
         <h2 className={styles.title}>Upgrade to continue</h2>
         <p className={styles.reason}>{reason || "You've reached your plan limit."}</p>

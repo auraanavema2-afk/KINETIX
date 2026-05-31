@@ -8,8 +8,17 @@ export default function AuthCard({ children }) {
       <AnimatedBackground variant="auth" />
       <ParticleBackground />
       <div className={styles.card}>
-        <div className={styles.logo}>THE KAIZEN</div>
-        <div className={styles.tagline}>Your Second Brain. Built for Builders.</div>
+        <div className={styles.logoWrap}>
+          <div className={styles.logoImgContainer}>
+            <img
+              src="/images/kaizen-logo.png"
+              alt="The Kaizen"
+              className={styles.logoImg}
+              width={200}
+              height={120}
+            />
+          </div>
+        </div>
         <div className={styles.content}>{children}</div>
       </div>
     </div>

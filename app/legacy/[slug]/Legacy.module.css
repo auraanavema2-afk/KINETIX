@@ -27,9 +27,12 @@
   text-shadow: 0 0 8px rgba(0,212,255,0.7);
 }
 
-.navPrism {
-  filter: drop-shadow(0 0 4px rgba(0,212,255,0.7));
-  animation: prismFloat 3s ease-in-out infinite;
+.navLogo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(255,45,45,0.7));
+  animation: logoFloat 3s ease-in-out infinite;
 }
 
 .navBtn {
@@ -492,6 +495,12 @@
 @keyframes prismFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-6px) rotate(0.5deg); }
+  66% { transform: translateY(-3px) rotate(-0.5deg); }
 }
 
 @keyframes dotPulse {

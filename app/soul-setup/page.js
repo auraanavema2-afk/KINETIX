@@ -85,24 +85,14 @@ export default function SoulSetupPage() {
         <div className={styles.completionWrap}>
           <div className={styles.completionCard}>
             <div className={styles.completionPrismWrap}>
-              <div className={styles.completionRing} />
-              <div className={styles.completionPrism}>
-                <svg viewBox="0 0 44 44" width="56" height="56">
-                  <defs>
-                    <filter id="completionGlow">
-                      <feGaussianBlur stdDeviation="2" />
-                    </filter>
-                  </defs>
-                  <polygon
-                    points="22,4 40,38 4,38"
-                    fill="none"
-                    stroke="#00d4ff"
-                    strokeWidth="1.5"
-                    filter="url(#completionGlow)"
-                  />
-                  <circle cx="22" cy="4" r="1.5" fill="#00d4ff" />
-                </svg>
-              </div>
+              <img
+                src="/images/kaizen-icon.png"
+                alt="The Kaizen"
+                width={80}
+                height={80}
+                className={styles.completionLogo}
+              />
+              <div className={styles.completionRing}></div>
             </div>
             <div className={styles.completionTitle}>Kaizen 4 is ready for you</div>
             <div className={styles.completionName}>{answers[0]}</div>

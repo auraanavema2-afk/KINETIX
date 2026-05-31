@@ -121,9 +121,13 @@ export default function PublicLegacyPage() {
 
         <nav className={styles.nav}>
           <Link className={styles.navBrand} href="/">
-            <svg viewBox="0 0 24 24" width="20" height="20" className={styles.navPrism}>
-              <polygon points="12,3 22,21 2,21" fill="#00d4ff" stroke="#00d4ff" strokeWidth="0.5"/>
-            </svg>
+            <img
+              src="/images/kaizen-icon.png"
+              alt="The Kaizen"
+              width={24}
+              height={24}
+              className={styles.navLogo}
+            />
             <span>THE KAIZEN</span>
           </Link>
           <Link className={styles.navBtn} href="/auth">

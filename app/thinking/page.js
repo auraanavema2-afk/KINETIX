@@ -156,24 +156,13 @@ export default function ThinkingPage() {
           <div className={styles.heroSection}>
             <div className={styles.titleWrap}>
               <div className={styles.brainGlow}></div>
-              <svg viewBox="0 0 60 60" width="48" height="48" className={styles.deepIcon}>
-                <defs>
-                  <linearGradient id="deepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#00d4ff"/>
-                    <stop offset="50%" stopColor="#80eaff"/>
-                    <stop offset="100%" stopColor="#003344"/>
-                  </linearGradient>
-                  <filter id="deepGlow">
-                    <feGaussianBlur stdDeviation="2.5" result="blur"/>
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                  </filter>
-                </defs>
-                <polygon points="30,5 55,50 5,50" fill="url(#deepGrad)" stroke="#00d4ff" strokeWidth="0.8" filter="url(#deepGlow)"/>
-                <line x1="30" y1="5" x2="18" y2="50" stroke="rgba(0,212,255,0.4)" strokeWidth="0.6"/>
-                <line x1="30" y1="5" x2="30" y2="50" stroke="rgba(128,234,255,0.6)" strokeWidth="0.6"/>
-                <line x1="30" y1="5" x2="42" y2="50" stroke="rgba(0,212,255,0.4)" strokeWidth="0.6"/>
-                <circle cx="30" cy="5" r="2.5" fill="#80eaff" filter="url(#deepGlow)"/>
-              </svg>
+              <img
+                src="/images/kaizen-icon.png"
+                alt="Kaizen 4 Deep"
+                width={56}
+                height={56}
+                className={styles.deepIcon}
+              />
               <h1 className={styles.heroTitle}>
                 <span className={styles.titleKaizen}>Kaizen 4</span>
                 <span className={styles.titleDeep}>Deep</span>

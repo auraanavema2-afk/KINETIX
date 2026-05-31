@@ -103,20 +103,13 @@ export default function AppLayout({
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarTop}>
           <div className={styles.brand}>
-            <svg
-              className={styles.prismIcon}
-              viewBox="0 0 24 24"
-              width="22"
-              height="22"
-              fill="none"
-            >
-              <polygon
-                points="12,2 22,20 2,20"
-                stroke="#00d4ff"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <img
+              src="/images/kaizen-icon.png"
+              alt="The Kaizen"
+              width={28}
+              height={28}
+              className={styles.brandLogo}
+            />
             <span className={styles.brandName}>THE KAIZEN</span>
           </div>
         </div>

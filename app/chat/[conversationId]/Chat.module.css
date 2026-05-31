@@ -132,14 +132,27 @@
   margin-bottom: 8px;
 }
 
-.emptyPrism {
+.emptyLogo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
   position: relative;
   z-index: 2;
   animation: prismFloat 4s ease-in-out infinite,
-             prismGlowAnim 2.5s ease-in-out infinite;
-  filter:
-    drop-shadow(0 0 10px rgba(0,212,255,0.7))
-    drop-shadow(0 0 24px rgba(0,212,255,0.3));
+             emptyLogoGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes emptyLogoGlow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,45,45,0.7))
+      drop-shadow(0 0 24px rgba(255,45,45,0.3));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 20px rgba(255,45,45,1))
+      drop-shadow(0 0 48px rgba(255,45,45,0.6));
+  }
 }
 
 .emptyRing {

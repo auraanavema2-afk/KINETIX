@@ -260,3 +260,23 @@ textarea {
 .animate-shimmer      { animation: shimmer      2s   linear      infinite; }
 .animate-prismRotate  { animation: prismRotate  4s   linear      infinite; }
 .animate-prismPulse   { animation: prismPulse   2s   ease        infinite; }
+
+/* ─── SECTION 13 — Dragon Logo Keyframes ─────────────────────────────────── */
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes dragonGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(255,45,45,0.7));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px rgba(255,45,45,1))
+      drop-shadow(0 0 32px rgba(255,45,45,0.5))
+      drop-shadow(0 0 64px rgba(255,45,45,0.2));
+  }
+}
