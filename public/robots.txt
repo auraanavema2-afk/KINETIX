@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Allow: /pricing
+Allow: /terms
+Allow: /privacy
+Allow: /refund
+
+Disallow: /api/
+Disallow: /pulse
+Disallow: /chat
+Disallow: /mission
+Disallow: /soul
+Disallow: /studio
+Disallow: /arena
+Disallow: /settings
+Disallow: /thinking
+Disallow: /projects
+Disallow: /legacy
+
+Sitemap: https://thekaizen.vercel.app/sitemap.xml
