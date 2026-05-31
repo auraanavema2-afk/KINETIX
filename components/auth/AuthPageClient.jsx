@@ -50,7 +50,14 @@ export default function AuthPageClient() {
       await signInWithGoogle();
       // redirect handled by useEffect watching user
     } catch (err) {
-      setError(err.message || "Failed to sign in with Google");
+      const googleErrors = {
+        "auth/not-configured": "Authentication is not set up yet. Add Firebase credentials to your environment.",
+        "auth/invalid-api-key": "Invalid Firebase API key. Check your environment variables.",
+        "auth/unauthorized-domain": "This domain is not authorised in Firebase. Add it under Authentication → Authorised domains.",
+        "auth/popup-closed-by-user": "Sign-in popup was closed. Please try again.",
+        "auth/cancelled-popup-request": "Sign-in was cancelled. Please try again.",
+      };
+      setError(googleErrors[err.code] || err.message || "Failed to sign in with Google");
       setLoading(false);
     }
   };
@@ -81,6 +88,9 @@ export default function AuthPageClient() {
       // redirect handled by useEffect watching user
     } catch (err) {
       const errorMessages = {
+        "auth/not-configured": "Authentication is not set up yet. Add Firebase credentials to your environment.",
+        "auth/invalid-api-key": "Invalid Firebase API key. Check your environment variables.",
+        "auth/unauthorized-domain": "This domain is not authorised in Firebase. Add it under Authentication → Authorised domains.",
         "auth/invalid-credential": "Invalid email or password",
         "auth/user-not-found": "No account found with this email",
         "auth/wrong-password": "Incorrect password",
