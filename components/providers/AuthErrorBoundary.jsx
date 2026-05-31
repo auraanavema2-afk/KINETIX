@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext"
 import { useRouter, usePathname } from "next/navigation"
 
 const PUBLIC_ROUTES = [
+  "/",
   "/auth",
   "/pricing",
   "/terms",
@@ -21,7 +22,7 @@ export default function AuthErrorBoundary({ children }) {
     if (loading) return
 
     const isPublicRoute = PUBLIC_ROUTES.some(route =>
-      pathname.startsWith(route)
+      route === "/" ? pathname === "/" : pathname.startsWith(route)
     )
 
     const isLegacyPublic =
