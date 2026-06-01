@@ -1,8 +1,35 @@
+"use client"
+
+import Link from "next/link"
+import Image from "next/image"
+import styles from "./not-found.module.css"
+
 export default function NotFound() {
   return (
-    <div style={{ minHeight: "100vh", background: "#07070f", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: "12px" }}>
-      <div style={{ fontSize: "16px", fontWeight: 500, color: "white" }}>404 Not Found</div>
-      <div style={{ fontSize: "12px", color: "#52525b" }}>Building this on the The Kaizen roadmap</div>
+    <div className={styles.page}>
+      <div className={styles.content}>
+        <Image
+          src="/images/kaizen-icon.png"
+          alt="The Kaizen"
+          width={64}
+          height={64}
+          className={styles.logo}
+        />
+        <div className={styles.code}>404</div>
+        <h1 className={styles.title}>Page not found</h1>
+        <p className={styles.text}>
+          The page you are looking for does not exist
+          or has been moved.
+        </p>
+        <div className={styles.actions}>
+          <Link href="/" className={styles.homeBtn}>
+            Go home →
+          </Link>
+          <Link href="/pulse" className={styles.pulseBtn}>
+            Open Pulse →
+          </Link>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
