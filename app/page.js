@@ -432,7 +432,7 @@ export default function LandingPage() {
 
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
-          <div className={styles.footerBrand}>
+          <Link href="/" className={styles.footerBrand}>
             <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
@@ -441,7 +441,7 @@ export default function LandingPage() {
               className={styles.footerLogo}
             />
             <span className={styles.footerName}>THE KAIZEN</span>
-          </div>
+          </Link>
           <div className={styles.footerLinks}>
             <Link href="/pricing" className={styles.footerLink}>Pricing</Link>
             <Link href="/terms" className={styles.footerLink}>Terms</Link>

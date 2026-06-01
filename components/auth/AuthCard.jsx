@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import ParticleBackground from "@/components/auth/ParticleBackground";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import styles from "./AuthCard.module.css";
@@ -10,7 +11,7 @@ export default function AuthCard({ children }) {
       <ParticleBackground />
       <div className={styles.card}>
         <div className={styles.logoWrap}>
-          <div className={styles.logoImgContainer}>
+          <Link href="/" className={styles.logoImgContainer}>
             <Image
               src="/images/kaizen-logo.png"
               alt="The Kaizen"
@@ -19,7 +20,7 @@ export default function AuthCard({ children }) {
               height={120}
               priority
             />
-          </div>
+          </Link>
         </div>
         <div className={styles.content}>{children}</div>
       </div>
