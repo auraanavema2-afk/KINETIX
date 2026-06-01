@@ -52,6 +52,10 @@
   cursor: pointer;
   font-family: inherit;
   transition: color 0.2s ease;
+  padding: 12px 16px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .backBtn:hover {
@@ -112,17 +116,29 @@
 
 .toggle {
   width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.togglePill {
+  width: 44px;
   height: 24px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px;
-  cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
-  padding: 0;
+  pointer-events: none;
+  flex-shrink: 0;
 }
 
-.toggleOn {
+.toggleOn .togglePill {
   background: rgba(0,212,255,0.15);
   border-color: rgba(0,212,255,0.3);
 }
@@ -145,7 +161,7 @@
 }
 
 .saveBadge {
-  font-size: 10px;
+  font-size: 11px;
   background: rgba(0,212,255,0.08);
   border: 1px solid rgba(0,212,255,0.15);
   color: #00d4ff;
@@ -201,7 +217,7 @@
   transform: translateX(-50%);
   background: #00d4ff;
   color: #000000;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   padding: 3px 12px;
   border-radius: 10px;
@@ -217,7 +233,7 @@
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
   color: #606060;
-  font-size: 10px;
+  font-size: 11px;
   padding: 3px 12px;
   border-radius: 10px;
   white-space: nowrap;
@@ -450,6 +466,10 @@
   color: #505050;
   text-decoration: none;
   transition: color 0.2s ease;
+  padding: 10px 6px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footerLink:hover {

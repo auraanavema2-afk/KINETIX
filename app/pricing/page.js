@@ -224,8 +224,11 @@ export default function PricingPage() {
           <button
             className={`${styles.toggle} ${annual ? styles.toggleOn : ""}`}
             onClick={() => setAnnual(!annual)}
+            aria-label="Toggle annual billing"
           >
-            <div className={styles.toggleThumb}></div>
+            <div className={styles.togglePill}>
+              <div className={styles.toggleThumb}></div>
+            </div>
           </button>
           <span className={`${styles.toggleLabel} ${annual ? styles.active : ""}`}>
             Annual

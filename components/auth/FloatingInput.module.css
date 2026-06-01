@@ -44,7 +44,7 @@
 
 .toggleBtn {
   position: absolute;
-  right: 14px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -52,11 +52,16 @@
   cursor: pointer;
   color: #606060;
   font-size: 11px;
-  padding: 4px 6px;
+  padding: 0 8px;
   border-radius: 4px;
   transition: color 0.2s ease;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toggleBtn:hover {

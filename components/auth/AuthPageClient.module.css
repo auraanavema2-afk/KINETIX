@@ -51,9 +51,13 @@
   color: #00d4ff;
   cursor: pointer;
   font-size: 13px;
-  padding: 0;
+  padding: 10px 6px;
   transition: opacity 0.2s ease;
   outline: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  vertical-align: middle;
 }
 
 .switchBtn:hover {
