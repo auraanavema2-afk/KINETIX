@@ -17,7 +17,7 @@ const PLANS = [
       { text: "50 messages per month",   included: true  },
       { text: "3 projects",              included: true  },
       { text: "Basic Studio access",     included: true  },
-      { text: "Universe browsing",       included: true  },
+      { text: "Kines browsing",            included: true  },
       { text: "Agents",                  included: false },
       { text: "Structured Thinking",     included: false },
       { text: "Custom domain",           included: false },
@@ -62,7 +62,7 @@ const PLANS = [
   {
     key: "enterprise",
     features: [
-      { text: "Everything in Max",       included: true },
+      { text: "Everything in Scale",      included: true },
       { text: "10 team seats",           included: true },
       { text: "Team workspace",          included: true },
       { text: "Dedicated support",       included: true },

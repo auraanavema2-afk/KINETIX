@@ -69,10 +69,10 @@ const STEPS = [
 ]
 
 const PLANS = [
-  { name: "Spark", price: "Free", model: "Kinet", color: "#505050" },
-  { name: "Build", price: "₹1,999", model: "Kinet Pro", color: "#00d4ff" },
-  { name: "Launch", price: "₹4,999", model: "Kinet Max", color: "#00d4ff", popular: true },
-  { name: "Scale", price: "₹9,999", model: "Kinet 4", color: "#00d4ff" },
+  { name: "Spark", price: "Free", model: "Kaizen", color: "#505050" },
+  { name: "Build", price: "₹1,999", model: "Kaizen Pro", color: "#00d4ff" },
+  { name: "Launch", price: "₹4,999", model: "Kaizen Max", color: "#00d4ff", popular: true },
+  { name: "Scale", price: "₹9,999", model: "Kaizen 4", color: "#00d4ff" },
 ]
 
 export default function LandingPage() {
