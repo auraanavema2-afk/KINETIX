@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { authenticatedFetch } from "@/lib/apiClient"
+import Image from "next/image"
 import styles from "./Pulse.module.css"
 
 function SubscriptionToast() {
@@ -121,7 +122,7 @@ export default function PulsePage() {
           {loading && !briefing && (
             <>
               <div className={styles.loadingPrismWrap}>
-                <img
+                <Image
                   src="/images/kaizen-icon.png"
                   alt="The Kaizen"
                   width={56}

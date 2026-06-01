@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { getUserPublicProfile, incrementLegacyView } from "@/lib/firestore"
 import AnimatedBackground from "@/components/ui/AnimatedBackground"
 import styles from "./Legacy.module.css"
@@ -121,12 +122,13 @@ export default function PublicLegacyPage() {
 
         <nav className={styles.nav}>
           <Link className={styles.navBrand} href="/">
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={24}
               height={24}
               className={styles.navLogo}
+              priority
             />
             <span>THE KAIZEN</span>
           </Link>

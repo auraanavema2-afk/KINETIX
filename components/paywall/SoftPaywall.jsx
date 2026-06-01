@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 import styles from "./SoftPaywall.module.css"
 
 export default function SoftPaywall({ reason, onClose }) {
@@ -10,7 +11,7 @@ export default function SoftPaywall({ reason, onClose }) {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.iconWrap}>
-          <img
+          <Image
             src="/images/kaizen-icon.png"
             alt="The Kaizen"
             width={40}

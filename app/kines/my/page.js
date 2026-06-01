@@ -6,6 +6,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import { getUserKines, deleteKine, updateKine } from "@/lib/firestore"
+import Image from "next/image"
 import styles from "./MyKines.module.css"
 
 export default function MyKinesPage() {
@@ -68,7 +69,7 @@ export default function MyKinesPage() {
           ) : kines.length === 0 ? (
             <div className={styles.empty}>
               <div className={styles.emptyIcon}>
-                <img
+                <Image
                   src="/images/kaizen-icon.png"
                   alt="The Kaizen"
                   width={56}

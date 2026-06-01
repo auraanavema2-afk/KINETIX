@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { signOutUser } from "@/lib/auth";
@@ -103,12 +104,13 @@ export default function AppLayout({
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarTop}>
           <div className={styles.brand}>
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={28}
               height={28}
               className={styles.brandLogo}
+              priority
             />
             <span className={styles.brandName}>THE KAIZEN</span>
           </div>

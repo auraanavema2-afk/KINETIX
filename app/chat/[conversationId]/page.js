@@ -12,6 +12,7 @@ import {
   addSoulMemory,
 } from "@/lib/firestore";
 import { authenticatedFetch } from "@/lib/apiClient";
+import Image from "next/image";
 import styles from "./Chat.module.css";
 
 export default function ChatPage() {
@@ -300,7 +301,7 @@ export default function ChatPage() {
             {!loadingHistory && messages.length === 0 ? (
               <div className={styles.emptyState}>
                 <div className={styles.emptyPrismWrap}>
-                  <img
+                  <Image
                     src="/images/kaizen-icon.png"
                     alt="Kaizen 4"
                     width={70}

@@ -8,6 +8,7 @@ import AppLayout from "@/components/layout/AppLayout"
 import { useAuth } from "@/context/AuthContext"
 import SoftPaywall from "@/components/paywall/SoftPaywall"
 import { useToast } from "@/components/ui/Toast"
+import Image from "next/image"
 import styles from "./Thinking.module.css"
 
 export default function ThinkingPage() {
@@ -156,7 +157,7 @@ export default function ThinkingPage() {
           <div className={styles.heroSection}>
             <div className={styles.titleWrap}>
               <div className={styles.brainGlow}></div>
-              <img
+              <Image
                 src="/images/kaizen-icon.png"
                 alt="Kaizen 4 Deep"
                 width={56}

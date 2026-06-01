@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import Image from "next/image";
 import styles from "./SoulSetup.module.css";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
@@ -85,7 +86,7 @@ export default function SoulSetupPage() {
         <div className={styles.completionWrap}>
           <div className={styles.completionCard}>
             <div className={styles.completionPrismWrap}>
-              <img
+              <Image
                 src="/images/kaizen-icon.png"
                 alt="The Kaizen"
                 width={80}

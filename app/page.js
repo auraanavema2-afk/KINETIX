@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/AuthContext"
 import Link from "next/link"
+import Image from "next/image"
 import styles from "./Landing.module.css"
 
 const FEATURES = [
@@ -110,12 +111,13 @@ export default function LandingPage() {
       <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}>
         <div className={styles.navInner}>
           <a href="/" className={styles.navBrand}>
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={28}
               height={28}
               className={styles.navLogo}
+              priority
             />
             <span className={styles.navName}>THE KAIZEN</span>
           </a>
@@ -146,6 +148,8 @@ export default function LandingPage() {
           </div>
         )}
       </nav>
+
+      <main>
 
       <section className={styles.hero}>
         <div className={styles.heroContent}>
@@ -192,12 +196,13 @@ export default function LandingPage() {
         <div className={styles.heroVisual}>
           <div className={styles.heroCard}>
             <div className={styles.heroCardHeader}>
-              <img
+              <Image
                 src="/images/kaizen-icon.png"
                 alt="Kaizen 4"
                 width={32}
                 height={32}
                 className={styles.heroCardLogo}
+                priority
               />
               <div>
                 <div className={styles.heroCardTitle}>Kaizen 4</div>
@@ -323,7 +328,7 @@ export default function LandingPage() {
       <section className={styles.kaizen}>
         <div className={styles.sectionInner}>
           <div className={styles.kaizenCard}>
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={64}
@@ -399,7 +404,7 @@ export default function LandingPage() {
       <section className={styles.finalCTA}>
         <div className={styles.sectionInner}>
           <div className={styles.finalCard}>
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={56}
@@ -423,10 +428,12 @@ export default function LandingPage() {
         </div>
       </section>
 
+      </main>
+
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerBrand}>
-            <img
+            <Image
               src="/images/kaizen-icon.png"
               alt="The Kaizen"
               width={20}

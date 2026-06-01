@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import styles from "./LoadingScreen.module.css";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 
@@ -10,12 +11,13 @@ export default function LoadingScreen({ fadeOut }) {
 
       <div className={styles.prismWrap}>
         <div className={styles.logoImageWrap}>
-          <img
+          <Image
             src="/images/kaizen-icon.png"
             alt="The Kaizen"
             className={styles.logoImage}
             width={80}
             height={80}
+            priority
           />
         </div>
         <div className={styles.ring}></div>
