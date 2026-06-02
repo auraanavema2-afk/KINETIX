@@ -54,7 +54,7 @@ export default function ArenaPage() {
   if (authLoading) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="default">
+        <AppLayout imageSrc="/images/backgrounds/arena-bg.jpg" imageOpacity={0.80}>
           <div style={{
             display: "flex",
             alignItems: "center",
@@ -73,7 +73,7 @@ export default function ArenaPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/arena-bg.jpg" imageOpacity={0.80}>
         <div className={styles.page}>
           <div className={styles.header}>
             <div>

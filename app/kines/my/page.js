@@ -36,7 +36,7 @@ export default function MyKinesPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="universe">
+      <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
         <div className={styles.page}>
           <button
             className={styles.backBtn}

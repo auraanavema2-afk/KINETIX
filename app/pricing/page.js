@@ -159,7 +159,7 @@ export default function PricingPage() {
 
   return (
     <>
-      <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.82} />
+      <ImageBackground src="/images/backgrounds/pricing-bg.jpg" opacity={0.78} />
       <div className={styles.page}>
 
         <div style={{

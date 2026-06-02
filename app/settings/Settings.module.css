@@ -48,13 +48,15 @@
 }
 
 .planCard {
-  background: rgba(0,212,255,0.03);
+  background: rgba(0,212,255,0.04);
   border: 1px solid rgba(0,212,255,0.1);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .planTop {
@@ -200,10 +202,12 @@
 }
 
 .infoCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
   padding: 20px 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .infoTitle {
@@ -239,13 +243,15 @@
 }
 
 .accountCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
   padding: 24px;
   display: flex;
   align-items: center;
   gap: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .avatarLarge {

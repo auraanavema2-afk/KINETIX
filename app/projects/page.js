@@ -89,7 +89,7 @@ export default function ProjectsPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/dashboard-bg.jpg" imageOpacity={0.82}>
         <PageWrapper
           loading={loading}
           error={error}

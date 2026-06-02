@@ -70,7 +70,7 @@ export default function SoulPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="soul">
+      <AppLayout imageSrc="/images/backgrounds/soul-bg.jpg" imageOpacity={0.80}>
         <PageWrapper
           loading={pageLoading}
           maxWidth="820px"

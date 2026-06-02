@@ -11,8 +11,8 @@
   justify-content: space-between;
   padding: 0 24px;
   height: 54px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  background: rgba(8,8,12,0.90);
+  border-bottom: 1px solid rgba(255,45,45,0.04);
+  background: rgba(0,0,0,0.75);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   flex-shrink: 0;
@@ -272,11 +272,13 @@
 }
 
 .assistantBubble {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.55);
   color: #c8c8c8;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 4px 18px 18px 18px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .typingBubble {
@@ -342,9 +344,9 @@
 }
 
 .inputArea {
-  padding: 14px 24px 22px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  background: rgba(8,8,12,0.90);
+  padding: 12px 20px 20px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  background: rgba(0,0,0,0.75);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   flex-shrink: 0;

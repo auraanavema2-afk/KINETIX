@@ -59,12 +59,14 @@
 .heroCard {
   display: flex;
   gap: 24px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 14px;
+  background: rgba(0,212,255,0.03);
+  border: 1px solid rgba(0,212,255,0.12);
+  border-radius: 18px;
   padding: 32px;
   margin-bottom: 16px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 0 40px rgba(0,212,255,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .heroLeft {
@@ -198,12 +200,14 @@
 }
 
 .statCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 14px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
   padding: 16px 18px;
   text-align: center;
   transition: all 0.22s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .statCard:hover {
@@ -230,11 +234,13 @@
 }
 
 .personaCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
   padding: 22px 24px;
   margin-bottom: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .personaHeader {
@@ -255,13 +261,14 @@
 }
 
 .ratingCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(0,212,255,0.12);
+  background: rgba(0,212,255,0.03);
+  border: 1px solid rgba(0,212,255,0.1);
   border-radius: 14px;
   padding: 22px 24px;
   text-align: center;
   margin-bottom: 16px;
-  box-shadow: 0 0 24px rgba(0,212,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .starsRow {

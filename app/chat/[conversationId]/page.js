@@ -267,7 +267,7 @@ export default function ChatPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/dashboard-bg.jpg" imageOpacity={0.82}>
         <div className={styles.chatPage}>
           <header className={styles.header}>
             <div className={styles.headerLeft}>

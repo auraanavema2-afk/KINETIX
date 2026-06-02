@@ -158,10 +158,22 @@
 
 .focusCard {
   grid-column: 1 / -1;
-  background: rgba(0,212,255,0.04);
-  border: 1px solid rgba(0,212,255,0.12);
-  border-radius: 14px;
-  padding: 22px 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(0,212,255,0.05) 0%,
+    rgba(0,150,255,0.02) 100%
+  );
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 18px;
+  padding: 26px 28px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 40px rgba(0,212,255,0.06),
+    inset 0 1px 0 rgba(0,212,255,0.12);
 }
 
 .focusTitle {
@@ -258,10 +270,18 @@
 /* ── Insight card ──────────────────────────────── */
 
 .insightCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  padding: 20px 22px;
+  background: linear-gradient(
+    135deg,
+    rgba(128,234,255,0.04) 0%,
+    rgba(0,212,255,0.02) 100%
+  );
+  border: 1px solid rgba(0,212,255,0.12);
+  border-radius: 18px;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .insightPattern {
@@ -282,10 +302,12 @@
 /* ── Pulse card ────────────────────────────────── */
 
 .pulseCard {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 14px;
   padding: 20px 22px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .pulseList {
@@ -328,10 +350,14 @@
 
 .quoteCard {
   grid-column: 1 / -1;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 14px;
-  padding: 20px 24px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 28px 32px;
+  position: relative;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .quote {

@@ -69,7 +69,7 @@ export default function KinesPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="universe">
+      <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
         <div className={styles.page}>
           <div className={styles.header}>
             <div>

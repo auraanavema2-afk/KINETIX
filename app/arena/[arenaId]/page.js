@@ -263,7 +263,7 @@ export default function ArenaRoomPage() {
   if (arenaError) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="default">
+        <AppLayout imageSrc="/images/backgrounds/arena-bg.jpg" imageOpacity={0.80}>
           <div style={{
             display: "flex",
             flexDirection: "column",
@@ -306,7 +306,7 @@ export default function ArenaRoomPage() {
   if (authLoading || loading) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="default">
+        <AppLayout imageSrc="/images/backgrounds/arena-bg.jpg" imageOpacity={0.80}>
           <div className={styles.loadingState}>
             <div className={styles.loadingDot}></div>
             <div className={styles.loadingDot}></div>
@@ -319,7 +319,7 @@ export default function ArenaRoomPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/arena-bg.jpg" imageOpacity={0.80}>
         <div className={styles.room}>
 
           <div className={styles.roomHeader}>

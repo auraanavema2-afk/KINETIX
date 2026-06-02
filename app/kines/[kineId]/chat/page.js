@@ -167,7 +167,7 @@ You are powered by Kaizen 4 but you operate as ${kine.name}.`
   if (loading || !kine) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="universe">
+        <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
           <div style={{ padding: "60px", textAlign: "center", color: "#404040" }}>
             Loading Kine...
           </div>
@@ -178,7 +178,7 @@ You are powered by Kaizen 4 but you operate as ${kine.name}.`
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="universe">
+      <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
         <div className={styles.chatPage}>
           <header className={styles.header}>
             <div className={styles.headerLeft}>

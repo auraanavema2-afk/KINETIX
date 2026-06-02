@@ -62,7 +62,7 @@ export default function SettingsPage() {
   if (!userDoc) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="default">
+        <AppLayout imageSrc="/images/backgrounds/dashboard-bg.jpg" imageOpacity={0.85}>
           <PageWrapper loading={true} maxWidth="640px" padding="32px 36px" />
         </AppLayout>
       </ProtectedRoute>
@@ -71,7 +71,7 @@ export default function SettingsPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/dashboard-bg.jpg" imageOpacity={0.85}>
         <div className={styles.page}>
           <h1 className={styles.title}>Settings</h1>
 

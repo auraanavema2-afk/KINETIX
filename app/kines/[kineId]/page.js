@@ -68,7 +68,7 @@ export default function KineDetailPage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="universe">
+        <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
           <div className={styles.page}>
             <div className={styles.skeleton}></div>
           </div>
@@ -80,7 +80,7 @@ export default function KineDetailPage() {
   if (!kine) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="universe">
+        <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
           <div className={styles.page}>
             <div className={styles.notFound}>
               <p>Kine not found</p>
@@ -98,7 +98,7 @@ export default function KineDetailPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="universe">
+      <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
         <div className={styles.page}>
           <button
             className={styles.backBtn}

@@ -185,7 +185,7 @@ export default function MintPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="studio">
+      <AppLayout imageSrc="/images/backgrounds/mint-bg.jpg" imageOpacity={0.78}>
         <div className={styles.page}>
 
           {/* ── LEFT PANEL ─────────────────────── */}

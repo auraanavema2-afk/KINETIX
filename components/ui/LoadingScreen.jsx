@@ -7,7 +7,7 @@ import ImageBackground from "@/components/ui/ImageBackground";
 export default function LoadingScreen({ fadeOut }) {
   return (
     <div className={`${styles.container} ${fadeOut ? styles.fadeOut : ""}`}>
-      <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.88} />
+      <ImageBackground src="/images/backgrounds/loading-bg.jpg" opacity={0.88} />
 
       <div className={styles.prismWrap}>
         <div className={styles.logoImageWrap}>

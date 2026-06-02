@@ -151,7 +151,7 @@ export default function ThinkingPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="default">
+      <AppLayout imageSrc="/images/backgrounds/dashboard-bg.jpg" imageOpacity={0.82}>
         <div className={styles.page}>
 
           <div className={styles.heroSection}>

@@ -96,7 +96,7 @@ export default function EditKinePage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="universe">
+        <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
           <div className={styles.page}>
             <div className={styles.skeleton} />
           </div>
@@ -108,7 +108,7 @@ export default function EditKinePage() {
   if (notAuthorized || !form) {
     return (
       <ProtectedRoute>
-        <AppLayout variant="universe">
+        <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
           <div className={styles.page}>
             <div className={styles.notAuthorized}>
               <p>You don&apos;t have permission to edit this Kine.</p>
@@ -122,7 +122,7 @@ export default function EditKinePage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="universe">
+      <AppLayout imageSrc="/images/backgrounds/kines-bg.jpg" imageOpacity={0.80}>
         <div className={styles.page}>
           <button className={styles.backBtn} onClick={() => router.push(`/kines/${params.kineId}`)}>
             ← Back to Kine

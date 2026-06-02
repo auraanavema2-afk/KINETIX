@@ -12,9 +12,11 @@
   justify-content: center;
   gap: 12px;
   padding: 12px 20px;
-  background: rgba(0,212,255,0.06);
-  border-bottom: 1px solid rgba(0,212,255,0.12);
+  background: rgba(255,45,45,0.08);
+  border-bottom: 1px solid rgba(255,45,45,0.15);
   animation: bannerPulse 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
 }
 
 .festivalEmoji {
@@ -180,22 +182,23 @@
 }
 
 .planCard {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 14px;
+  background: rgba(0,0,0,0.62);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
   padding: 22px 18px;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
   transition: all 0.22s ease;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .planCard:hover {
-  border-color: rgba(0,212,255,0.18);
-  background: rgba(255,255,255,0.07);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,255,0.06);
+  border-color: rgba(0,212,255,0.1);
+  background: rgba(0,0,0,0.72);
+  transform: translateY(-2px);
 }
 
 .popularCard {
