@@ -50,7 +50,9 @@
 }
 
 .goalCard {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0,212,255,0.14);
   border-radius: 14px;
   padding: 22px 24px;
@@ -58,7 +60,9 @@
 }
 
 .momentumCard {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 22px 24px;
@@ -70,7 +74,9 @@
 }
 
 .statsCard {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 22px 24px;
@@ -243,7 +249,9 @@
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   cursor: pointer;
@@ -335,7 +343,9 @@
 }
 
 .obstacleCard {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 14px;
   padding: 20px 24px;

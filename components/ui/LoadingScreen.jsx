@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import styles from "./LoadingScreen.module.css";
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
+import ImageBackground from "@/components/ui/ImageBackground";
 
 export default function LoadingScreen({ fadeOut }) {
   return (
     <div className={`${styles.container} ${fadeOut ? styles.fadeOut : ""}`}>
-      <AnimatedBackground variant="default" />
+      <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.88} />
 
       <div className={styles.prismWrap}>
         <div className={styles.logoImageWrap}>

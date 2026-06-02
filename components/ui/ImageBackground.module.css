@@ -1,0 +1,64 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  animation: breathe 10s ease-in-out infinite;
+}
+
+.img {
+  object-fit: cover;
+  object-position: center;
+  animation: subtleZoom 24s ease-in-out infinite alternate;
+}
+
+.redGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 60% at 25% 65%,
+    rgba(255, 45, 45, 0.07) 0%,
+    transparent 65%
+  );
+  animation: glowDrift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.scanLines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.025) 2px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.015); }
+}
+
+@keyframes subtleZoom {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+@keyframes glowDrift {
+  0%   { opacity: 0.55; transform: translate(-4%, 4%); }
+  100% { opacity: 1;    transform: translate(4%, -4%); }
+}

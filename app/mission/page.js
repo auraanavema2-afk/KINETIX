@@ -88,7 +88,7 @@ export default function MissionPage() {
 
   return (
     <ProtectedRoute>
-      <AppLayout variant="mission">
+      <AppLayout imageSrc="/images/backgrounds/mission-bg.jpg" imageOpacity={0.80}>
         <PageWrapper maxWidth="900px" padding="32px 36px">
           <div className={styles.header}>
             <div>

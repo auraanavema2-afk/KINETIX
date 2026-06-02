@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext"
 import { getActiveFestival, getDiscountedPrice } from "@/lib/festivals"
 import { PLAN_NAMES, PLAN_PRICES, KINET_MODELS } from "@/lib/gates"
 import { authenticatedFetch } from "@/lib/apiClient"
-import AnimatedBackground from "@/components/ui/AnimatedBackground"
+import ImageBackground from "@/components/ui/ImageBackground"
 import styles from "./Pricing.module.css"
 
 const PLANS = [
@@ -159,7 +159,7 @@ export default function PricingPage() {
 
   return (
     <>
-      <AnimatedBackground variant="default" />
+      <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.82} />
       <div className={styles.page}>
 
         <div style={{

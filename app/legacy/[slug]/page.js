@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { getUserPublicProfile, incrementLegacyView } from "@/lib/firestore"
-import AnimatedBackground from "@/components/ui/AnimatedBackground"
+import ImageBackground from "@/components/ui/ImageBackground"
 import styles from "./Legacy.module.css"
 
 export default function PublicLegacyPage() {
@@ -66,7 +66,7 @@ export default function PublicLegacyPage() {
   if (loading) {
     return (
       <>
-        <AnimatedBackground variant="default" />
+        <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.82} />
         <div className={styles.page}>
           <div className={styles.loadingState}>
             <div className={styles.loadingDot}></div>
@@ -81,7 +81,7 @@ export default function PublicLegacyPage() {
   if (notFound) {
     return (
       <>
-        <AnimatedBackground variant="default" />
+        <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.82} />
         <div className={styles.page}>
           <div className={styles.notFoundCard}>
             <div className={styles.notFoundIcon}>✦</div>
@@ -117,7 +117,7 @@ export default function PublicLegacyPage() {
 
   return (
     <>
-      <AnimatedBackground variant="default" />
+      <ImageBackground src="/images/backgrounds/dashboard-bg.jpg" opacity={0.82} />
       <div className={styles.page}>
 
         <nav className={styles.nav}>

@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import ParticleBackground from "@/components/auth/ParticleBackground";
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
+import ImageBackground from "@/components/ui/ImageBackground";
 import styles from "./AuthCard.module.css";
 
 export default function AuthCard({ children }) {
   return (
     <div className={styles.page}>
-      <AnimatedBackground variant="auth" />
-      <ParticleBackground />
+      <ImageBackground src="/images/backgrounds/auth-bg.jpg" opacity={0.72} />
       <div className={styles.card}>
         <div className={styles.logoWrap}>
           <Link href="/" className={styles.logoImgContainer}>

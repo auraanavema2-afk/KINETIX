@@ -7,7 +7,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Image from "next/image";
 import styles from "./SoulSetup.module.css";
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
+import ImageBackground from "@/components/ui/ImageBackground";
 
 const QUESTIONS = [
   { id: 1, question: "What is your name and what do you do?", placeholder: "e.g. I am Vema, a student and solo builder..." },
@@ -82,7 +82,7 @@ export default function SoulSetupPage() {
   if (isComplete) {
     return (
       <>
-        <AnimatedBackground variant="soul" />
+        <ImageBackground src="/images/backgrounds/soul-bg.jpg" opacity={0.78} />
         <div className={styles.completionWrap}>
           <div className={styles.completionCard}>
             <div className={styles.completionPrismWrap}>
@@ -115,7 +115,7 @@ export default function SoulSetupPage() {
 
   return (
     <>
-      <AnimatedBackground variant="soul" />
+      <ImageBackground src="/images/backgrounds/soul-bg.jpg" opacity={0.78} />
       <div className={styles.page}>
         <div className={styles.topBar}>
           <div className={styles.logo}>THE KAIZEN</div>

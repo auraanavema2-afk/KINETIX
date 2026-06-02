@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext"
 import Link from "next/link"
 import Image from "next/image"
 import styles from "./Landing.module.css"
+import ImageBackground from "@/components/ui/ImageBackground"
 
 const FEATURES = [
   {
@@ -107,6 +108,7 @@ export default function LandingPage() {
 
   return (
     <div className={styles.page}>
+      <ImageBackground src="/images/backgrounds/hero-bg.jpg" opacity={0.55} />
 
       <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : ""}`}>
         <div className={styles.navInner}>

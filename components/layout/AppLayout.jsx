@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { signOutUser } from "@/lib/auth";
 import { getUserConversations, createConversation } from "@/lib/firestore";
-import AnimatedBackground from "@/components/ui/AnimatedBackground";
+import ImageBackground from "@/components/ui/ImageBackground";
 import styles from "./AppLayout.module.css";
 
 const CORE_NAV = [
@@ -31,7 +31,8 @@ const TOOLS_NAV = [
 
 export default function AppLayout({
   children,
-  variant = "default",
+  imageSrc = "/images/backgrounds/dashboard-bg.jpg",
+  imageOpacity = 0.82,
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -87,7 +88,7 @@ export default function AppLayout({
 
   return (
     <div className={styles.shell}>
-      <AnimatedBackground variant={variant} />
+      <ImageBackground src={imageSrc} opacity={imageOpacity} />
 
       <button
         className={styles.hamburger}
