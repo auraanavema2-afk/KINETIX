@@ -313,12 +313,12 @@ export default function ChatPage() {
                 <p className={styles.emptyTitle}>I&apos;m Kaizen 4</p>
                 {userDoc?.soul?.name && (
                   <p className={styles.emptyGreeting}>
-                    Hey {userDoc.soul.name.split(" ")[0]}, ready when you are
+                    Hey {userDoc?.soul?.name?.split(" ")[0]}, ready when you are
                   </p>
                 )}
                 <p className={styles.emptySub}>
                   {userDoc?.soul?.bigGoal
-                    ? `Let's work on "${userDoc.soul.bigGoal}"`
+                    ? `Let's work on "${userDoc?.soul?.bigGoal}"`
                     : "Your AI that actually knows you. Ask me anything."}
                 </p>
                 <div className={styles.suggestions}>
@@ -414,7 +414,7 @@ export default function ChatPage() {
                 onChange={handleInput}
                 onKeyDown={handleKeyDown}
                 placeholder={`Message Kaizen 4${
-                  userDoc?.soul?.name ? `, ${userDoc.soul.name.split(" ")[0]}` : ""
+                  userDoc?.soul?.name ? `, ${userDoc?.soul?.name?.split(" ")[0]}` : ""
                 }...`}
                 rows={1}
                 disabled={streaming}

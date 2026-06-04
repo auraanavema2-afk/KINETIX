@@ -67,7 +67,7 @@ export default function AppLayout({
   };
 
   const initials = userDoc?.name
-    ? userDoc.name.trim()[0].toUpperCase()
+    ? userDoc?.name.trim()[0].toUpperCase()
     : user?.email?.[0].toUpperCase() ?? "K";
 
   const renderNavItem = (item) => {

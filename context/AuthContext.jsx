@@ -1,93 +1,103 @@
-"use client";
+"use client"
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { onAuthChange } from "@/lib/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react"
+import { doc, getDoc, onSnapshot } from "firebase/firestore"
+import { db } from "@/lib/firebase"
+import { onAuthChange } from "@/lib/auth"
 
-export const AuthContext = createContext(null);
+const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [userDoc, setUserDoc] = useState(null);
-  const docUnsubRef = useRef(null);
+  const [user, setUser] = useState(null)
+  const [userDoc, setUserDoc] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const authUnsub = onAuthChange(async (firebaseUser) => {
-      if (docUnsubRef.current) {
-        docUnsubRef.current();
-        docUnsubRef.current = null;
+    let unsubscribeDoc = null
+
+    const unsubscribeAuth = onAuthChange(async (firebaseUser) => {
+      if (unsubscribeDoc) {
+        unsubscribeDoc()
+        unsubscribeDoc = null
       }
 
-      try {
-        if (firebaseUser) {
-          try {
-            await firebaseUser.getIdToken(true)
-          } catch (tokenError) {
-            console.error("Token expired:", tokenError)
-            setUser(null)
-            setUserDoc(null)
-            setLoading(false)
-            return
-          }
-          setUser(firebaseUser)
-          if (db) {
-            try {
-              const docRef = doc(db, "users", firebaseUser.uid)
-              const docSnap = await getDoc(docRef)
-              if (docSnap.exists()) setUserDoc(docSnap.data())
-            } catch (firestoreError) {
-              console.error("Failed to fetch user doc:", firestoreError)
+      if (firebaseUser) {
+        setUser(firebaseUser)
+
+        try {
+          const userRef = doc(db, "users", firebaseUser.uid)
+
+          unsubscribeDoc = onSnapshot(
+            userRef,
+            (snap) => {
+              if (snap.exists()) {
+                setUserDoc({ id: snap.id, ...snap.data() })
+              } else {
+                setUserDoc(null)
+              }
+              setLoading(false)
+            },
+            (error) => {
+              console.error("Firestore snapshot error:", error)
+              setLoading(false)
             }
-          }
-          setLoading(false)
-        } else {
-          setUser(null)
-          setUserDoc(null)
+          )
+        } catch (error) {
+          console.error("Auth context error:", error)
           setLoading(false)
         }
-      } catch (err) {
-        console.error("Auth state error:", err)
+      } else {
         setUser(null)
         setUserDoc(null)
         setLoading(false)
       }
-    });
+    })
 
     return () => {
-      authUnsub();
-      if (docUnsubRef.current) docUnsubRef.current();
-    };
-  }, []);
+      unsubscribeAuth()
+      if (unsubscribeDoc) unsubscribeDoc()
+    }
+  }, [])
 
-  useEffect(() => {
+  const refreshUserDoc = useCallback(async () => {
     if (!user) return
-    const interval = setInterval(async () => {
-      try {
-        await user.getIdToken(true)
-      } catch (err) {
-        console.error("Token refresh failed:", err)
-        setUser(null)
-        setUserDoc(null)
+    try {
+      const snap = await getDoc(doc(db, "users", user.uid))
+      if (snap.exists()) {
+        setUserDoc({ id: snap.id, ...snap.data() })
       }
-    }, 50 * 60 * 1000)
-    return () => clearInterval(interval)
+    } catch (error) {
+      console.error("Failed to refresh user doc:", error)
+    }
   }, [user])
 
+  const value = {
+    user,
+    userDoc,
+    setUserDoc,
+    loading,
+    refreshUserDoc,
+  }
+
   return (
-    <AuthContext.Provider value={{ user, userDoc, loading, setUserDoc }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export default AuthProvider;
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
+export function useAuth() {
+  const context = useContext(AuthContext)
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("useAuth must be used within AuthProvider")
   }
-  return context;
-};
+  return context
+}
+
+export default AuthProvider

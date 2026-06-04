@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import Image from "next/image";
 import styles from "./SoulSetup.module.css";
@@ -18,7 +18,7 @@ const QUESTIONS = [
 ];
 
 export default function SoulSetupPage() {
-  const { user } = useAuth();
+  const { user, userDoc, loading } = useAuth();
   const router = useRouter();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -27,34 +27,47 @@ export default function SoulSetupPage() {
   const [isComplete, setIsComplete] = useState(false);
   const [saving, setSaving] = useState(false);
 
+  useEffect(() => {
+    if (loading) return
+    if (!user) {
+      router.push("/auth")
+      return
+    }
+    if (userDoc && userDoc.hasCompletedSoulSetup) {
+      router.push("/pulse")
+    }
+  }, [user, userDoc, loading, router])
+
   function handleUpdateAnswer(index, value) {
     const updated = [...answers];
     updated[index] = value;
     setAnswers(updated);
   }
 
-  async function handleComplete() {
-    setSaving(true);
-    const soulData = {
-      name: answers[0],
-      bigGoal: answers[1],
-      bigObstacle: answers[2],
-      helpNeeded: answers[3],
-      weeklyIntent: answers[4],
-      createdAt: new Date().toISOString(),
-    };
-    if (user && db) {
-      try {
-        await updateDoc(doc(db, "users", user.uid), {
-          soul: soulData,
-          hasCompletedSoulSetup: true,
-        });
-      } catch (err) {
-        console.error("Failed to save soul data:", err);
+  const handleComplete = async () => {
+    if (!user || saving) return
+    setSaving(true)
+    try {
+      const soulData = {
+        name: answers[0],
+        bigGoal: answers[1],
+        bigObstacle: answers[2],
+        helpNeeded: answers[3],
+        weeklyIntent: answers[4],
+        createdAt: new Date().toISOString(),
       }
+      await updateDoc(doc(db, "users", user.uid), {
+        soul: soulData,
+        hasCompletedSoulSetup: true,
+        updatedAt: serverTimestamp(),
+      })
+      setIsComplete(true)
+    } catch (err) {
+      console.error("Soul setup save error:", err)
+      alert("Failed to save. Please try again.")
+    } finally {
+      setSaving(false)
     }
-    setIsComplete(true);
-    setSaving(false);
   }
 
   function handleNext() {

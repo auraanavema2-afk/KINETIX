@@ -40,7 +40,7 @@ export default function LegacySettingsPage() {
     if (!user || !userDoc?.soul?.name) return
     setGeneratingSlug(true)
     try {
-      const newSlug = await generateUserSlug(user.uid, userDoc.soul.name)
+      const newSlug = await generateUserSlug(user?.uid, userDoc?.soul?.name)
       setSlug(newSlug)
       setUserDoc(prev => ({ ...prev, slug: newSlug }))
     } catch (err) {
